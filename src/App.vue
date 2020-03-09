@@ -46,7 +46,8 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item v-for="item in items" :key="item.title" link
+        @click="goToComponent(item)">
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -59,7 +60,7 @@
     </v-navigation-drawer>
 
     <v-content>
-      <HelloWorld />
+      <router-view  />
     </v-content>
   </v-app>
 </template>
@@ -69,12 +70,17 @@
     data () {
       return {
         items: [
-          { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-          { title: 'Photos', icon: 'mdi-image' },
-          { title: 'About', icon: 'mdi-help-box' },
+          { title: 'Clase', icon: 'mdi-view-dashboard', path:'/classroom' },
+          { title: 'Horario', icon: 'mdi-date', path:'/schedule' },
+          { title: 'Ayuda', icon: 'mdi-help-box' },
         ],
         right: null,
       }
     },
+    methods:{
+      goToComponent(item){
+        this.$router.push(item.path)
+      }
+    }
   }
 </script>
