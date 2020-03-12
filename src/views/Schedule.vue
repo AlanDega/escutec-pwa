@@ -7,18 +7,29 @@
         loading
         loading-text="Loading... Please wait"
         hide-default-footer
-       
       ></v-data-table>
     </div>
-    <div v-if="this.data_loading === false">
-      <v-data-table
-       item-key="name"
-        class="elevation-1"
-         :headers="headers"
-        :items="grupos"
-        :items-per-page="9"
-         hide-default-footer>
-         </v-data-table>
+    <div v-if="!data_loading">
+      <v-card>
+        <table style="width:100%">
+          <tr  >
+            <th v-for="header in headers" :key="header.id">
+              {{header}}
+            </th>
+          </tr>  
+                    <v-divider color="primary"></v-divider>
+
+          <tr v-for="grupo in grupos" :key="grupo.id">
+            <td>{{grupo.hora}}</td> 
+            <td @click="log(grupo.lunes)">{{grupo.lunes}}</td> 
+            <td>{{grupo.martes}}</td> 
+            <td>{{grupo.miercoles}}</td> 
+            <td>{{grupo.jueves}}</td> 
+            <td>{{grupo.viernes}}</td> 
+          </tr>
+          
+        </table>
+      </v-card>
     </div>
   </v-container>
 </template>
@@ -27,109 +38,87 @@
 export default {
   data() {
     return {
-      data_loading: true,
-      headers:[
-          {
-              text: '   ',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-      },
-          { text: 'Lunes', value: 'calories' },
-          { text: 'Martes', value: 'fat' },
-          { text: 'Miercoles', value: 'carbs' },
-          { text: 'Jueves', value: 'protein' },
-          { text: 'Viernes', value: 'sodium' },
-      ],
-      grupos:[
-         {
-          name: '07:00 - 07:50',
-          calories: 'A-1',
-          fat: 'B-3',
-          carbs: 'E-1',
-          protein: 'C-2',
-          sodium: 'C-1',
-          calcium: '14%',
-          iron: '1%'
+      data_loading:true,
+      headers: [ 'lunes', 'martes', 'miercoles' , 'jueves', 'viernes' ],
+       
+      grupos: [
+        {
+          hora: "07:00 - 07:50",
+          lunes: "A-1",
+          martes: "B-3",
+          miercoles: "E-1",
+          jueves: "C-2",
+          viernes: "C-1"
         },
         {
-          name: '07:50 - 08:40',
-          calories: 'B-1',
-          fat: 'B-2',
-          carbs: 'B-3',
-          protein: 'A-2',
-          sodium: 'A-1',
-          calcium: '8%',
-          iron: '1%'
+          hora: "07:50 - 08:40",
+          lunes: "B-1",
+          martes: "B-2",
+          miercoles: "B-3",
+          protein: "A-2",
+          viernes: "A-1"
         },
         {
-          name: '9:10 - 10:00',
-          calories: 'B-2',
-          fat: 'C-1',
-          carbs: 'A-1',
-          protein: 'E-2',
-          sodium: 'B-3',
-          calcium: '6%',
-          iron: '7%'
+          hora: "9:10 - 10:00",
+          lunes: "B-2",
+          martes: "C-1",
+          miercoles: "A-1",
+          protein: "E-2",
+          viernes: "B-3"
         },
         {
-          name: '10:00 - 10:50',
-          calories: 'A-3',
-          fat: 'A-3',
-          carbs: 'B-2',
-          protein: 'E-1',
-          sodium: 'E-2',
-          calcium: '3%',
-          iron: '8%'
+          hora: "10:00 - 10:50",
+          lunes: "A-3",
+          martes: "A-3",
+          miercoles: "B-2",
+          jueves: "E-1",
+          viernes: "E-2"
         },
         {
-          name: '10:50 - 11:40',
-          calories: 'C-1',
-          fat: 'C-3',
-          carbs: 'A-2',
-          protein:'C-1',
-          sodium: 'A-1',
-          calcium: '7%',
-          iron: '16%'
+          hora: "10:50 - 11:40",
+          lunes: "C-1",
+          martes: "C-3",
+          miercoles: "A-2",
+          jueves: "C-1",
+          viernes: "A-1"
         },
         {
-          name: '11:40 - 12:30',
-          calories: 'A-2',
-          fat: 'D-1',
-          carbs: 'C-2',
-          protein: 'B-3',
-          sodium: 'A-1',
-          calcium: '0%',
-          iron: '0%'
+          hora: "11:40 - 12:30",
+          lunes: "A-2",
+          martes: "D-1",
+          miercoles: "C-2",
+          jueves: "B-3",
+          viernes: "A-1"
         },
         {
-          name: '12:50 - 13:40',
-          calories: 'C-2',
-          fat: 'D-2',
-          carbs: 'B-1',
-          protein: 'A-2'
-,          sodium: 'A-1',
-          calcium: '0%',
-          iron: '2%'
+          hora: "12:50 - 13:40",
+          lunes: "C-2",
+          martes: "D-2",
+          miercoles: "B-1",
+          jueves: "A-2",
+          viernes: "A-1"
         },
         {
-          name: '13:40 - 14:30' ,
-          calories: '',
-          fat: 'E-1',
-          carbs: 'B-3',
-          protein: 'A-1',
-          sodium: 'C-2',
-          calcium: '0%',
-          iron: '45%'
-        },
+          hora: "13:40 - 14:30",
+          lunes: "",
+          martes: "E-1",
+          miercoles: "B-3",
+          jueves: "A-1",
+          viernes: "C-2"
+        }
       ]
     };
   },
   mounted() {
     setTimeout(() => (this.data_loading = false), 2000);
+  },
+  methods:{
+    log(grupo){
+      console.log(grupo)
+      this.$router.push({ name:"group-actions", params: { id:grupo } })
+    }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

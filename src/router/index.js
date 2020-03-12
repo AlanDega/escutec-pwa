@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Classroom from '../views/Classroom.vue'
 import Schedule from '../views/Schedule.vue'
+import GroupActions from '../views/GroupActions.vue'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +15,11 @@ const routes = [
     component: Home
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
     path: '/classroom',
     name: 'Classroom',
     component: Classroom
@@ -21,6 +28,11 @@ const routes = [
     path: '/schedule',
     name: 'Schedule',
     component: Schedule
+  },
+  {
+    path: '/group-actions/:id',
+    name: 'group-actions',
+    component: GroupActions
   },
   {
     path: '/about',
