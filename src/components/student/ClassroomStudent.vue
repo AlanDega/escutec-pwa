@@ -4,17 +4,14 @@
       <v-row>
         <v-col align="center">
           <v-card class="whiteboard">
-            <div v-if="recursos">
-              Elige un recurso
-            </div>
+            <div v-if="recursos">Elige un recurso</div>
             <div v-if="selected_image">
               <v-img
                 contain
                 width="100%"
                 max-height="300px"
                 src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-              </v-img>
+              ></v-img>
             </div>
             <div v-if="selected_video" class="divFrame">
               <iframe
@@ -34,18 +31,8 @@
                 </v-row>
                 <v-row>
                   <v-col>
-                    <v-card
-                      dark
-                      class="mx-auto"
-                      max-width="240"
-                      color="deep-purple accent-3"
-                    >
-                      <v-system-bar
-                        color="deep-purple accent-2"
-                        height="5px"
-                        dark
-                      >
-                      </v-system-bar>
+                    <v-card dark class="mx-auto" max-width="240" color="deep-purple accent-3">
+                      <v-system-bar color="deep-purple accent-2" height="5px" dark></v-system-bar>
 
                       <v-card-title>
                         <v-row justify="center">
@@ -62,7 +49,7 @@
               <v-container>
                 <v-row>
                   <v-col>
-                    <v-text> ¿Qué es la energía? </v-text>
+                    <v-text>¿Qué es la energía?</v-text>
                     <v-row>
                       <v-col cols="6">
                         <v-text>Respuesta Correcta:</v-text>
@@ -90,45 +77,35 @@
               </v-container>
             </div>
             <div v-if="trivia">
-              Elige la trivia
+              <v-container v-if="!trivia_active">
+                <h1>No hay trivia</h1>
+              </v-container>
             </div>
             <div v-if="transmision" height="100%">
               <iframe
-                src="https://player.twitch.tv/?channel=sofiKimmy&muted=true"
-                height="500px"
+                src="https://player.twitch.tv/?channel=grapho&muted=true"
+                height="100%"
                 width="100%"
                 frameborder="0"
                 scrolling="no"
                 allowfullscreen="true"
-              >
-              </iframe>
+              ></iframe>
             </div>
-            <div v-if="estadisticas">
-              elige el tipo de estadisticas
-            </div>
+            <div v-if="estadisticas">elige el tipo de estadisticas</div>
             <div v-if="selected_intel_state" class="small">
               <v-row>
                 <v-col cols="6">
-                  <line-chart
-                    :chart-data="datacollection"
-                    class="chart_style"
-                  ></line-chart>
+                  <line-chart :chart-data="datacollection" class="chart_style"></line-chart>
                 </v-col>
                 <v-col cols="6">
-                  <line-chart
-                    :chart-data="datacollection2"
-                    class="chart_style"
-                  ></line-chart>
+                  <line-chart :chart-data="datacollection2" class="chart_style"></line-chart>
                 </v-col>
               </v-row>
             </div>
             <div v-if="selected_emotional_state" class="small">
               <v-row>
                 <v-col>
-                  <line-chart
-                    :chart-data="datacollection3"
-                    class="chart_style"
-                  ></line-chart>
+                  <line-chart :chart-data="datacollection3" class="chart_style"></line-chart>
                 </v-col>
               </v-row>
             </div>
@@ -136,21 +113,10 @@
           <!-- tabs ----------------------------------------------------------------__________----_------------>
           <v-card class="dashboard">
             <v-tabs centered color="deep-purple accent-3">
-              <v-tab @click="renderStudentResourcesTab">
-                Recursos
-              </v-tab>
-              <v-tab @click="renderChatTab">
-                Chat
-              </v-tab>
-              <v-tab @click="renderStudentTriviaTab">
-                Trivia
-              </v-tab>
-              <v-tab @click="renderStudentTransmisionTab">
-                transmisión
-              </v-tab>
-              <v-tab @click="renderStudentStatsTab">
-                estadisticas
-              </v-tab>
+              <v-tab @click="renderStudentResourcesTab">Recursos</v-tab>
+              <v-tab @click="renderStudentTriviaTab">Trivia</v-tab>
+              <v-tab @click="renderStudentTransmisionTab">transmisión</v-tab>
+              <v-tab @click="renderStudentStatsTab">estadisticas</v-tab>
 
               <v-tab-item>
                 <div v-if="images">
@@ -185,122 +151,15 @@
                         <v-list-item-title>
                           <a
                             href="https://vuetifyjs.com/en/components/navigation-drawers/#navigation-drawers"
-                            >teoria</a
-                          >
+                          >teoria</a>
                         </v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
                   </v-card>
                 </div>
               </v-tab-item>
+              <!-- -------------------------------------------- -->
 
-              <v-tab-item>
-                <v-container>
-                  <v-row>
-                    <v-col>
-                      <v-dialog v-model="dialog" width="500">
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            dark
-                            v-on="on"
-                            class="mx-auto"
-                            max-width="240"
-                            color="deep-purple accent-3"
-                            outlined
-                          >
-                            Tarea 1
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-container>
-                            <v-row>
-                              <v-col>
-                                <v-text-field
-                                  label="Título"
-                                  placeholder="tarea 1"
-                                ></v-text-field>
-                                <v-text-field
-                                  label="Descripción"
-                                  placeholder="Llegar al nivel 2 del juego"
-                                ></v-text-field>
-                                <v-text-field
-                                  label="recompensa"
-                                  placeholder="3000 xp + 150 tokens"
-                                ></v-text-field>
-                                <v-dialog
-                                  ref="dialog"
-                                  v-model="modal"
-                                  :return-value.sync="date"
-                                  persistent
-                                  width="290px"
-                                >
-                                  <template v-slot:activator="{ on }">
-                                    <v-text-field
-                                      label="Fecha límite"
-                                      v-model="date"
-                                      readonly
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker v-model="date" scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                      text
-                                      color="primary"
-                                      @click="modal = false"
-                                      >Cancel</v-btn
-                                    >
-                                    <v-btn
-                                      text
-                                      color="primary"
-                                      @click="$refs.dialog.save(date)"
-                                      >OK</v-btn
-                                    >
-                                  </v-date-picker>
-                                </v-dialog>
-                                <v-row justify="center"> </v-row>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              rounded
-                              dark
-                              text
-                              color="deep-purple accent-3"
-                              @click="renderSelectedHomework"
-                            >
-                              Asignar
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
-                    </v-col>
-                    <v-col> </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col> </v-col>
-                    <v-col> </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-fab-transition>
-                      <v-btn
-                        v-show="!hidden"
-                        color="deep-purple accent-3"
-                        dark
-                        absolute
-                        bottom
-                        right
-                        fab
-                      >
-                        <v-icon>mdi-plus</v-icon>
-                      </v-btn>
-                    </v-fab-transition>
-                  </v-row>
-                </v-container>
-              </v-tab-item>
               <v-tab-item>
                 <v-container>
                   <v-row>
@@ -314,9 +173,7 @@
                             class="mx-auto"
                             max-width="240"
                             color="deep-purple accent-3"
-                          >
-                            ¿Qué es la energía?
-                          </v-btn>
+                          >¿Qué es la energía?</v-btn>
                         </template>
                         <v-card>
                           <v-container>
@@ -325,29 +182,16 @@
                                 <h2>¿Qué es la energía?</h2>
                                 <v-row>
                                   <v-col cols="12">
-                                    <v-text-field
-                                      label="respuesta 1"
-                                      placeholder="ya tu sabe"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 2"
-                                      placeholder="esa mera"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 3"
-                                      placeholder="esta es"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 4"
-                                      placeholder="es la vida"
-                                    ></v-text-field>
+                                    <v-text-field label="respuesta 1" placeholder="ya tu sabe"></v-text-field>
+                                    <v-text-field label="respuesta 2" placeholder="esa mera"></v-text-field>
+                                    <v-text-field label="respuesta 3" placeholder="esta es"></v-text-field>
+                                    <v-text-field label="respuesta 4" placeholder="es la vida"></v-text-field>
                                     <v-row justify-center align-center>
                                       <v-select
                                         outlined
                                         label="respuestaCorrecta"
                                         :items="respuestas"
-                                      >
-                                      </v-select>
+                                      ></v-select>
                                     </v-row>
                                     <v-card-actions>
                                       <v-row justify="center">
@@ -355,9 +199,7 @@
                                           @click="renderSelectedTrivia"
                                           text
                                           color="deep-purple accent-3"
-                                        >
-                                          Asignar
-                                        </v-btn>
+                                        >Asignar</v-btn>
                                       </v-row>
                                     </v-card-actions>
                                   </v-col>
@@ -375,9 +217,7 @@
                         class="mx-auto"
                         max-width="240"
                         color="deep-purple accent-3"
-                      >
-                        ¿Quién es el presidente?
-                      </v-btn>
+                      >¿Quién es el presidente?</v-btn>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -388,9 +228,7 @@
                         class="mx-auto"
                         max-width="240"
                         color="deep-purple accent-3"
-                      >
-                        ¿Qué es una economía?
-                      </v-btn>
+                      >¿Qué es una economía?</v-btn>
                     </v-col>
                     <v-col>
                       <v-btn
@@ -399,9 +237,7 @@
                         class="mx-auto"
                         max-width="240"
                         color="deep-purple accent-3"
-                      >
-                        ¿Qué es el dinero?
-                      </v-btn>
+                      >¿Qué es el dinero?</v-btn>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -427,18 +263,14 @@
                     <v-col cols="3">
                       <v-row justify="center">
                         <v-avatar color="deep-purple accent-3">
-                          <v-img
-                            src="https://i.stack.imgur.com/frlIf.png"
-                          ></v-img>
+                          <v-img src="https://i.stack.imgur.com/frlIf.png"></v-img>
                         </v-avatar>
                       </v-row>
                     </v-col>
                     <v-col cols="3">
                       <v-list-item two-line>
                         <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
+                          <v-list-item-title>nombre de alumno</v-list-item-title>
                           <v-list-item-subtitle>Conectado</v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
@@ -455,12 +287,8 @@
                     <v-col cols="3">
                       <v-list-item two-line>
                         <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
-                          <v-list-item-subtitle
-                            >Desconectado</v-list-item-subtitle
-                          >
+                          <v-list-item-title>nombre de alumno</v-list-item-title>
+                          <v-list-item-subtitle>Desconectado</v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
                     </v-col>
@@ -478,9 +306,7 @@
                       max-width="240"
                       color="deep-purple accent-3"
                       outlined
-                    >
-                      Estado Intelectual
-                    </v-btn>
+                    >Estado Intelectual</v-btn>
                     <v-btn
                       @click="renderTopEmotionalStats"
                       dark
@@ -489,19 +315,13 @@
                       max-width="240"
                       color="deep-purple accent-3"
                       outlined
-                    >
-                      Estado Emocional
-                    </v-btn>
+                    >Estado Emocional</v-btn>
                   </v-row>
                 </v-container>
               </v-tab-item>
             </v-tabs>
             <div v-if="resources">
-              <v-bottom-navigation
-                v-model="bottomNav"
-                absolute
-                color="deep-purple accent-3"
-              >
+              <v-bottom-navigation v-model="bottomNav" absolute color="deep-purple accent-3">
                 <v-btn value="images" @click="renderImagesType">
                   <v-icon>mdi-image</v-icon>
                 </v-btn>
@@ -518,15 +338,13 @@
           </v-card>
         </v-col>
       </v-row>
-      </v-container>
+    </v-container>
     <div v-if="active_call">
       <v-footer absolute color="green accent-3">
         <v-row>
+          <v-col class="text-center" cols="4">{{ call_timer }}</v-col>
           <v-col class="text-center" cols="4">
-            {{ call_timer }}
-          </v-col>
-          <v-col class="text-center" cols="4">
-            <v-icon> mdi-phone-hangup </v-icon>
+            <v-icon>mdi-phone-hangup</v-icon>
           </v-col>
           <v-col class="text-center" cols="4">
             <v-icon>mdi-volume-high</v-icon>
@@ -550,6 +368,7 @@ export default {
 
   data() {
     return {
+      trivia_active: null,
       call_timer: 0,
       inactive_call: true,
       active_call: null,
@@ -785,7 +604,7 @@ export default {
       this.transmision = false;
       this.estadisticas = false;
     },
-    renderResources() {
+    renderStudentResourcesTab() {
       this.selected_homework = false;
       this.selected_image = false;
       this.selected_video = false;
@@ -796,19 +615,19 @@ export default {
       this.transmision = false;
       this.estadisticas = false;
     },
-    renderTareas() {
-      this.selected_homework = false;
-      this.selected_image = false;
-      this.selected_video = false;
-      this.selected_link = false;
-      this.resources = false;
-      this.tareas = true;
-      this.trivia = false;
-      this.transmision = false;
-      this.estadisticas = false;
-      setTimeout(() => (this.hidden = false), 300);
-    },
-    renderTrivia() {
+    // renderTareas() {
+    //   this.selected_homework = false;
+    //   this.selected_image = false;
+    //   this.selected_video = false;
+    //   this.selected_link = false;
+    //   this.resources = false;
+    //   this.tareas = true;
+    //   this.trivia = false;
+    //   this.transmision = false;
+    //   this.estadisticas = false;
+    //   setTimeout(() => (this.hidden = false), 300);
+    // },
+    renderStudentTriviaTab() {
       this.selected_homework = false;
       this.selected_image = false;
       this.selected_video = false;
@@ -819,7 +638,7 @@ export default {
       this.transmision = false;
       this.estadisticas = false;
     },
-    renderTransmision() {
+    renderStudentTransmisionTab() {
       this.selected_trivia = false;
       this.selected_homework = false;
       this.selected_image = false;
@@ -831,7 +650,7 @@ export default {
       this.transmision = true;
       this.estadisticas = false;
     },
-    renderEstadisticas() {
+    renderStudentStatsTab() {
       this.selected_homework = false;
       this.selected_video = false;
       this.selected_link = false;
@@ -859,7 +678,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard{
+.dashboard {
   margin-top: 20px;
   height: 40vh;
 }
@@ -875,9 +694,9 @@ export default {
 // .daStepper {
 //   max-height: 95%;
 // }
-// .media_card {
-//   height: 100%;
-// }
+.media_card {
+  height: 100%;
+}
 // .media_card2 {
 //   height: 100%;
 //   margin-top: 20px;

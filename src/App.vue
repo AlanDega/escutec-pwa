@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-app-bar
+      v-if="this.$route.name != 'sign-up' || 'login'"
       app
       color="deep-purple accent-3"
       dark
@@ -13,6 +14,7 @@
       </div>
 
       <v-spacer></v-spacer>
+      <v-btn @click="logout">logout</v-btn>
     </v-app-bar>
     <v-navigation-drawer app permanent clipped>
       <div v-if="tipo_usuario == 'prof'">
@@ -223,34 +225,32 @@ export default {
     };
   },
   created() {
-    console.log("route", this.$route);
-    firebase
-      .auth()
-      .onAuthStateChanged(user => {
-        if (user) {
-          console.log(user.email);
-          this.user_email = user.email;
-        }
-      })
-      .then(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
         db.collection("usuarios")
-          .where("email", "==", this.user_email)
+          .doc(user.email)
           .get()
-          .then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              console.log(doc.data());
-              this.prof = doc.data().prof;
-              this.tipo_usuario = doc.data().tipo_usuario;
-            });
-          })
-          .catch(function(error) {
-            console.log("Error getting documents: ", error);
+          .then(snapshot => {
+            const document = snapshot.data();
+            this.tipo_usuario = document.tipo_usuario;
+            console.log(document);
+            // do something with document
           });
-      });
+      }
+    });
+      
   },
   methods: {
     goToComponent(item) {
       this.$router.push(item.path);
+    },
+    logout(){
+      firebase.auth().signOut().then(function() {
+        console.log('logged out')
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
     }
   }
 };

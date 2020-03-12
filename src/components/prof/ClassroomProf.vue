@@ -94,7 +94,7 @@
             </div>
             <div v-if="transmision" class="media_card">
               <iframe
-                src="https://player.twitch.tv/?channel=sofiKimmy&muted=true"
+                src="https://player.twitch.tv/?channel=grapho&muted=true"
                 height="100%"
                 width="100%"
                 frameborder="0"
@@ -136,170 +136,68 @@
           <!-- tabs ----------------------------------------------------------------__________----_------------>
           <v-card class="dashboard">
             <v-tabs centered color="deep-purple accent-3">
+              <v-tab @click="renderTransmision">
+                transmisión
+              </v-tab>
               <v-tab @click="renderResources">
                 Recursos
               </v-tab>
-              <v-tab @click="renderTareas">
-                Tareas
-              </v-tab>
               <v-tab @click="renderTrivia">
                 Trivia
-              </v-tab>
-              <v-tab @click="renderTransmision">
-                transmisión
               </v-tab>
               <v-tab @click="renderEstadisticas">
                 estadisticas
               </v-tab>
 
               <v-tab-item>
-                <div v-if="images">
-                  <v-card flat @click="viewImage">
-                    <v-img
-                      class="white--text align-end"
-                      height="200px"
-                      max-width="20%"
-                      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                    >
-                      <v-card-title>Recurso1</v-card-title>
-                    </v-img>
-                  </v-card>
-                </div>
-                <div v-if="videos">
-                  <v-card flat @click="viewVideo">
-                    <iframe
-                      @click="viewVideo"
-                      id="ytplayer"
-                      type="text/html"
-                      width="25%"
-                      height="20%"
-                      src="http://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-                      frameborder="0"
-                    />
-                  </v-card>
-                </div>
-                <div v-if="links">
-                  <v-card flat>
-                    <v-list-item>
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          <a
-                            href="https://vuetifyjs.com/en/components/navigation-drawers/#navigation-drawers"
-                            >teoria</a
-                          >
-                        </v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-card>
-                </div>
-              </v-tab-item>
-
-              <v-tab-item>
                 <v-container>
                   <v-row>
-                    <v-col>
-                      <v-dialog v-model="dialog" width="500">
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            dark
-                            v-on="on"
-                            class="mx-auto"
-                            max-width="240"
-                            color="deep-purple accent-3"
-                            outlined
-                          >
-                            Tarea 1
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-container>
-                            <v-row>
-                              <v-col>
-                                <v-text-field
-                                  label="Título"
-                                  placeholder="tarea 1"
-                                ></v-text-field>
-                                <v-text-field
-                                  label="Descripción"
-                                  placeholder="Llegar al nivel 2 del juego"
-                                ></v-text-field>
-                                <v-text-field
-                                  label="recompensa"
-                                  placeholder="3000 xp + 150 tokens"
-                                ></v-text-field>
-                                <v-dialog
-                                  ref="dialog"
-                                  v-model="modal"
-                                  :return-value.sync="date"
-                                  persistent
-                                  width="290px"
-                                >
-                                  <template v-slot:activator="{ on }">
-                                    <v-text-field
-                                      label="Fecha límite"
-                                      v-model="date"
-                                      readonly
-                                      v-on="on"
-                                    ></v-text-field>
-                                  </template>
-                                  <v-date-picker v-model="date" scrollable>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                      text
-                                      color="primary"
-                                      @click="modal = false"
-                                      >Cancel</v-btn
-                                    >
-                                    <v-btn
-                                      text
-                                      color="primary"
-                                      @click="$refs.dialog.save(date)"
-                                      >OK</v-btn
-                                    >
-                                  </v-date-picker>
-                                </v-dialog>
-                                <v-row justify="center"> </v-row>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              rounded
-                              dark
-                              text
-                              color="deep-purple accent-3"
-                              @click="renderSelectedHomework"
-                            >
-                              Asignar
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
+                    <v-col cols="3">
+                      <v-row justify="center">
+                        <v-avatar color="deep-purple accent-3">
+                          <v-img
+                            src="https://i.stack.imgur.com/frlIf.png"
+                          ></v-img>
+                        </v-avatar>
+                      </v-row>
                     </v-col>
-                    <v-col> </v-col>
+                    <v-col cols="3">
+                      <v-list-item two-line>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >nombre de alumno</v-list-item-title
+                          >
+                          <v-list-item-subtitle>Conectado</v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
                   </v-row>
                   <v-row>
-                    <v-col> </v-col>
-                    <v-col> </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-fab-transition>
-                      <v-btn
-                        v-show="!hidden"
-                        color="deep-purple accent-3"
-                        dark
-                        absolute
-                        bottom
-                        right
-                        fab
-                      >
-                        <v-icon>mdi-plus</v-icon>
-                      </v-btn>
-                    </v-fab-transition>
+                    <v-col cols="3">
+                      <v-row justify="center">
+                        <v-avatar color="deep-purple accent-3">
+                          <v-icon dark>mdi-account-circle</v-icon>
+                        </v-avatar>
+                      </v-row>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-list-item two-line>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >nombre de alumno</v-list-item-title
+                          >
+                          <v-list-item-subtitle
+                            >Desconectado</v-list-item-subtitle
+                          >
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-col>
                   </v-row>
                 </v-container>
+              </v-tab-item>
+               <v-tab-item>
+                  <h2>recursos</h2>
+                <a href="https://www.github.com"> github</a>
               </v-tab-item>
               <v-tab-item>
                 <v-container>
@@ -421,52 +319,7 @@
                   </v-row>
                 </v-container>
               </v-tab-item>
-              <v-tab-item>
-                <v-container>
-                  <v-row>
-                    <v-col cols="3">
-                      <v-row justify="center">
-                        <v-avatar color="deep-purple accent-3">
-                          <v-img
-                            src="https://i.stack.imgur.com/frlIf.png"
-                          ></v-img>
-                        </v-avatar>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-list-item two-line>
-                        <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
-                          <v-list-item-subtitle>Conectado</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="3">
-                      <v-row justify="center">
-                        <v-avatar color="deep-purple accent-3">
-                          <v-icon dark>mdi-account-circle</v-icon>
-                        </v-avatar>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-list-item two-line>
-                        <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
-                          <v-list-item-subtitle
-                            >Desconectado</v-list-item-subtitle
-                          >
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-tab-item>
+             
               <v-tab-item>
                 <v-container>
                   <v-row>
@@ -519,34 +372,12 @@
         </v-col>
       </v-row>
       <div v-if="inactive_call">
-        <v-footer absolute class="">
-          <v-col class="text-center" cols="12">
-            <v-btn
-              rounded
-              color="deep-purple accent-3"
-              dark
-              @click="initialize_call"
-              >Iniciar llamada</v-btn
-            >
-          </v-col>
-        </v-footer>
+        
       </div>
     </v-container>
 
     <div v-if="active_call">
-      <v-footer absolute color="green accent-3">
-        <v-row>
-          <v-col class="text-center" cols="4">
-            {{ call_timer }}
-          </v-col>
-          <v-col class="text-center" cols="4">
-            <v-icon> mdi-phone-hangup </v-icon>
-          </v-col>
-          <v-col class="text-center" cols="4">
-            <v-icon>mdi-volume-high</v-icon>
-          </v-col>
-        </v-row>
-      </v-footer>
+      
     </div>
   </div>
 </template>

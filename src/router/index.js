@@ -4,7 +4,8 @@ import Home from '../views/Home.vue'
 import Classroom from '../views/Classroom.vue'
 import Schedule from '../views/Schedule.vue'
 import GroupActions from '../views/GroupActions.vue'
-import Login from '../views/Login.vue'
+import Login from '../views/auth/Login.vue'
+import SignUp from '../views/auth/SignUp.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: SignUp
   },
   {
     path: '/classroom',
