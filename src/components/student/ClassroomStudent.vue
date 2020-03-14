@@ -4,18 +4,10 @@
       <!-- tabs ----------------------------------------------------------------__________----_------------>
 
       <v-tabs centered color="deep-purple accent-3">
-        <v-tab @click="renderTransmision">
-          transmisión
-        </v-tab>
-        <v-tab @click="renderResources">
-          Recursos
-        </v-tab>
-        <v-tab @click="renderTrivia">
-          Trivia
-        </v-tab>
-        <v-tab @click="renderEstadisticas">
-          estadisticas
-        </v-tab>
+        <v-tab @click="renderTransmision">transmisión</v-tab>
+        <v-tab @click="renderResources">Recursos</v-tab>
+        <v-tab @click="renderTrivia">Trivia</v-tab>
+        <v-tab @click="renderEstadisticas">estadisticas</v-tab>
 
         <v-tab-item>
           <v-container>
@@ -28,74 +20,48 @@
                   frameborder="0"
                   scrolling="no"
                   allowfullscreen="true"
-                >
-                </iframe>
+                ></iframe>
               </v-card>
             </v-row>
             <v-row>
-              <v-col cols="6">
-                <v-card>
-                        <v-list ref="chat" id="logs">
-                          <template v-for="(message, index) in messages">
-                            <v-subheader v-if="message" :key="index">
-                              {{
-                              message.sender + ':' + message.message
-                              }}
-                            </v-subheader>
-                          </template>
-                        </v-list>
-                        <v-container>
-                          <v-row>
-                            <v-col cols="10">
-                              <v-text-field
-                                dense
-                                v-model="msg"
-                                label="Message"
-                                outlined
-                                color="deep-purple accent-3"
-                              ></v-text-field>
-                            </v-col>
-                            <v-col cols="2">
-                              <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                        </v-card>
-                      </v-col>
-              <v-col cols="6">
-                <v-card class="ChatCard">
-                  <v-list ref="chat" id="logs2">
-                    <template v-for="(item, index) in logs2">
-                      <v-subheader v-if="item" :key="index">{{
-                        item
-                      }}</v-subheader>
+              <v-col cols="12">
+                <v-card class="chat_notes_card" flat>
+                  <v-toolbar color="white" flat dense>
+                    <template v-slot:extension>
+                      <v-fab-transition>
+                        <v-btn color="deep-purple accent-3" dark  absolute top right fab>
+                          <v-icon>mdi-plus</v-icon>
+                        </v-btn>
+                      </v-fab-transition>
+                    </template>
+                  </v-toolbar>
+                  
+                  <v-list ref="chat" id="logs">
+                    <h3>{{xp}}</h3>
+                    <template v-for="(message, index) in messages">
+                      <v-subheader v-if="message" :key="index">
+                        {{
+                        message.sender + ':' + message.message
+                        }}
+                      </v-subheader>
                     </template>
                   </v-list>
-                  <v-card-actions>
-                    <!-- <v-form @submit.prevent="submit"> -->
-                    <v-container>
-                      <v-row>
-                        <v-col cols="10">
-                          <v-text-field
-                            dense
-                            v-model="nota"
-                            label="Nota"
-                            outlined
-                            color="deep-purple accent-3"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn
-                            dark
-                            color="deep-purple accent-3"
-                            @click="submitNota"
-                          >
-                            Guardar
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-actions>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="10">
+                        <v-text-field
+                          dense
+                          v-model="msg"
+                          label="Message"
+                          outlined
+                          color="deep-purple accent-3"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="2">
+                        <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-container>
                 </v-card>
               </v-col>
             </v-row>
@@ -103,7 +69,7 @@
         </v-tab-item>
         <v-tab-item>
           <h2>recursos</h2>
-          <a href="https://www.github.com"> github</a>
+          <a href="https://www.github.com">github</a>
         </v-tab-item>
         <v-tab-item>
           <v-container>
@@ -118,9 +84,7 @@
                       class="mx-auto"
                       max-width="240"
                       color="deep-purple accent-3"
-                    >
-                      ¿Qué es la energía?
-                    </v-btn>
+                    >¿Qué es la energía?</v-btn>
                   </template>
                   <v-card>
                     <v-container>
@@ -129,29 +93,12 @@
                           <h2>¿Qué es la energía?</h2>
                           <v-row>
                             <v-col cols="12">
-                              <v-text-field
-                                label="respuesta 1"
-                                placeholder="ya tu sabe"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 2"
-                                placeholder="esa mera"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 3"
-                                placeholder="esta es"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 4"
-                                placeholder="es la vida"
-                              ></v-text-field>
+                              <v-text-field label="respuesta 1" placeholder="ya tu sabe"></v-text-field>
+                              <v-text-field label="respuesta 2" placeholder="esa mera"></v-text-field>
+                              <v-text-field label="respuesta 3" placeholder="esta es"></v-text-field>
+                              <v-text-field label="respuesta 4" placeholder="es la vida"></v-text-field>
                               <v-row justify-center align-center>
-                                <v-select
-                                  outlined
-                                  label="respuestaCorrecta"
-                                  :items="respuestas"
-                                >
-                                </v-select>
+                                <v-select outlined label="respuestaCorrecta" :items="respuestas"></v-select>
                               </v-row>
                               <v-card-actions>
                                 <v-row justify="center">
@@ -159,9 +106,7 @@
                                     @click="renderSelectedTrivia"
                                     text
                                     color="deep-purple accent-3"
-                                  >
-                                    Asignar
-                                  </v-btn>
+                                  >Asignar</v-btn>
                                 </v-row>
                               </v-card-actions>
                             </v-col>
@@ -179,9 +124,7 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Quién es el presidente?
-                </v-btn>
+                >¿Quién es el presidente?</v-btn>
               </v-col>
             </v-row>
             <v-row>
@@ -192,9 +135,7 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Qué es una economía?
-                </v-btn>
+                >¿Qué es una economía?</v-btn>
               </v-col>
               <v-col>
                 <v-btn
@@ -203,22 +144,12 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Qué es el dinero?
-                </v-btn>
+                >¿Qué es el dinero?</v-btn>
               </v-col>
             </v-row>
             <v-row>
               <v-fab-transition>
-                <v-btn
-                  v-show="!hidden"
-                  color="deep-purple accent-3"
-                  dark
-                  absolute
-                  bottom
-                  right
-                  fab
-                >
+                <v-btn v-show="!hidden" color="deep-purple accent-3" dark absolute bottom right fab>
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </v-fab-transition>
@@ -237,9 +168,7 @@
                 max-width="240"
                 color="deep-purple accent-3"
                 outlined
-              >
-                Estado Intelectual
-              </v-btn>
+              >Estado Intelectual</v-btn>
               <v-btn
                 @click="renderTopEmotionalStats"
                 dark
@@ -248,9 +177,7 @@
                 max-width="240"
                 color="deep-purple accent-3"
                 outlined
-              >
-                Estado Emocional
-              </v-btn>
+              >Estado Emocional</v-btn>
             </v-row>
           </v-container>
         </v-tab-item>
@@ -261,13 +188,11 @@
 </template>
 
 <script>
-import { CometChat } from '@cometchat-pro/chat'
+import { CometChat } from "@cometchat-pro/chat";
 import { db } from "../../db";
 import firebase from "firebase";
 import LineChart from "../../LineChart";
-import Vue from "vue";
-import VueApexCharts from "vue-apexcharts";
-Vue.component("apexchart", VueApexCharts);
+import moment from 'moment'
 
 export default {
   components: {
@@ -276,7 +201,10 @@ export default {
 
   data() {
     return {
-      messages:[],
+      xp:0,
+      fab: false,
+      hidden: false,
+      messages: [],
       user: null,
       nota: null,
       classroom: "A-1",
@@ -359,55 +287,75 @@ export default {
   //   messages: db.collection("a-1-mensajes")
   // },
   watch: {
-    logs() {
+    messages() {
       setTimeout(() => {
         this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
       }, 0);
     },
-    logs2() {
-      setTimeout(() => {
-        this.$refs.chat2.$el.scrollTop = this.$refs.chat2.$el.scrollHeight;
-      }, 0);
-    }
   },
-  created() {
+  mounted() {
+    this.fillData()
     firebase.auth().onAuthStateChanged(user => {
       this.user = user.email;
       console.log("user", this.user);
-    });
-    setInterval(() => {
-      db.collection(this.classroom + "-messages")
-        .get()
-        .then(querySnapshot => {
-          const documents = querySnapshot.docs.map(doc => doc.data());
-          console.log("message-documents", documents);
-          this.messages = documents;
-    }
-        ), 1500}
-    )
-   
-  },
-  mounted() {
-    this.fillData();
+    })
+    // db.collection(this.classroom + "-students")
+    //   .get()
+    //   .then(querySnapshot => {
+    //     const documents = querySnapshot.docs.map(doc => doc.data());
+    //     this.students = documents;
+    //   });
+      let ref = db.collection(this.classroom + "-messages").orderBy('timestamp');
+      ref.onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if(change.type = 'added'){
+            let doc = change.doc
+            this.messages.push({
+              id: doc.id,
+              sender: doc.data().sender,
+              message: doc.data().message,
+              timestamp: moment(doc.data().timestamp).format('LTS')
+            })
+          }
+        })
+      })
+      let refXp = db.collection(this.classroom + "-students")
+      // .where()
+      refXp.onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          console.log('changeType',change.type)
+          if(change.type = 'modified'){
+            let doc = change.doc
+            console.log('changeDoc',doc.data())
+            this.xp = doc.data().xp
+            // this.messages.push({
+            //   id: doc.id,
+            //   sender: doc.data().sender,
+            //   message: doc.data().message,
+            //   timestamp: moment(doc.data().timestamp).format('LTS')
+            // })
+          }
+        })
+      })
   },
   methods: {
-   
     submit() {
-      db.collection(this.classroom + "-messages")
+       db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
-          message: this.msg
+          message: this.msg,
+          timestamp: Date.now()
         })
+        .catch(err => console.log('error',err))
         .then(() => {  
               this.msg = ''
-
-          db.collection(this.classroom + "-messages")
-            .get()
-            .then(querySnapshot => {
-              const documents = querySnapshot.docs.map(doc => doc.data());
-              console.log("message-documents", documents);
-              this.messages = documents;
-            });
+          // db.collection(this.classroom + "-messages")
+          //   .get()
+          //   .then(querySnapshot => {
+          //     const documents = querySnapshot.docs.map(doc => doc.data());
+          //     console.log("message-documents", documents);
+          //     this.messages = documents;
+          //   });
         });
     },
     fillData() {
@@ -602,24 +550,24 @@ export default {
       this.estadisticas = false;
     }
   }
-}
-;
+};
 </script>
 
 <style lang="scss" scoped>
+.v-btn--example {
+}
+.chat_notes_card {
+  width: 100%;
+}
 #logs {
-  height:   180px;
+  height: 180px;
   overflow: auto;
 }
 #logs2 {
   height: 180px;
   overflow: auto;
 }
-.ChatCard {
-  height: 30vh;
-  width: 100%;
-  margin-top: 20px;
-}
+
 .TwitchPlayer {
   height: 41vh;
   width: 100%;
@@ -637,19 +585,7 @@ export default {
 .daContain {
   height: 80vh;
 }
-// .daStepper {
-//   max-height: 95%;
-// }
-.media_card {
-  height: 100%;
-}
-// .media_card2 {
-//   height: 100%;
-//   margin-top: 20px;
-// }
-.preguntas {
-  margin-top: 20px;
-}
+
 .small {
   width: 100%;
   height: 100%;
@@ -659,7 +595,5 @@ export default {
 }
 .active_call_style {
   color: #03fc2b;
-}
-.div1 {
 }
 </style>

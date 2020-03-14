@@ -85,7 +85,7 @@
                   rounded
                   height="6"
                   color="deep-purple accent-3"
-                  :value="5"
+                  :value="xp"
                 ></v-progress-linear>
               </v-col>
             </v-row>
@@ -229,6 +229,7 @@ export default {
   },
   data() {
     return {
+      xp:null,
       auth:null,
       value: 15,
       tipo_usuario: null,
@@ -286,9 +287,12 @@ export default {
       right: null
     };
   },
+  watch:{
+    // xp(){
+    //   this.xp = 
+    // }
+  },
   mounted() {
-
-
     console.log('route-name',this.$route.name)
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -305,7 +309,26 @@ export default {
             // do something with document
           });
       }
-    });    
+    });
+    let refXp = db.collection(this.classroom + "-students")
+      // .where()
+      refXp.onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          console.log('changeType',change.type)
+          if(change.type = 'modified'){
+            let doc = change.doc
+          this.xp = doc.data().xp
+            console.log('changeDoc',doc.data())
+            
+            // this.messages.push({
+            //   id: doc.id,
+            //   sender: doc.data().sender,
+            //   message: doc.data().message,
+            //   timestamp: moment(doc.data().timestamp).format('LTS')
+            // })
+          }
+        })
+      })    
   },
   computed:{
     authRoutes(){

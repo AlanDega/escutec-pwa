@@ -25,18 +25,31 @@
             </v-row>
             <v-row>
               <v-col>
-                <v-card class="ChatCard">
+                <v-card class="ChatCard" flat>
                   <v-container>
                     <v-row>
                       <v-navigation-drawer permanent>
                         <v-list ref="chat2" id="logs2">
                           <!-- <v-list> -->
                           <template v-for="(student, index) in students">
-                            <v-subheader
-                              v-if="student"
-                              :key="index"
-                              @click="viewProfile(student)"
-                            >{{ student.name}}</v-subheader>
+                            <v-container>
+                              <v-row>
+                                <v-col cols="9">
+                                  <v-subheader
+                                    v-if="student"
+                                    :key="index"
+                                    @click="validatePresence(student)"
+                                  >{{ student.name}}</v-subheader>
+                                </v-col>
+                                <v-col>
+                                  <v-container v-if="student_checked">
+                                    <v-row justify="center">
+                                      <v-icon color="deep-purple accent-3">mdi-check</v-icon>
+                                    </v-row>
+                                  </v-container>
+                                </v-col>
+                              </v-row>
+                            </v-container>
                           </template>
                         </v-list>
                       </v-navigation-drawer>
@@ -199,9 +212,7 @@
 import firebase from "firebase";
 import { db } from "../../db";
 import LineChart from "../../LineChart";
-import Vue from "vue";
-import VueApexCharts from "vue-apexcharts";
-Vue.component("apexchart", VueApexCharts);
+import moment from "moment";
 
 export default {
   components: {
@@ -210,6 +221,7 @@ export default {
 
   data() {
     return {
+      student_checked:null,
       students: [],
       classroom: "A-1",
       messages: [],
@@ -345,35 +357,51 @@ export default {
         const documents = querySnapshot.docs.map(doc => doc.data());
         this.students = documents;
       });
-     setInterval(() => {
-      db.collection(this.classroom + "-messages")
-        .get()
-        .then(querySnapshot => {
-          const documents = querySnapshot.docs.map(doc => doc.data());
-          console.log("message-documents", documents);
-          this.messages = documents;
-    }
-        ), 1500}
-    )
+    let ref = db.collection(this.classroom + "-messages").orderBy("timestamp");
+    ref.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        if ((change.type = "added")) {
+          let doc = change.doc;
+          this.messages.push({
+            id: doc.id,
+            sender: doc.data().sender,
+            message: doc.data().message,
+            timestamp: moment(doc.data().timestamp).format("LTS")
+          });
+        }
+      });
+    });
   },
-
   methods: {
+    validatePresence(student) {
+      this.student_checked = true
+      console.log("student", student.name)
+      const increment = firebase.firestore.FieldValue.increment(50)
+      const xpRef = db.collection(this.classroom + '-students').doc(student.name)
+      const batch = db.batch()
+      batch.set(xpRef, { xp: increment }, { merge: true })
+      batch.commit()
+      .then(() => {
+        console.log('mision cumplida')
+      })
+    },
     submit() {
       db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
-          message: this.msg
+          message: this.msg,
+          timestamp: Date.now()
         })
-        .then(() => {  
-              this.msg = ''
-
-          db.collection(this.classroom + "-messages")
-            .get()
-            .then(querySnapshot => {
-              const documents = querySnapshot.docs.map(doc => doc.data());
-              console.log("message-documents", documents);
-              this.messages = documents;
-            });
+        .catch(err => console.log("error", err))
+        .then(() => {
+          this.msg = "";
+          // db.collection(this.classroom + "-messages")
+          //   .get()
+          //   .then(querySnapshot => {
+          //     const documents = querySnapshot.docs.map(doc => doc.data());
+          //     console.log("message-documents", documents);
+          //     this.messages = documents;
+          //   });
         });
     },
 
