@@ -4,18 +4,10 @@
       <!-- tabs ----------------------------------------------------------------__________----_------------>
 
       <v-tabs centered color="deep-purple accent-3">
-        <v-tab @click="renderTransmision">
-          transmisión
-        </v-tab>
-        <v-tab @click="renderResources">
-          Recursos
-        </v-tab>
-        <v-tab @click="renderTrivia">
-          Trivia
-        </v-tab>
-        <v-tab @click="renderEstadisticas">
-          estadisticas
-        </v-tab>
+        <v-tab @click="renderTransmision">transmisión</v-tab>
+        <v-tab @click="renderResources">Recursos</v-tab>
+        <v-tab @click="renderTrivia">Trivia</v-tab>
+        <v-tab @click="renderEstadisticas">estadisticas</v-tab>
 
         <v-tab-item>
           <v-container>
@@ -28,85 +20,56 @@
                   frameborder="0"
                   scrolling="no"
                   allowfullscreen="true"
-                >
-                </iframe>
+                ></iframe>
               </v-card>
             </v-row>
             <v-row>
-              <v-col cols="6">
+              <v-col>
                 <v-card class="ChatCard">
-                  
                   <v-container>
                     <v-row>
-                      <v-col>
+                      <v-navigation-drawer permanent>
                         <v-list ref="chat2" id="logs2">
-                          <template v-for="(item, index) in logs2">
-                            <v-subheader v-if="item" :key="index" @click="acceptMessage(item)">{{
-                              item.sender + ':' + item.message
-                            }}</v-subheader>
+                          <!-- <v-list> -->
+                          <template v-for="(student, index) in students">
+                            <v-subheader
+                              v-if="student"
+                              :key="index"
+                              @click="viewProfile(student)"
+                            >{{student.name}}</v-subheader>
                           </template>
                         </v-list>
+                      </v-navigation-drawer>
+                      <v-col>
+                        <v-list ref="chat" id="logs">
+                          <template v-for="(message, index) in messagesList">
+                            <v-subheader v-if="message" :key="index">
+                              {{
+                              message.text
+                              }}
+                            </v-subheader>
+                          </template>
+                        </v-list>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="10">
+                              <v-text-field
+                                dense
+                                v-model="msg"
+                                label="Message"
+                                outlined
+                                color="deep-purple accent-3"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
                       </v-col>
                     </v-row>
                   </v-container>
-                </v-card>
-              </v-col>
-              <v-col cols="6">
-                <v-card class="ChatCard">
-                  <v-list ref="chat" id="logs">
-                    <template v-for="(item, index) in logs">
-                      <v-subheader v-if="item" :key="index" >{{
-                        item.message
-                      }}</v-subheader>
-                    </template>
-                  </v-list>
-                  <v-card-actions>
-                    <!-- <v-form @submit.prevent="submit"> -->
-                    <v-container>
-                      <v-row>
-                        <v-col cols="10">
-                          <v-text-field
-                            dense
-                            v-model="msg"
-                            label="Message"
-                            outlined
-                            color="deep-purple accent-3"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn
-                            dark
-                            color="deep-purple accent-3"
-                            @click="submit"
-                          >
-                            Enviar
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                    <!-- </v-form> -->
-
-                    <!-- <v-container>
-                      <v-row>
-                      </v-row>
-                      <v-row>
-                        <v-col cols="10">
-                          <v-text-field
-                            dense
-                            outlined=""
-                            v-model="messageInput"
-                            label="Escribe aquí tú mensaje"
-                          >
-                          </v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn color="deep-purple accent-3" dark
-                            >Enviar</v-btn
-                          >
-                        </v-col>
-                      </v-row>
-                    </v-container> -->
-                  </v-card-actions>
+                  <!-- <v-form @submit.prevent="submit"> -->
                 </v-card>
               </v-col>
             </v-row>
@@ -114,7 +77,7 @@
         </v-tab-item>
         <v-tab-item>
           <h2>recursos</h2>
-          <a href="https://www.github.com"> github</a>
+          <a href="https://www.github.com">github</a>
         </v-tab-item>
         <v-tab-item>
           <v-container>
@@ -129,9 +92,7 @@
                       class="mx-auto"
                       max-width="240"
                       color="deep-purple accent-3"
-                    >
-                      ¿Qué es la energía?
-                    </v-btn>
+                    >¿Qué es la energía?</v-btn>
                   </template>
                   <v-card>
                     <v-container>
@@ -140,29 +101,12 @@
                           <h2>¿Qué es la energía?</h2>
                           <v-row>
                             <v-col cols="12">
-                              <v-text-field
-                                label="respuesta 1"
-                                placeholder="ya tu sabe"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 2"
-                                placeholder="esa mera"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 3"
-                                placeholder="esta es"
-                              ></v-text-field>
-                              <v-text-field
-                                label="respuesta 4"
-                                placeholder="es la vida"
-                              ></v-text-field>
+                              <v-text-field label="respuesta 1" placeholder="ya tu sabe"></v-text-field>
+                              <v-text-field label="respuesta 2" placeholder="esa mera"></v-text-field>
+                              <v-text-field label="respuesta 3" placeholder="esta es"></v-text-field>
+                              <v-text-field label="respuesta 4" placeholder="es la vida"></v-text-field>
                               <v-row justify-center align-center>
-                                <v-select
-                                  outlined
-                                  label="respuestaCorrecta"
-                                  :items="respuestas"
-                                >
-                                </v-select>
+                                <v-select outlined label="respuestaCorrecta" :items="respuestas"></v-select>
                               </v-row>
                               <v-card-actions>
                                 <v-row justify="center">
@@ -170,9 +114,7 @@
                                     @click="renderSelectedTrivia"
                                     text
                                     color="deep-purple accent-3"
-                                  >
-                                    Asignar
-                                  </v-btn>
+                                  >Asignar</v-btn>
                                 </v-row>
                               </v-card-actions>
                             </v-col>
@@ -190,9 +132,7 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Quién es el presidente?
-                </v-btn>
+                >¿Quién es el presidente?</v-btn>
               </v-col>
             </v-row>
             <v-row>
@@ -203,9 +143,7 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Qué es una economía?
-                </v-btn>
+                >¿Qué es una economía?</v-btn>
               </v-col>
               <v-col>
                 <v-btn
@@ -214,22 +152,12 @@
                   class="mx-auto"
                   max-width="240"
                   color="deep-purple accent-3"
-                >
-                  ¿Qué es el dinero?
-                </v-btn>
+                >¿Qué es el dinero?</v-btn>
               </v-col>
             </v-row>
             <v-row>
               <v-fab-transition>
-                <v-btn
-                  v-show="!hidden"
-                  color="deep-purple accent-3"
-                  dark
-                  absolute
-                  bottom
-                  right
-                  fab
-                >
+                <v-btn v-show="!hidden" color="deep-purple accent-3" dark absolute bottom right fab>
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </v-fab-transition>
@@ -248,9 +176,7 @@
                 max-width="240"
                 color="deep-purple accent-3"
                 outlined
-              >
-                Estado Intelectual
-              </v-btn>
+              >Estado Intelectual</v-btn>
               <v-btn
                 @click="renderTopEmotionalStats"
                 dark
@@ -259,9 +185,7 @@
                 max-width="240"
                 color="deep-purple accent-3"
                 outlined
-              >
-                Estado Emocional
-              </v-btn>
+              >Estado Emocional</v-btn>
             </v-row>
           </v-container>
         </v-tab-item>
@@ -272,7 +196,8 @@
 </template>
 
 <script>
-import { db } from '../../db'
+import { CometChat } from "@cometchat-pro/chat";
+import { db } from "../../db";
 import LineChart from "../../LineChart";
 import Vue from "vue";
 import VueApexCharts from "vue-apexcharts";
@@ -285,7 +210,9 @@ export default {
 
   data() {
     return {
-      classroom:'a-1',
+      messagesList:[],
+      students: [],
+      classroom: "a-1",
       logs: [],
       logs2: [],
       msg: null,
@@ -321,38 +248,6 @@ export default {
       estadisticas: null,
       e6: 1,
       tabs: null,
-      themes: [
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        },
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        },
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        }
-      ],
       series: [60, 40],
       chartOptions: {
         colors: ["#00FF57", "#FF000F"],
@@ -394,9 +289,7 @@ export default {
       }
     };
   },
-  firestore:{
-    a-1-mensajes-verificados: db.collection('a-1-mensajes-verificados')
-  },
+
   watch: {
     logs() {
       setTimeout(() => {
@@ -407,50 +300,88 @@ export default {
       setTimeout(() => {
         this.$refs.chat2.$el.scrollTop = this.$refs.chat2.$el.scrollHeight;
       }, 0);
-    },
+    }
   },
-  created(){
-  
-  db.collection(this.classroom+'-mensajes-verificados')
-  .get()
-   .then(querySnapshot => {
-    const documents = querySnapshot.docs.map(doc => doc.data())
-    console.log('documents',documents)
-    this.logs = documents
-    // do something with documents
-  })
-  db.collection(this.classroom+'-mensajes')
-  .get()
-   .then(querySnapshot => {
-    const documents = querySnapshot.docs.map(doc => doc.data())
-    console.log('documents',documents)
-    this.logs2 = documents
-    // do something with documents
-  })
+  created() {
+    var limit = 50;
+
+var messagesRequest = new CometChat.MessagesRequestBuilder()
+  .setLimit(limit)
+  .build();
+
+messagesRequest.fetchPrevious().then(
+  messages => {
+    console.log("Message list fetched:", messages);
+    this.messagesList = messages
+    // Handle the list of messages
+  },
+  error => {
+    console.log("Message fetching failed with error:", error);
+  }
+);
+
+    var GUID = "a-1";
+    var limit = 32;
+    var groupMemberRequest = new CometChat.GroupMembersRequestBuilder(GUID)
+      .setLimit(limit)
+      .build();
+
+    groupMemberRequest.fetchNext().then(
+      groupMembers => {
+        this.students = groupMembers;
+        console.log("Group Member list fetched successfully:", groupMembers);
+      },
+      error => {
+        console.log("Group Member list fetching failed with exception:", error);
+      }
+    );
   },
   mounted() {
+    var listenerID = "UNIQUE_LISTENER";
+
+CometChat.addMessageListener(
+  listenerID,
+  new CometChat.MessageListener({
+    onTextMessageReceived: textMessage => {
+      console.log("Text message received successfully", textMessage);
+      // Handle text message
+    },
+    onMediaMessageReceived: mediaMessage => {
+      console.log("Media message received successfully", mediaMessage);
+      // Handle media message
+    },
+    onCustomMessageReceived: customMessage => {
+      console.log("Custom message received successfully", customMessage);
+      // Handle custom message
+    }
+  })
+)
+
     this.fillData();
   },
   methods: {
-    acceptMessage(item){
-      console.log('item',item)
-      db.collection(this.classroom + '-mensajes-verificados')
-      .add({
-        message:item
-      })
-      .then(() => {
-        console.log('exito')
-      })
-    },
+    
     submit() {
-      this.logs.push(this.msg);
-      this.msg = "";
+      var receiverID = "a-1";
+      var messageText = this.msg;
+      var receiverType = CometChat.RECEIVER_TYPE.GROUP;
+
+      var textMessage = new CometChat.TextMessage(
+        receiverID,
+        messageText,
+        receiverType
+      );
+
+      CometChat.sendMessage(textMessage).then(
+        message => {
+          console.log("Message sent successfully:", message);
+        },
+        error => {
+          console.log("Message sending failed with error:", error);
+        }
+      );
     },
-    initialize_call() {
-      this.active_call = true;
-      this.inactive_call = false;
-      setInterval(() => this.call_timer++, 1000);
-    },
+
     fillData() {
       (this.datacollection = {
         labels: ["lunes", "martes", "miercoles", "jueves", "viernes"],

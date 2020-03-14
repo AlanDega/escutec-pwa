@@ -267,6 +267,7 @@
 </template>
 
 <script>
+import { CometChat } from '@cometchat-pro/chat'
 import { db } from "../../db";
 import firebase from "firebase";
 import LineChart from "../../LineChart";
@@ -318,7 +319,6 @@ export default {
       transmision: true,
       estadisticas: null,
       e6: 1,
-      tabs: null,
       series: [60, 40],
       chartOptions: {
         colors: ["#00FF57", "#FF000F"],

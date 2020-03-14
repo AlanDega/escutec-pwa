@@ -278,6 +278,8 @@ export default {
     };
   },
   mounted() {
+
+
     console.log('route-name',this.$route.name)
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
