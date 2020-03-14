@@ -138,30 +138,31 @@
           </v-row>
         </v-container>
         <v-divider></v-divider>
-        <v-container>
-            <v-col>
-              <v-row justify="center" align="center">
-                <v-btn class="mt-6" dark rounded color="deep-purple accent-3">
-                  crear pregunta</v-btn
-                >
-              </v-row>
-              <v-row justify="center" align="center">
-                <v-btn class="mt-6" dark rounded color="deep-purple accent-3">
-                  tomar nota</v-btn
-                >
-              </v-row>
-            </v-col>
-        </v-container>
-        <v-divider></v-divider>
-        <v-row justify="center" align="center">
-          <v-container>
+       <v-container>
             <v-row justify="center">
-                <v-img  class="mt-6" contain height="120" width="120" src="./assets/boost.svg"></v-img>
-            </v-row>
-          </v-container>
-
-        </v-row>
-          
+            <v-col>
+              <v-list>
+                <v-row justify="center">
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 4/12000XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 10/10050XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 1/2800XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                </v-row>
+              </v-list>
+            </v-col>
+          </v-row>
+        </v-container>        
       </v-navigation-drawer>
     </div>
     <div
@@ -171,30 +172,33 @@
        
         <v-divider></v-divider>
         <v-container>
-          <v-row>
-            <v-img
-              contain
-              src="./assets/cash.svg"
-              height="32"
-              width="32"
-            ></v-img>
-            <v-text>30</v-text>
-          </v-row>
+          <ClassSteps />
         </v-container>
         <v-divider></v-divider>
         <v-container>
+            <v-row justify="center">
             <v-col>
-              <v-row justify="center" align="center">
-                <v-btn class="mt-6" dark rounded color="deep-purple accent-3">
-                  crear pregunta</v-btn
-                >
-              </v-row>
-              <v-row justify="center" align="center">
-                <v-btn class="mt-6" dark rounded color="deep-purple accent-3">
-                  tomar nota</v-btn
-                >
-              </v-row>
+              <v-list>
+                <v-row justify="center">
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 4/12000XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 10/10050XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{  'Alumno 1/2800XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                </v-row>
+              </v-list>
             </v-col>
+          </v-row>
         </v-container>
         <v-divider></v-divider>
         <v-row justify="center" align="center">
@@ -261,6 +265,11 @@ export default {
         {
           title: "Tareas",
           icon: "mdi-calendar-range",
+          path: "/schedule"
+        },
+        {
+          title: "Juegos",
+          icon: "mdi-gamepad-variant",
           path: "/schedule"
         },
         {

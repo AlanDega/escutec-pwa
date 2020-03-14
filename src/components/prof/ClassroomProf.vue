@@ -36,16 +36,16 @@
                               v-if="student"
                               :key="index"
                               @click="viewProfile(student)"
-                            >{{student.name}}</v-subheader>
+                            >{{ student.name}}</v-subheader>
                           </template>
                         </v-list>
                       </v-navigation-drawer>
                       <v-col>
                         <v-list ref="chat" id="logs">
-                          <template v-for="(message, index) in messagesList">
+                          <template v-for="(message, index) in messages">
                             <v-subheader v-if="message" :key="index">
                               {{
-                              message.text
+                              message.sender + ':' + message.message
                               }}
                             </v-subheader>
                           </template>
@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { CometChat } from "@cometchat-pro/chat";
+import firebase from "firebase";
 import { db } from "../../db";
 import LineChart from "../../LineChart";
 import Vue from "vue";
@@ -210,10 +210,9 @@ export default {
 
   data() {
     return {
-      messagesList:[],
       students: [],
-      classroom: "a-1",
-      logs: [],
+      classroom: "A-1",
+      messages: [],
       logs2: [],
       msg: null,
       messageInput: null,
@@ -248,6 +247,38 @@ export default {
       estadisticas: null,
       e6: 1,
       tabs: null,
+      themes: [
+        {
+          title: "Historia de la informática",
+          imageUrl: "",
+          videoUrl: "",
+          notas: [
+            "hacer énfasis en los sistemas operativos",
+            "historia de linux",
+            "futuro de la informática"
+          ]
+        },
+        {
+          title: "Historia de la informática",
+          imageUrl: "",
+          videoUrl: "",
+          notas: [
+            "hacer énfasis en los sistemas operativos",
+            "historia de linux",
+            "futuro de la informática"
+          ]
+        },
+        {
+          title: "Historia de la informática",
+          imageUrl: "",
+          videoUrl: "",
+          notas: [
+            "hacer énfasis en los sistemas operativos",
+            "historia de linux",
+            "futuro de la informática"
+          ]
+        }
+      ],
       series: [60, 40],
       chartOptions: {
         colors: ["#00FF57", "#FF000F"],
@@ -302,84 +333,48 @@ export default {
       }, 0);
     }
   },
-  created() {
-    var limit = 50;
-
-var messagesRequest = new CometChat.MessagesRequestBuilder()
-  .setLimit(limit)
-  .build();
-
-messagesRequest.fetchPrevious().then(
-  messages => {
-    console.log("Message list fetched:", messages);
-    this.messagesList = messages
-    // Handle the list of messages
-  },
-  error => {
-    console.log("Message fetching failed with error:", error);
-  }
-);
-
-    var GUID = "a-1";
-    var limit = 32;
-    var groupMemberRequest = new CometChat.GroupMembersRequestBuilder(GUID)
-      .setLimit(limit)
-      .build();
-
-    groupMemberRequest.fetchNext().then(
-      groupMembers => {
-        this.students = groupMembers;
-        console.log("Group Member list fetched successfully:", groupMembers);
-      },
-      error => {
-        console.log("Group Member list fetching failed with exception:", error);
-      }
-    );
-  },
   mounted() {
-    var listenerID = "UNIQUE_LISTENER";
-
-CometChat.addMessageListener(
-  listenerID,
-  new CometChat.MessageListener({
-    onTextMessageReceived: textMessage => {
-      console.log("Text message received successfully", textMessage);
-      // Handle text message
-    },
-    onMediaMessageReceived: mediaMessage => {
-      console.log("Media message received successfully", mediaMessage);
-      // Handle media message
-    },
-    onCustomMessageReceived: customMessage => {
-      console.log("Custom message received successfully", customMessage);
-      // Handle custom message
-    }
-  })
-)
-
     this.fillData();
+    firebase.auth().onAuthStateChanged(user => {
+      console.log("user", user.email);
+      this.user = user.email;
+    });
+    db.collection(this.classroom + "-students")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        this.students = documents;
+      });
+     setInterval(() => {
+      db.collection(this.classroom + "-messages")
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => doc.data());
+          console.log("message-documents", documents);
+          this.messages = documents;
+    }
+        ), 1500}
+    )
   },
+
   methods: {
-    
     submit() {
-      var receiverID = "a-1";
-      var messageText = this.msg;
-      var receiverType = CometChat.RECEIVER_TYPE.GROUP;
+      db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: this.msg
+        })
+        .then(() => {  
+              this.msg = ''
 
-      var textMessage = new CometChat.TextMessage(
-        receiverID,
-        messageText,
-        receiverType
-      );
-
-      CometChat.sendMessage(textMessage).then(
-        message => {
-          console.log("Message sent successfully:", message);
-        },
-        error => {
-          console.log("Message sending failed with error:", error);
-        }
-      );
+          db.collection(this.classroom + "-messages")
+            .get()
+            .then(querySnapshot => {
+              const documents = querySnapshot.docs.map(doc => doc.data());
+              console.log("message-documents", documents);
+              this.messages = documents;
+            });
+        });
     },
 
     fillData() {
@@ -579,20 +574,20 @@ CometChat.addMessageListener(
 
 <style lang="scss" scoped>
 #logs {
-  height: 250px;
+  height: 180px;
   overflow: auto;
 }
 #logs2 {
-  height: 300px;
+  height: 180px;
   overflow: auto;
 }
 .ChatCard {
-  height: 41vh;
+  height: 35vh;
   width: 100%;
   margin-top: 20px;
 }
 .TwitchPlayer {
-  height: 41vh;
+  height: 35vh;
   width: 100%;
 }
 .dashboard {

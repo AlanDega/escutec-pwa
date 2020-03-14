@@ -1,13 +1,13 @@
 <template>
     <div>
- <v-stepper v-model="e6" vertical class="daStepper">
+ <v-stepper flat v-model="e6" vertical class="daStepper">
             <v-stepper-step
               color="deep-purple accent-3"
               :complete="e6 > 1"
               step="1"
             >
-              Select an app
-              <small>Summarize if needed</small>
+              Pasar Lista
+              <small>Sumar xp</small>
             </v-stepper-step>
 
             <v-stepper-content color="deep-purple accent-3" step="1">
@@ -20,7 +20,7 @@
               color="deep-purple accent-3"
               :complete="e6 > 2"
               step="2"
-              >Configure analytics for this app</v-stepper-step
+              >Hacer trivia de Ingeniería</v-stepper-step
             >
 
             <v-stepper-content color="deep-purple accent-3" step="2">
@@ -33,7 +33,7 @@
               color="deep-purple accent-3"
               :complete="e6 > 3"
               step="3"
-              >Select an ad format and name ad unit</v-stepper-step
+              >Revisar Tarea </v-stepper-step
             >
 
             <v-stepper-content color="deep-purple accent-3" step="3">

@@ -34,40 +34,34 @@
             </v-row>
             <v-row>
               <v-col cols="6">
-                <v-card class="ChatCard">
-                  <v-list ref="chat" id="logs">
-                    <template v-for="(item, index) in logs">
-                      <v-subheader v-if="item" :key="index" @click="acceptMessage(item)">{{
-                        item.message
-                      }}</v-subheader>
-                    </template>
-                  </v-list>
-                  <v-card-actions>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="10">
-                          <v-text-field
-                            dense
-                            v-model="msg"
-                            label="Message"
-                            outlined
-                            color="deep-purple accent-3"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn
-                            dark
-                            color="deep-purple accent-3"
-                            @click="submit"
-                          >
-                            Enviar
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card-actions>
-                </v-card>
-              </v-col>
+                <v-card>
+                        <v-list ref="chat" id="logs">
+                          <template v-for="(message, index) in messages">
+                            <v-subheader v-if="message" :key="index">
+                              {{
+                              message.sender + ':' + message.message
+                              }}
+                            </v-subheader>
+                          </template>
+                        </v-list>
+                        <v-container>
+                          <v-row>
+                            <v-col cols="10">
+                              <v-text-field
+                                dense
+                                v-model="msg"
+                                label="Message"
+                                outlined
+                                color="deep-purple accent-3"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col cols="2">
+                              <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                            </v-col>
+                          </v-row>
+                        </v-container>
+                        </v-card>
+                      </v-col>
               <v-col cols="6">
                 <v-card class="ChatCard">
                   <v-list ref="chat" id="logs2">
@@ -282,9 +276,10 @@ export default {
 
   data() {
     return {
+      messages:[],
       user: null,
       nota: null,
-      classroom: "a-1",
+      classroom: "A-1",
       logs: [],
       logs2: [],
       msg: null,
@@ -380,14 +375,16 @@ export default {
       this.user = user.email;
       console.log("user", this.user);
     });
-    db.collection(this.classroom + "-mensajes-verificados")
-      .get()
-      .then(querySnapshot => {
-        const documents = querySnapshot.docs.map(doc => doc.data());
-        this.logs = documents
-        console.log("logs", this.logs);
-        // do something with documents
-      });
+    setInterval(() => {
+      db.collection(this.classroom + "-messages")
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => doc.data());
+          console.log("message-documents", documents);
+          this.messages = documents;
+    }
+        ), 1500}
+    )
    
   },
   mounted() {
@@ -396,18 +393,22 @@ export default {
   methods: {
    
     submit() {
-      // this.logs.push(this.msg);
-      db.collection(this.classroom + "-mensajes")
-      .add({
-        sender: this.user,
-        message: this.msg
-      })
-      .then(() => {
-        console.log('exito')
+      db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: this.msg
+        })
+        .then(() => {  
+              this.msg = ''
 
-      })
-            this.msg = '';
-
+          db.collection(this.classroom + "-messages")
+            .get()
+            .then(querySnapshot => {
+              const documents = querySnapshot.docs.map(doc => doc.data());
+              console.log("message-documents", documents);
+              this.messages = documents;
+            });
+        });
     },
     fillData() {
       (this.datacollection = {
@@ -607,15 +608,15 @@ export default {
 
 <style lang="scss" scoped>
 #logs {
-  height: 250px;
+  height:   180px;
   overflow: auto;
 }
 #logs2 {
-  height: 300px;
+  height: 180px;
   overflow: auto;
 }
 .ChatCard {
-  height: 41vh;
+  height: 30vh;
   width: 100%;
   margin-top: 20px;
 }
