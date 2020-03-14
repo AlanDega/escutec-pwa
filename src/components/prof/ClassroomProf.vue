@@ -1,388 +1,278 @@
 <template>
   <div class="div1">
-    <v-container class="daContain">
-      <v-row>
-        <v-col align="center">
-          <v-card class="whiteboard">
-            <div v-if="recursos">
-              Elige un recurso
-            </div>
-            <div v-if="selected_image">
-              <v-img
-                contain
-                width="100%"
-                max-height="300px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-              </v-img>
-            </div>
-            <div v-if="selected_video" class="divFrame">
-              <iframe
-                id="ytplayer"
-                type="text/html"
-                width="100%"
-                height="100%"
-                src="http://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&origin=http://example.com"
-                frameborder="0"
-              />
-            </div>
-            <div v-if="selected_link"></div>
-            <div v-if="selected_homework">
-              <v-container>
-                <v-row justify="center" align="center">
-                  <v-text>Tareas asignadas al salón A-1</v-text>
-                </v-row>
-                <v-row>
-                  <v-col>
-                    <v-card
-                      dark
-                      class="mx-auto"
-                      max-width="240"
-                      color="deep-purple accent-3"
-                    >
-                      <v-system-bar
-                        color="deep-purple accent-2"
-                        height="5px"
-                        dark
-                      >
-                      </v-system-bar>
+    <v-col align="center">
+      <!-- tabs ----------------------------------------------------------------__________----_------------>
 
-                      <v-card-title>
-                        <v-row justify="center">
-                          <v-text>Tarea 1</v-text>
-                        </v-row>
-                      </v-card-title>
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
-            <div></div>
-            <div v-if="selected_trivia">
-              <v-container>
-                <v-row>
-                  <v-col>
-                    <v-text> ¿Qué es la energía? </v-text>
+      <v-tabs centered color="deep-purple accent-3">
+        <v-tab @click="renderTransmision">
+          transmisión
+        </v-tab>
+        <v-tab @click="renderResources">
+          Recursos
+        </v-tab>
+        <v-tab @click="renderTrivia">
+          Trivia
+        </v-tab>
+        <v-tab @click="renderEstadisticas">
+          estadisticas
+        </v-tab>
+
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-card class="TwitchPlayer">
+                <iframe
+                  src="https://player.twitch.tv/?channel=grapho&muted=true"
+                  height="100%"
+                  width="100%"
+                  frameborder="0"
+                  scrolling="no"
+                  allowfullscreen="true"
+                >
+                </iframe>
+              </v-card>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-card class="ChatCard">
+                  
+                  <v-container>
                     <v-row>
-                      <v-col cols="6">
-                        <v-text>Respuesta Correcta:</v-text>
-                        <v-text>Es la vida</v-text>
-                      </v-col>
-                      <v-col cols="6">
-                        <v-text>Resultados</v-text>
-                        <apexchart
-                          type="donut"
-                          height="150"
-                          :options="chartOptions"
-                          :series="series"
-                        />
+                      <v-col>
+                        <v-list ref="chat2" id="logs2">
+                          <template v-for="(item, index) in logs2">
+                            <v-subheader v-if="item" :key="index" @click="acceptMessage(item)">{{
+                              item.sender + ':' + item.message
+                            }}</v-subheader>
+                          </template>
+                        </v-list>
                       </v-col>
                     </v-row>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
-            <div v-if="tareas">
-              <v-container>
-                <v-row justify="center" align="center">
-                  <v-text>Tareas Asignadas del salón A-1</v-text>
-                </v-row>
-              </v-container>
-            </div>
-            <div v-if="trivia">
-              Elige la trivia
-            </div>
-            <div v-if="transmision" class="media_card">
-              <iframe
-                src="https://player.twitch.tv/?channel=grapho&muted=true"
-                height="100%"
-                width="100%"
-                frameborder="0"
-                scrolling="no"
-                allowfullscreen="true"
-              >
-              </iframe>
-            </div>
-            <div v-if="estadisticas">
-              elige el tipo de estadisticas
-            </div>
-            <div v-if="selected_intel_state" class="small">
-              <v-row>
-                <v-col cols="6">
-                  <line-chart
-                    :chart-data="datacollection"
-                    class="chart_style"
-                  ></line-chart>
-                </v-col>
-                <v-col cols="6">
-                  <line-chart
-                    :chart-data="datacollection2"
-                    class="chart_style"
-                  ></line-chart>
-                </v-col>
-              </v-row>
-            </div>
-            <div v-if="selected_emotional_state" class="small">
-              <v-row>
-                <v-col>
-                  <line-chart
-                    :chart-data="datacollection3"
-                    class="chart_style"
-                  ></line-chart>
-                </v-col>
-              </v-row>
-            </div>
-          </v-card>
-          <!-- tabs ----------------------------------------------------------------__________----_------------>
-          <v-card class="dashboard">
-            <v-tabs centered color="deep-purple accent-3">
-              <v-tab @click="renderTransmision">
-                transmisión
-              </v-tab>
-              <v-tab @click="renderResources">
-                Recursos
-              </v-tab>
-              <v-tab @click="renderTrivia">
-                Trivia
-              </v-tab>
-              <v-tab @click="renderEstadisticas">
-                estadisticas
-              </v-tab>
-
-              <v-tab-item>
-                <v-container>
-                  <v-row>
-                    <v-col cols="3">
-                      <v-row justify="center">
-                        <v-avatar color="deep-purple accent-3">
-                          <v-img
-                            src="https://i.stack.imgur.com/frlIf.png"
-                          ></v-img>
-                        </v-avatar>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-list-item two-line>
-                        <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
-                          <v-list-item-subtitle>Conectado</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="3">
-                      <v-row justify="center">
-                        <v-avatar color="deep-purple accent-3">
-                          <v-icon dark>mdi-account-circle</v-icon>
-                        </v-avatar>
-                      </v-row>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-list-item two-line>
-                        <v-list-item-content>
-                          <v-list-item-title
-                            >nombre de alumno</v-list-item-title
-                          >
-                          <v-list-item-subtitle
-                            >Desconectado</v-list-item-subtitle
-                          >
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-tab-item>
-               <v-tab-item>
-                  <h2>recursos</h2>
-                <a href="https://www.github.com"> github</a>
-              </v-tab-item>
-              <v-tab-item>
-                <v-container>
-                  <v-row>
-                    <v-col>
-                      <v-dialog v-model="dialogTrivia" width="500">
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            v-on="on"
-                            dark
+                  </v-container>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card class="ChatCard">
+                  <v-list ref="chat" id="logs">
+                    <template v-for="(item, index) in logs">
+                      <v-subheader v-if="item" :key="index" >{{
+                        item.message
+                      }}</v-subheader>
+                    </template>
+                  </v-list>
+                  <v-card-actions>
+                    <!-- <v-form @submit.prevent="submit"> -->
+                    <v-container>
+                      <v-row>
+                        <v-col cols="10">
+                          <v-text-field
+                            dense
+                            v-model="msg"
+                            label="Message"
                             outlined
-                            class="mx-auto"
-                            max-width="240"
                             color="deep-purple accent-3"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-btn
+                            dark
+                            color="deep-purple accent-3"
+                            @click="submit"
                           >
-                            ¿Qué es la energía?
+                            Enviar
                           </v-btn>
-                        </template>
-                        <v-card>
-                          <v-container>
-                            <v-row justify="center">
-                              <v-col>
-                                <h2>¿Qué es la energía?</h2>
-                                <v-row>
-                                  <v-col cols="12">
-                                    <v-text-field
-                                      label="respuesta 1"
-                                      placeholder="ya tu sabe"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 2"
-                                      placeholder="esa mera"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 3"
-                                      placeholder="esta es"
-                                    ></v-text-field>
-                                    <v-text-field
-                                      label="respuesta 4"
-                                      placeholder="es la vida"
-                                    ></v-text-field>
-                                    <v-row justify-center align-center>
-                                      <v-select
-                                        outlined
-                                        label="respuestaCorrecta"
-                                        :items="respuestas"
-                                      >
-                                      </v-select>
-                                    </v-row>
-                                    <v-card-actions>
-                                      <v-row justify="center">
-                                        <v-btn
-                                          @click="renderSelectedTrivia"
-                                          text
-                                          color="deep-purple accent-3"
-                                        >
-                                          Asignar
-                                        </v-btn>
-                                      </v-row>
-                                    </v-card-actions>
-                                  </v-col>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                    <!-- </v-form> -->
+
+                    <!-- <v-container>
+                      <v-row>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="10">
+                          <v-text-field
+                            dense
+                            outlined=""
+                            v-model="messageInput"
+                            label="Escribe aquí tú mensaje"
+                          >
+                          </v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-btn color="deep-purple accent-3" dark
+                            >Enviar</v-btn
+                          >
+                        </v-col>
+                      </v-row>
+                    </v-container> -->
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+        <v-tab-item>
+          <h2>recursos</h2>
+          <a href="https://www.github.com"> github</a>
+        </v-tab-item>
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-dialog v-model="dialogTrivia" width="500">
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      v-on="on"
+                      dark
+                      outlined
+                      class="mx-auto"
+                      max-width="240"
+                      color="deep-purple accent-3"
+                    >
+                      ¿Qué es la energía?
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-container>
+                      <v-row justify="center">
+                        <v-col>
+                          <h2>¿Qué es la energía?</h2>
+                          <v-row>
+                            <v-col cols="12">
+                              <v-text-field
+                                label="respuesta 1"
+                                placeholder="ya tu sabe"
+                              ></v-text-field>
+                              <v-text-field
+                                label="respuesta 2"
+                                placeholder="esa mera"
+                              ></v-text-field>
+                              <v-text-field
+                                label="respuesta 3"
+                                placeholder="esta es"
+                              ></v-text-field>
+                              <v-text-field
+                                label="respuesta 4"
+                                placeholder="es la vida"
+                              ></v-text-field>
+                              <v-row justify-center align-center>
+                                <v-select
+                                  outlined
+                                  label="respuestaCorrecta"
+                                  :items="respuestas"
+                                >
+                                </v-select>
+                              </v-row>
+                              <v-card-actions>
+                                <v-row justify="center">
+                                  <v-btn
+                                    @click="renderSelectedTrivia"
+                                    text
+                                    color="deep-purple accent-3"
+                                  >
+                                    Asignar
+                                  </v-btn>
                                 </v-row>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-card>
-                      </v-dialog>
-                    </v-col>
-                    <v-col>
-                      <v-btn
-                        outlined
-                        dark
-                        class="mx-auto"
-                        max-width="240"
-                        color="deep-purple accent-3"
-                      >
-                        ¿Quién es el presidente?
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
-                      <v-btn
-                        dark
-                        outlined
-                        class="mx-auto"
-                        max-width="240"
-                        color="deep-purple accent-3"
-                      >
-                        ¿Qué es una economía?
-                      </v-btn>
-                    </v-col>
-                    <v-col>
-                      <v-btn
-                        dark
-                        outlined
-                        class="mx-auto"
-                        max-width="240"
-                        color="deep-purple accent-3"
-                      >
-                        ¿Qué es el dinero?
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-fab-transition>
-                      <v-btn
-                        v-show="!hidden"
-                        color="deep-purple accent-3"
-                        dark
-                        absolute
-                        bottom
-                        right
-                        fab
-                      >
-                        <v-icon>mdi-plus</v-icon>
-                      </v-btn>
-                    </v-fab-transition>
-                  </v-row>
-                </v-container>
-              </v-tab-item>
-             
-              <v-tab-item>
-                <v-container>
-                  <v-row>
-                    <v-btn
-                      @click="renderTopIntellectualStats"
-                      dark
-                      v-on="on"
-                      class="mx-auto"
-                      max-width="240"
-                      color="deep-purple accent-3"
-                      outlined
-                    >
-                      Estado Intelectual
-                    </v-btn>
-                    <v-btn
-                      @click="renderTopEmotionalStats"
-                      dark
-                      v-on="on"
-                      class="mx-auto"
-                      max-width="240"
-                      color="deep-purple accent-3"
-                      outlined
-                    >
-                      Estado Emocional
-                    </v-btn>
-                  </v-row>
-                </v-container>
-              </v-tab-item>
-            </v-tabs>
-            <div v-if="resources">
-              <v-bottom-navigation
-                v-model="bottomNav"
-                absolute
+                              </v-card-actions>
+                            </v-col>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <v-col>
+                <v-btn
+                  outlined
+                  dark
+                  class="mx-auto"
+                  max-width="240"
+                  color="deep-purple accent-3"
+                >
+                  ¿Quién es el presidente?
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-btn
+                  dark
+                  outlined
+                  class="mx-auto"
+                  max-width="240"
+                  color="deep-purple accent-3"
+                >
+                  ¿Qué es una economía?
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn
+                  dark
+                  outlined
+                  class="mx-auto"
+                  max-width="240"
+                  color="deep-purple accent-3"
+                >
+                  ¿Qué es el dinero?
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-fab-transition>
+                <v-btn
+                  v-show="!hidden"
+                  color="deep-purple accent-3"
+                  dark
+                  absolute
+                  bottom
+                  right
+                  fab
+                >
+                  <v-icon>mdi-plus</v-icon>
+                </v-btn>
+              </v-fab-transition>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-btn
+                @click="renderTopIntellectualStats"
+                dark
+                v-on="on"
+                class="mx-auto"
+                max-width="240"
                 color="deep-purple accent-3"
+                outlined
               >
-                <v-btn value="images" @click="renderImagesType">
-                  <v-icon>mdi-image</v-icon>
-                </v-btn>
-
-                <v-btn value="videos" @click="renderVideosType">
-                  <v-icon>mdi-play-circle</v-icon>
-                </v-btn>
-
-                <v-btn value="links" @click="renderLinksType">
-                  <v-icon>mdi-link-variant</v-icon>
-                </v-btn>
-              </v-bottom-navigation>
-            </div>
-          </v-card>
-        </v-col>
-      </v-row>
-      <div v-if="inactive_call">
-        
-      </div>
-    </v-container>
-
-    <div v-if="active_call">
-      
-    </div>
+                Estado Intelectual
+              </v-btn>
+              <v-btn
+                @click="renderTopEmotionalStats"
+                dark
+                v-on="on"
+                class="mx-auto"
+                max-width="240"
+                color="deep-purple accent-3"
+                outlined
+              >
+                Estado Emocional
+              </v-btn>
+            </v-row>
+          </v-container>
+        </v-tab-item>
+      </v-tabs>
+      <div v-if="resources"></div>
+    </v-col>
   </div>
 </template>
 
 <script>
+import { db } from '../../db'
 import LineChart from "../../LineChart";
 import Vue from "vue";
 import VueApexCharts from "vue-apexcharts";
@@ -395,6 +285,11 @@ export default {
 
   data() {
     return {
+      classroom:'a-1',
+      logs: [],
+      logs2: [],
+      msg: null,
+      messageInput: null,
       call_timer: 0,
       inactive_call: true,
       active_call: null,
@@ -422,7 +317,7 @@ export default {
       resources: true,
       tareas: null,
       trivia: null,
-      transmision: null,
+      transmision: true,
       estadisticas: null,
       e6: 1,
       tabs: null,
@@ -499,10 +394,58 @@ export default {
       }
     };
   },
+  firestore:{
+    a-1-mensajes-verificados: db.collection('a-1-mensajes-verificados')
+  },
+  watch: {
+    logs() {
+      setTimeout(() => {
+        this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
+      }, 0);
+    },
+    logs2() {
+      setTimeout(() => {
+        this.$refs.chat2.$el.scrollTop = this.$refs.chat2.$el.scrollHeight;
+      }, 0);
+    },
+  },
+  created(){
+  
+  db.collection(this.classroom+'-mensajes-verificados')
+  .get()
+   .then(querySnapshot => {
+    const documents = querySnapshot.docs.map(doc => doc.data())
+    console.log('documents',documents)
+    this.logs = documents
+    // do something with documents
+  })
+  db.collection(this.classroom+'-mensajes')
+  .get()
+   .then(querySnapshot => {
+    const documents = querySnapshot.docs.map(doc => doc.data())
+    console.log('documents',documents)
+    this.logs2 = documents
+    // do something with documents
+  })
+  },
   mounted() {
     this.fillData();
   },
   methods: {
+    acceptMessage(item){
+      console.log('item',item)
+      db.collection(this.classroom + '-mensajes-verificados')
+      .add({
+        message:item
+      })
+      .then(() => {
+        console.log('exito')
+      })
+    },
+    submit() {
+      this.logs.push(this.msg);
+      this.msg = "";
+    },
     initialize_call() {
       this.active_call = true;
       this.inactive_call = false;
@@ -704,7 +647,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard{
+#logs {
+  height: 250px;
+  overflow: auto;
+}
+#logs2 {
+  height: 300px;
+  overflow: auto;
+}
+.ChatCard {
+  height: 41vh;
+  width: 100%;
+  margin-top: 20px;
+}
+.TwitchPlayer {
+  height: 41vh;
+  width: 100%;
+}
+.dashboard {
   margin-top: 20px;
   height: 40vh;
 }
