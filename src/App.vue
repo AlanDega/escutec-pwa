@@ -1,6 +1,7 @@
 <template>
-  <v-app>
-    <v-app-bar
+  <v-app class="app">
+    <div v-if="prof || student">
+<v-app-bar
      fixed
       app
       color="deep-purple accent-3"
@@ -15,7 +16,9 @@
 
       <v-spacer></v-spacer>
       <v-btn @click="logout">logout</v-btn>
-    </v-app-bar>
+</v-app-bar>
+    </div>
+    <div v-if="prof || student">
     <div v-if="this.$route.name != 'sign-up'">
       <div v-if="this.$route.name != 'login'">
 
@@ -58,6 +61,8 @@
       </div>
     </v-navigation-drawer>
           </div>
+
+    </div>
 
     </div>
     
@@ -212,7 +217,11 @@
           
       </v-navigation-drawer>
     </div>
-
+    <!-- <div v-if="director">
+      <v-navigation-drawer>
+      <Layout />
+      </v-navigation-drawer>
+    </div> -->
     <v-content>
       <router-view />
     </v-content>
@@ -222,20 +231,23 @@
 <script>
 import firebase from "firebase";
 import { db } from "./db";
+
+import Layout from './views/director/layout/Layout'
 import ClassSteps from "./components/prof/ClassSteps";
 export default {
   components: {
-    ClassSteps
+    ClassSteps,
+    Layout
   },
   data() {
     return {
       xp:null,
       auth:null,
-      value: 15,
       tipo_usuario: null,
       user_email: null,
       prof: null,
       student: null,
+      director:null,
       items: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
@@ -304,9 +316,19 @@ export default {
                       console.log('app',document);
             if(document.tipo_usuario === 'prof'){
               this.prof = true
+              this.student = false
+              this.director = false
             }
-            else{this.student = true}
-            // do something with document
+            else if(document.tipo_usuario === 'student'){
+              this.student = true
+              this.director = false
+              this.prof = false
+              }
+            else if(document.tipo_usuario === 'director'){
+              this.director = true
+              this.student = false
+              this.prof = false
+            }
           });
       }
     });
@@ -354,3 +376,8 @@ export default {
   }
 };
 </script>
+<style >
+.app {
+  background-color: #282424
+}
+</style>

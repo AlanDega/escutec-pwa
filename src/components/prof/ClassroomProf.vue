@@ -259,38 +259,6 @@ export default {
       estadisticas: null,
       e6: 1,
       tabs: null,
-      themes: [
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        },
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        },
-        {
-          title: "Historia de la informática",
-          imageUrl: "",
-          videoUrl: "",
-          notas: [
-            "hacer énfasis en los sistemas operativos",
-            "historia de linux",
-            "futuro de la informática"
-          ]
-        }
-      ],
       series: [60, 40],
       chartOptions: {
         colors: ["#00FF57", "#FF000F"],
@@ -306,7 +274,6 @@ export default {
             stops: [0, 100]
           }
         },
-
         labels: ["Correctos", "Incorrectos"],
         responsive: [
           {

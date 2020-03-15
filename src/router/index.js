@@ -6,7 +6,7 @@ import Schedule from '../views/Schedule.vue'
 import GroupActions from '../views/GroupActions.vue'
 import Login from '../views/auth/Login.vue'
 import SignUp from '../views/auth/SignUp.vue'
-
+import Dashboard from '../views/director/Dashboard.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -24,6 +24,11 @@ const routes = [
     path: '/sign-up',
     name: 'sign-up',
     component: SignUp
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard
   },
   {
     path: '/classroom',
