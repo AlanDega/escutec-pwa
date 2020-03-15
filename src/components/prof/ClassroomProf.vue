@@ -376,7 +376,7 @@ export default {
     validatePresence(student) {
       this.student_checked = true
       console.log("student", student.name)
-      const increment = firebase.firestore.FieldValue.increment(50)
+      const increment = firebase.firestore.FieldValue.increment(20)
       const xpRef = db.collection(this.classroom + '-students').doc(student.name)
       const batch = db.batch()
       batch.set(xpRef, { xp: increment }, { merge: true })

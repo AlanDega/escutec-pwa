@@ -1,6 +1,7 @@
 <template>
   <div class="div1">
-    <v-col align="center">
+    <v-row>
+    <v-col align="center" cols="9">
       <!-- tabs ----------------------------------------------------------------__________----_------------>
 
       <v-tabs centered color="deep-purple accent-3">
@@ -184,6 +185,107 @@
       </v-tabs>
       <div v-if="resources"></div>
     </v-col>
+    <!-- -------------------------------------- SideBar Right _____________------------------ -->
+    <v-col class="side-bar-right" cols="3">
+       <v-list>
+          <v-list-item>
+            <v-list-item-content>
+              <v-img
+                contain
+                src="../../assets/level.svg"
+                height="80"
+                width="80"
+              ></v-img>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-row>
+              <v-col justify="right"
+                >{{ xp + '/' + next_level_xp + 'XP'}}
+                <v-progress-linear
+                  rounded
+                  height="6"
+                  color="deep-purple accent-3"
+                  v-model="xp"
+                ></v-progress-linear>
+              </v-col>
+            </v-row>
+          </v-list-item>
+          <v-divider></v-divider>
+          <v-row class="mt-6" justify="center">
+            <v-text>Retos</v-text>
+          </v-row>
+          <v-list-item three-line>
+            <v-list-content>
+              <v-list-item-title>
+                3 aciertos
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                1/3
+              </v-list-item-subtitle>
+            </v-list-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-content>
+              <v-list-item-title>
+                3 aciertos
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                1/3
+              </v-list-item-subtitle>
+            </v-list-content>
+          </v-list-item>
+          <v-list-item three-line>
+            <v-list-content>
+              <v-list-item-title>
+                3 aciertos
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                1/3
+              </v-list-item-subtitle>
+            </v-list-content>
+          </v-list-item>
+        </v-list>
+        <v-divider></v-divider>
+        <v-container>
+          <v-row>
+            <v-img
+              contain
+              src="../../assets/cash.svg"
+              height="32"
+              width="32"
+            ></v-img>
+            <v-text>30</v-text>
+          </v-row>
+        </v-container>
+        <v-divider></v-divider>
+        <v-container>
+            <v-row justify="center">
+            <v-col>
+              <v-list>
+                <v-row justify="center">
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{'Alumno 4/12000XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{'Alumno 10/10050XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item >
+                    <v-list-content>
+                      <v-list-title>{{'Alumno 1/2800XP'}} </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                </v-row>
+              </v-list>
+            </v-col>
+          </v-row>
+        </v-container>
+    </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -201,6 +303,7 @@ export default {
 
   data() {
     return {
+      next_level_xp:100,
       xp:0,
       fab: false,
       hidden: false,
@@ -554,6 +657,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.side-bar-right{
+  border-left: 1px solid #E3E0E0;
+  
+}
 .v-btn--example {
 }
 .chat_notes_card {

@@ -61,7 +61,7 @@
 
     </div>
     
-    <div
+    <!-- <div
       v-if="this.$route.name === 'Classroom' && this.student"
     >
       <v-navigation-drawer right app permanent clipped fixed>
@@ -164,7 +164,7 @@
           </v-row>
         </v-container>        
       </v-navigation-drawer>
-    </div>
+    </div> -->
     <div
       v-if="this.$route.name === 'Classroom' && this.prof"
     >
