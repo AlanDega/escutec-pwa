@@ -46,6 +46,7 @@
               <v-container>
                 <v-card-text>
                   <v-text-field label="Nombre" v-model="student_name"></v-text-field>
+                  <v-text-field label="email" v-model="student_email"></v-text-field>
                 </v-card-text>
               </v-container>
 
@@ -76,6 +77,10 @@ export default {
       classroom: null,
       students: [],
       student_name: null,
+      student_email: null,
+      student_xp:0,
+      // tokens are lvl2
+      student_tokens:0,
       dialog: false,
       fab: false,
       hidden: false,
@@ -114,13 +119,16 @@ export default {
       db.collection(this.classroom + "-students")
         .doc(this.student_name)
         .set({
-            name: this.student_name
+            name: this.student_name,
+            email: this.student_email,
+            xp: this.student_xp
         })
         .then(() => {
           console.log("exito");
           db.collection(this.classroom + "-students")
       .get()
       .then(querySnapshot => {
+        this.dialog = false
         const documents = querySnapshot.docs.map(doc => doc.data());
         console.log("documents", documents);
         this.students = documents;

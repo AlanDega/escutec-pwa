@@ -7,6 +7,7 @@ import GroupActions from '../views/GroupActions.vue'
 import Login from '../views/auth/Login.vue'
 import SignUp from '../views/auth/SignUp.vue'
 import Dashboard from '../views/director/Dashboard.vue'
+import Trivias from '../views/prof/Trivias.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
     path: '/group-actions/:id',
     name: 'group-actions',
     component: GroupActions
+  },
+  {
+    path: '/trivias',
+    name: 'trivias',
+    component: Trivias
   },
   {
     path: '/about',

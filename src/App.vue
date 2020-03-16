@@ -1,13 +1,13 @@
 <template>
   <v-app class="app">
-    <div v-if="prof || student">
-<v-app-bar
+    <div >
+<!-- <v-app-bar
      fixed
       app
-      color="deep-purple accent-3"
+      color="white"
+      flat
       dark
       absolute
-      clipped-left
       clipped-right
     >
       <div class="d-flex align-center">
@@ -16,13 +16,13 @@
 
       <v-spacer></v-spacer>
       <v-btn @click="logout">logout</v-btn>
-</v-app-bar>
+</v-app-bar> -->
     </div>
-    <div v-if="prof || student">
+    <div >
     <div v-if="this.$route.name != 'sign-up'">
       <div v-if="this.$route.name != 'login'">
 
-<v-navigation-drawer app permanent clipped fixed>
+<v-navigation-drawer app permanent  dark fixed color="deep-purple accent-3">
       <div v-if="prof">
         <v-list nav>
           <v-list-item
@@ -32,7 +32,7 @@
             @click="goToComponent(item)"
           >
             <v-list-item-icon>
-              <v-icon color="deep-purple accent-3">{{ item.icon }}</v-icon>
+              <v-icon color="">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -50,7 +50,7 @@
             @click="goToComponent(item)"
           >
             <v-list-item-icon>
-              <v-icon color="deep-purple accent-3">{{ item.icon }}</v-icon>
+              <v-icon color="">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -251,50 +251,56 @@ export default {
       items: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
-        {
-          title: "Notificaciones",
-          icon: "mdi-calendar-range",
-          path: "/schedule"
-        },
-        { title: "Noticias", icon: "mdi-calendar-range", path: "/schedule" },
-        { title: "Centros de atención", icon: "mdi-map-marker-radius-outline" },
+        { title: "Trivias", icon: "mdi-gamepad-circle-left", path: "/trivias" },
+        { title: "Clasificación", icon: "mdi-trophy-outline", path: "/schedule" },
+        { title: "Estadisticas", icon: "mdi-chart-timeline-variant", path: "/schedule" },
+        { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline", path: "/schedule" },
+
+        // {
+        //   title: "Notificaciones",
+        //   icon: "mdi-calendar-range",
+        //   path: "/schedule"
+        // },
+        // { title: "Centros de atención", icon: "mdi-map-marker-radius-outline" },
         { title: "Ayuda", icon: "mdi-help-box" }
       ],
       itemsStudentRight: [
         { title: "funciono", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
-        {
-          title: "Notificaciones",
-          icon: "mdi-calendar-range",
-          path: "/schedule"
-        },
-        { title: "Noticias", icon: "mdi-calendar-range", path: "/schedule" },
+        { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline", path: "/schedule" },
+        // {
+        //   title: "Notificaciones",
+        //   icon: "mdi-calendar-range",
+        //   path: "/schedule"
+        // },
         { title: "Centros de atención", icon: "mdi-map-marker-radius-outline" },
         { title: "Ayuda", icon: "mdi-help-box" }
       ],
       items2: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
+                { title: "Clasificación", icon: "mdi-trophy-outline" },
+
         {
           title: "Tareas",
-          icon: "mdi-calendar-range",
+          icon: "mdi-calendar-check-outline",
           path: "/schedule"
         },
         {
           title: "Juegos",
-          icon: "mdi-gamepad-variant",
+          icon: "mdi-gamepad-square-outline",
           path: "/schedule"
         },
         {
           title: "Grabaciones",
-          icon: "mdi-video",
+          icon: "mdi-video-outline",
           path: "/"
         },
-        { title: "Examenes", icon: "mdi-calendar-range", path: "/schedule" },
-        { title: "Calificaciones", icon: "mdi-calendar-range", path: "/schedule" },
-        { title: "Clasificación", icon: "mdi-trophy" },
-        { title: "Noticias", icon: "mdi-help-box" },
-        { title: "Ayuda", icon: "mdi-help-box" }
+        { title: "Examenes", icon: "mdi-order-bool-descending", path: "/schedule" },
+        { title: "Calificaciones", icon: "mdi-dice-d10-outline", path: "/schedule" },
+        // LVL 2 { title: "Estadisticas", icon: "mdi-" },
+        { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline" },
+        { title: "Ayuda", icon: "mdi-help-circle-outline" }
       ],
       right: null
     };
