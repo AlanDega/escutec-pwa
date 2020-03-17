@@ -225,18 +225,7 @@
                 </v-col>
               </v-row>
               <!-- aqui podemo s agregar info de los estudiantes de quienes lo lograron etc  -->
-              <v-row class="mt-12">
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <h2 class="correct">{{ correct_answers + "%" }}</h2>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <h2 class="incorrect">{{ incorrect_answers + "%" }}</h2>
-                  </v-row>
-                </v-col>
-              </v-row>
+             
               <v-row justify="center" class="mt-12">
                 <!-- en finalize trivia agregar info para las estadisticas generales  -->
                 <v-btn
@@ -246,6 +235,20 @@
                   @click="finalize_trivia"
                   >Terminar Trivia</v-btn
                 >
+              </v-row>
+            </v-container>
+            <v-container v-if="trivia_results">
+               <v-row class="mt-12">
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <h2 class="correct">{{ correct_answers  }}</h2>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <h2 class="incorrect">{{ incorrect_answers }}</h2>
+                  </v-row>
+                </v-col>
               </v-row>
             </v-container>
           </v-tab-item>
