@@ -1,10 +1,22 @@
 <template>
   <div>
-    <v-col>
-      <v-container>
+    <v-row>
+      <v-col align="center" cols="10">
+        <v-container>
+          <v-card class="TwitchPlayer">
+            <iframe
+              :src="streamer"
+              height="100%"
+              width="100%"
+              frameborder="0"
+              scrolling="no"
+              allowfullscreen="true"
+            ></iframe>
+          </v-card>
+        </v-container>
         <!-- tabs ----------------------------------------------------------------__________----_------------>
-        <v-tabs centered grow color="deep-purple accent-3">
-          <v-tab @click="renderTransmision">transmisión</v-tab>
+        <v-tabs centered color="deep-purple accent-3">
+          <v-tab @click="renderChat">Chat</v-tab>
           <v-tab @click="renderResources">Recursos</v-tab>
           <v-tab @click="renderTrivia">Trivias</v-tab>
           <!-- <v-tab @click="renderEstadisticas">estadisticas</v-tab> -->
@@ -12,53 +24,41 @@
           <v-tab-item>
             <v-container>
               <v-row>
-                <v-card class="TwitchPlayer">
-                  <iframe
-                    :src="streamer"
-                    height="100%"
-                    width="100%"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen="true"
-                  ></iframe>
-                </v-card>
-              </v-row>
-              <v-row>
                 <v-col>
-                  <v-card class="ChatCard" flat>
+                  <v-card class="ChatCard">
                     <v-container>
                       <v-row>
-                        <v-navigation-drawer permanent>
-                          <v-list ref="chat2" id="logs2">
-                            <!-- <v-list> -->
-                            <template>
-                              <v-container
-                                v-for="(student, index) in students"
-                                :key="index"
-                              >
-                                <v-row>
-                                  <v-col cols="9">
-                                    <v-subheader
-                                      v-if="student"
-                                      :key="index"
-                                      @click="validatePresence(student)"
-                                      >{{ student.name }}</v-subheader
-                                    >
-                                  </v-col>
-                                  <v-col>
-                                    <v-container v-if="student_checked">
-                                      <v-row justify="center">
-                                        <v-icon color="deep-purple accent-3"
-                                          >mdi-check</v-icon
-                                        >
-                                      </v-row>
-                                    </v-container>
-                                  </v-col>
-                                </v-row>
-                              </v-container>
-                            </template>
-                          </v-list>
-                        </v-navigation-drawer>
+                        <!-- <v-navigation-drawer permanent> -->
+                        <v-list ref="chat2" id="logs2">
+                          <!-- <v-list> -->
+                          <template>
+                            <v-container
+                              v-for="(student, index) in students"
+                              :key="index"
+                            >
+                              <v-row>
+                                <v-col cols="9">
+                                  <v-subheader
+                                    v-if="student"
+                                    :key="index"
+                                    @click="validatePresence(student)"
+                                    >{{ student.name }}</v-subheader
+                                  >
+                                </v-col>
+                                <v-col>
+                                  <v-container v-if="student_checked">
+                                    <v-row justify="center">
+                                      <v-icon color="deep-purple accent-3"
+                                        >mdi-check</v-icon
+                                      >
+                                    </v-row>
+                                  </v-container>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </template>
+                        </v-list>
+                        <!-- </v-navigation-drawer> -->
                         <v-col>
                           <v-list ref="chat" id="logs">
                             <template v-for="(message, index) in messages">
@@ -98,44 +98,55 @@
             </v-container>
           </v-tab-item>
           <v-tab-item>
-            <h2>recursos</h2>
-            <a href="https://www.github.com">github</a>
+            <v-container>
+              <v-row>
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center"> 
+                      <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
+                      </v-row>
+                      <v-row justify="center">
+                      <v-btn color="" text href="https://www.github.com">Github</v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
+               
+              </v-row>
+            </v-container>
           </v-tab-item>
           <v-tab-item>
-            <v-container v-if="!trivia_is_active">
+            <v-container>
               <v-row>
                 <v-col>
                   <v-card class="mx-auto" max-width="900">
-                    <v-toolbar color="deep-purple accent-3" dark>
-                      <v-toolbar-title>Trivias</v-toolbar-title>
-                    </v-toolbar>
-                      <div  v-for="(trivia, index) in trivias" :key="index">
-                    <v-dialog v-model="dialogTrivia" width="500">
-                      <template v-slot:activator="{ on }" >
-                        <v-btn
-                          @click="showTrivia(trivia)"
-                          v-on="on"
-                          dark
-                          outlined
-                          class="mx-auto"
-                          max-width="240"
-                          color="deep-purple accent-3"
-                          >{{ trivia.question }}</v-btn
-                        >
-                      </template>
-                      <v-card>
-                        <v-container>
-                          <v-row justify="center">
-                            <v-col>
-                              <h2>{{ question }}</h2>
-                              <v-row>
-                                <v-col cols="12">
-                                  <h3>{{ answer1}}</h3>
-                                  <h3>{{ answer2}}</h3>
-                                  <h3>{{ answer3}}</h3>
-                                  <h3>{{ answer4}}</h3>
-                                  <h3>{{ right_answer}}</h3>
-                                  <!-- <v-text-field
+                    <div v-for="(trivia, index) in trivias" :key="index">
+                      <v-dialog v-model="dialogTrivia" width="500">
+                        <template v-slot:activator="{ on }">
+                          <v-btn
+                            :disabled="trivia_is_active"
+                            @click="showTrivia(trivia)"
+                            v-on="on"
+                            text
+                            max-width="240"
+                            color="deep-purple accent-3"
+                            >{{ trivia.question }}</v-btn
+                          >
+                        </template>
+                        <v-card>
+                          <v-container>
+                            <v-row justify="center">
+                              <v-col>
+                                <h2>{{ question }}</h2>
+                                <v-row>
+                                  <v-col cols="12">
+                                    <h3>{{ answer1 }}</h3>
+                                    <h3>{{ answer2 }}</h3>
+                                    <h3>{{ answer3 }}</h3>
+                                    <h3>{{ answer4 }}</h3>
+                                    <h3>{{ right_answer }}</h3>
+                                    <!-- <v-text-field
                                     label="respuesta 1"
                                   ></v-text-field>
                                   <v-text-field
@@ -147,32 +158,32 @@
                                   <v-text-field
                                     label="respuesta 4"
                                   ></v-text-field> -->
-                                  <v-row justify-center align-center>
-                                    <!-- <v-select
+                                    <v-row justify-center align-center>
+                                      <!-- <v-select
                                       outlined
                                       v-model="right_answer"
                                       label="respuestaCorrecta"
                                       :items="answers"
                                     ></v-select> -->
-                                  </v-row>
-                                  <v-card-actions>
-                                    <v-row justify="center">
-                                      <v-btn
-                                        @click="sendSelectedTrivia"
-                                        text
-                                        color="deep-purple accent-3"
-                                        >Iniciar Trivia</v-btn
-                                      >
                                     </v-row>
-                                  </v-card-actions>
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-card>
-                    </v-dialog>
-                      </div>
+                                    <v-card-actions>
+                                      <v-row justify="center">
+                                        <v-btn
+                                          @click="sendSelectedTrivia"
+                                          text
+                                          color="deep-purple accent-3"
+                                          >Iniciar Trivia</v-btn
+                                        >
+                                      </v-row>
+                                    </v-card-actions>
+                                  </v-col>
+                                </v-row>
+                              </v-col>
+                            </v-row>
+                          </v-container>
+                        </v-card>
+                      </v-dialog>
+                    </div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -193,9 +204,8 @@
                 </v-fab-transition>
               </v-row>
             </v-container>
-            <v-container v-if="trivia_is_active">
+            <!-- <v-container v-if="trivia_is_active">
               <v-row>
-                <!-- <div class="header"> -->
                 <v-col cols="12" class="mt-12">
                   <v-row justify="center">
                     <h2>Pregunta :{{ question }}</h2>
@@ -204,7 +214,6 @@
                     <h2>Respuesta Correcta : {{ right_answer }}</h2>
                   </v-row>
                 </v-col>
-                <!-- </div> -->
               </v-row>
               <v-row class="mt-12">
                 <v-col cols="6">
@@ -224,11 +233,11 @@
                   </v-row>
                 </v-col>
               </v-row>
-              <!-- aqui podemo s agregar info de los estudiantes de quienes lo lograron etc  -->
-             
+              aqui podemo s agregar info de los estudiantes de quienes lo lograron etc  
+
               <v-row justify="center" class="mt-12">
-                <!-- en finalize trivia agregar info para las estadisticas generales  -->
-                <v-btn
+                en finalize trivia agregar info para las estadisticas generales  
+                 <v-btn
                   rounded
                   color="deep-purple accent-3"
                   dark
@@ -236,26 +245,110 @@
                   >Terminar Trivia</v-btn
                 >
               </v-row>
-            </v-container>
-            <v-container v-if="trivia_results">
-               <v-row class="mt-12">
-                <v-col cols="6">
+            </v-container> -->
+            <v-snackbar :vertical="vertical" v-model="snackbar" bottom>
+              <h2 class="correct">{{ correct_answers }}</h2>
+              <h2 class="incorrect">{{ incorrect_answers }}</h2>
+              <v-icon color="deep-purple accent-3" @click="snackbar = false">
+                mdi-close-circle
+              </v-icon>
+            </v-snackbar>
+          </v-tab-item>
+        </v-tabs>
+        <div></div>
+      </v-col>
+      <v-col>
+        <v-container>
+          <v-stepper flat v-model="e6" vertical dark class="daStepper">
+            <v-stepper-step
+              color="deep-purple accent-3"
+              :complete="e6 > 1"
+              step="1"
+            >
+              Pasar Lista
+              <small>Sumar xp</small>
+            </v-stepper-step>
+
+            <v-stepper-content color="deep-purple accent-3" step="1">
+              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 2"
+                >Hecho</v-btn
+              >
+            </v-stepper-content>
+
+            <v-stepper-step
+              color="deep-purple accent-3"
+              :complete="e6 > 2"
+              step="2"
+              >Hacer trivia de Ingeniería</v-stepper-step
+            >
+
+            <v-stepper-content color="deep-purple accent-3" step="2">
+              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 3"
+                >Hecho</v-btn
+              >
+            </v-stepper-content>
+
+            <v-stepper-step
+              color="deep-purple accent-3"
+              :complete="e6 > 3"
+              step="3"
+              >Revisar Tarea
+            </v-stepper-step>
+
+            <v-stepper-content color="deep-purple accent-3" step="3">
+              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 4"
+                >Hecho</v-btn
+              >
+            </v-stepper-content>
+            <v-container>
+              <v-divider class="mt-2"></v-divider>
+              <v-row justify="center">
+                <v-col>
                   <v-row justify="center">
-                    <h2 class="correct">{{ correct_answers  }}</h2>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <h2 class="incorrect">{{ incorrect_answers }}</h2>
+                    <v-list-item>
+                      <v-list-content>
+                        <v-list-title>{{ "Alumno 4/12000XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-content>
+                        <v-list-title>{{ "Alumno 10/10050XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-content>
+                        <v-list-title>{{ "Alumno 1/2800XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
                   </v-row>
                 </v-col>
               </v-row>
             </v-container>
-          </v-tab-item>
-        </v-tabs>
-      </v-container>
-      <div v-if="resources"></div>
-    </v-col>
+            <v-divider></v-divider>
+            <v-row justify="center" align="center">
+              <v-container>
+                <v-row justify="center">
+                  <v-img
+                    class="mt-6"
+                    contain
+                    height="120"
+                    width="120"
+                    src="../../assets/boost.svg"
+                  ></v-img>
+                </v-row>
+              </v-container>
+            </v-row>
+          </v-stepper>
+        </v-container>
+      </v-col>
+    </v-row>
+    <div v-if="trivia_is_active">
+      <v-footer absolute color="deep-purple accent-3">
+        <v-row justify="center">
+          <v-btn outlined dark @click="finalize_trivia">Terminar Trivia</v-btn>
+        </v-row>
+      </v-footer>
+    </div>
   </div>
 </template>
 
@@ -272,6 +365,8 @@ export default {
 
   data() {
     return {
+      snackbar: null,
+      trivia_results: null,
       trivias: [],
       streamer: null,
       correct_percentage: null,
@@ -321,7 +416,7 @@ export default {
       transmision: null,
       // estadisticas: null,
       e6: 1,
-      tabs: null,
+      tabs: null
     };
   },
 
@@ -394,14 +489,14 @@ export default {
     });
   },
   methods: {
-    showTrivia(trivia){
-      console.log('trivia',trivia)
-      this.question = trivia.question
-      this.answer1 = trivia.answer1
-      this.answer2 = trivia.answer2
-      this.answer3 = trivia.answer3
-      this.answer4 = trivia.answer4
-      this.right_answer = trivia.right_answer
+    showTrivia(trivia) {
+      console.log("trivia", trivia);
+      this.question = trivia.question;
+      this.answer1 = trivia.answer1;
+      this.answer2 = trivia.answer2;
+      this.answer3 = trivia.answer3;
+      this.answer4 = trivia.answer4;
+      this.right_answer = trivia.right_answer;
     },
     getTrivias() {
       db.collection(this.user)
@@ -418,25 +513,25 @@ export default {
         .where("right", "==", true)
         .get()
         .then(querySnapshot => {
-          const documents = querySnapshot.docs.map(doc => doc.data())
-          console.log('correctos',documents.length)
-          db.collection(this.classroom +'-students')
-          .get()
-          .then(querySnapshot => {
-            const documents = querySnapshot.docs.map(doc => {
-              db.collection(this.classroom + '-students')
-              .doc(doc.id)
-                .update({right: null})
-            })
-            
-          })
-      // aqui enviar info
-    })
+          const documents = querySnapshot.docs.map(doc => doc.data());
+          console.log("correctos", documents.length);
+          this.snackbar = true;
+          db.collection(this.classroom + "-students")
+            .get()
+            .then(querySnapshot => {
+              const documents = querySnapshot.docs.map(doc => {
+                db.collection(this.classroom + "-students")
+                  .doc(doc.id)
+                  .update({ right: null });
+              });
+            });
+          // aqui enviar info
+        });
     },
     // hacer otra coleccion para los resultados?
     sendSelectedTrivia() {
       db.collection(this.classroom + "-trivia")
-        .doc('trivia')
+        .doc("trivia")
         .set({
           question: this.question,
           answer1: this.answer1,
@@ -637,7 +732,7 @@ export default {
       this.transmision = false;
       this.estadisticas = false;
     },
-    renderTransmision() {
+    renderChat() {
       this.selected_trivia = false;
       this.selected_homework = false;
       this.selected_image = false;
@@ -681,9 +776,11 @@ export default {
   height: 20vh;
 }
 .correct {
+  font-size: 46px;
   color: green;
 }
 .incorrect {
+  font-size: 46px;
   color: red;
 }
 #logs {
@@ -700,7 +797,7 @@ export default {
   margin-top: 20px;
 }
 .TwitchPlayer {
-  height: 35vh;
+  height: 41vh;
   width: 100%;
 }
 

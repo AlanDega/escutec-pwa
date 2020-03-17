@@ -4,8 +4,10 @@
     <!-- <v-spacer></v-spacer> -->
     <v-tabs color="deep-purple accent-3" centered>
       <v-tab>Alumnos</v-tab>
+      <v-tab>Recursos</v-tab>
       <v-tab>Tareas</v-tab>
       <v-tab>Examenes</v-tab>
+      <v-tab>Calificaciones</v-tab>
 
       <v-tab-item>
         <v-card height="70vh" flat>

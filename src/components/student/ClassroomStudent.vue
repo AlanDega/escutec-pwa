@@ -1,9 +1,19 @@
 <template>
-  <div class="div1">
+  <div>
     <v-row>
       <v-col align="center" cols="10">
-        <!-- tabs ----------------------------------------------------------------__________----_------------>
-
+        <v-container>
+          <v-card class="TwitchPlayer">
+            <iframe
+              src="https://player.twitch.tv/?channel=grapho&muted=true"
+              height="100%"
+              width="100%"
+              frameborder="0"
+              scrolling="no"
+              allowfullscreen="true"
+            ></iframe>
+          </v-card>
+        </v-container>
         <v-tabs centered color="deep-purple accent-3">
           <v-tab @click="renderTransmision">transmisión</v-tab>
           <v-tab @click="renderResources">Recursos</v-tab>
@@ -12,18 +22,6 @@
 
           <v-tab-item>
             <v-container>
-              <v-row>
-                <v-card class="TwitchPlayer">
-                  <iframe
-                    src="https://player.twitch.tv/?channel=grapho&muted=true"
-                    height="100%"
-                    width="100%"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen="true"
-                  ></iframe>
-                </v-card>
-              </v-row>
               <v-row>
                 <v-col cols="12">
                   <v-card class="chat_notes_card" flat>
@@ -156,10 +154,7 @@
                   </v-btn>
                 </v-fab-transition>
               </v-row>
-             
-             
             </v-container>
-
           </v-tab-item>
         </v-tabs>
         <div v-if="resources"></div>
@@ -493,12 +488,12 @@ export default {
         if ((change.type = "modified")) {
           let doc = change.doc;
           console.log("changeDoc", doc.data());
-          this.question = doc.data().question
-          this.answer1 = doc.data().answer1
+          this.question = doc.data().question;
+          this.answer1 = doc.data().answer1;
           this.right_answer = doc.data().right_answer;
           this.correct_answers = doc.data().correct_answers;
           this.incorrect_answers = doc.data().incorrect_answers;
-          this.response_time = 20
+          this.response_time = 20;
           // const countdown = setInterval(() => {
           //   if (this.response_time > 0) {
           //     this.response_time -= 1;
@@ -518,8 +513,8 @@ export default {
       if (this.answer1 === this.right_answer) {
         db.collection(this.classroom + "-students")
           .doc(this.user)
-          .update({ right: true})
-          .then(() => console.log('right updated'))
+          .update({ right: true })
+          .then(() => console.log("right updated"));
         this.snackbar = true;
         // const increment = firebase.firestore.FieldValue.increment(50);
         // const xpRef = db
@@ -545,10 +540,10 @@ export default {
         // });
       } else {
         this.errorNotif = true;
-         db.collection(this.classroom + "-students")
+        db.collection(this.classroom + "-students")
           .doc(this.user)
-          .update({ right: false})
-          .then(() => console.log('right updated'))
+          .update({ right: false })
+          .then(() => console.log("right updated"));
         // const increment = firebase.firestore.FieldValue.increment(1);
         // // le vmos a pasar el valor estatico del doc en un string que contenga trivia
         // const incorrect_answersRef = db
@@ -859,7 +854,7 @@ export default {
     },
     renderTrivia() {
       db.collection(this.classroom + "-trivia")
-        .doc('trivia')
+        .doc("trivia")
         .get()
         .then(snapshot => {
           const document = snapshot.data();

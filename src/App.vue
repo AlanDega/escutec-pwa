@@ -173,7 +173,7 @@
     <div
       v-if="this.$route.name === 'Classroom' && this.prof"
     >
-      <v-navigation-drawer right app permanent clipped fixed>
+      <!-- <v-navigation-drawer right app permanent clipped fixed>
        
         <v-divider></v-divider>
         <v-container>
@@ -215,7 +215,7 @@
 
         </v-row>
           
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
     </div>
     <!-- <div v-if="director">
       <v-navigation-drawer>

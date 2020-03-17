@@ -6,6 +6,7 @@
     <div v-if="tipo_usuario === 'student'">
       <ClassroomStudent />
     </div>
+  
   </div>
 </template>
 
