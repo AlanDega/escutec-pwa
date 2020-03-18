@@ -5,7 +5,7 @@
         <v-container>
           <v-card class="TwitchPlayer">
             <iframe
-              :src="streamer"
+              :src="classroom_stream"
               height="100%"
               width="100%"
               frameborder="0"
@@ -103,16 +103,70 @@
                 <v-col cols="4">
                   <v-card>
                     <v-col>
-                      <v-row justify="center"> 
-                      <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-image</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
-                      <v-btn color="" text href="https://www.github.com">Github</v-btn>
+                        <v-col>
+                          <v-row justify="center">
+                            <v-btn
+                              v-for="(img, index) in img_resources"
+                              :key="index"
+                              text
+                              :href="img.url"
+                            >
+                              {{ img.title }}
+                            </v-btn>
+                          </v-row>
+                        </v-col>
                       </v-row>
                     </v-col>
                   </v-card>
                 </v-col>
-               
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-play-box</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center">
+                        <v-btn
+                          v-for="(video, index) in video_resources"
+                          :key="index"
+                          text
+                          :href="video.url"
+                        >
+                          {{ video.title }}
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-text</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center">
+                        <v-btn
+                          v-for="(text, index) in text_resources"
+                          :key="index"
+                          text
+                          :href="text.url"
+                        >
+                          {{ text.title }}
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
               </v-row>
             </v-container>
           </v-tab-item>
@@ -120,70 +174,29 @@
             <v-container>
               <v-row>
                 <v-col>
-                  <v-card class="mx-auto" max-width="900">
-                    <div v-for="(trivia, index) in trivias" :key="index">
-                      <v-dialog v-model="dialogTrivia" width="500">
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            :disabled="trivia_is_active"
-                            @click="showTrivia(trivia)"
-                            v-on="on"
-                            text
-                            max-width="240"
-                            color="deep-purple accent-3"
-                            >{{ trivia.question }}</v-btn
-                          >
-                        </template>
-                        <v-card>
-                          <v-container>
-                            <v-row justify="center">
-                              <v-col>
-                                <h2>{{ question }}</h2>
-                                <v-row>
-                                  <v-col cols="12">
-                                    <h3>{{ answer1 }}</h3>
-                                    <h3>{{ answer2 }}</h3>
-                                    <h3>{{ answer3 }}</h3>
-                                    <h3>{{ answer4 }}</h3>
-                                    <h3>{{ right_answer }}</h3>
-                                    <!-- <v-text-field
-                                    label="respuesta 1"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    label="respuesta 2"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    label="respuesta 3"
-                                  ></v-text-field>
-                                  <v-text-field
-                                    label="respuesta 4"
-                                  ></v-text-field> -->
-                                    <v-row justify-center align-center>
-                                      <!-- <v-select
-                                      outlined
-                                      v-model="right_answer"
-                                      label="respuestaCorrecta"
-                                      :items="answers"
-                                    ></v-select> -->
-                                    </v-row>
-                                    <v-card-actions>
-                                      <v-row justify="center">
-                                        <v-btn
-                                          @click="sendSelectedTrivia"
-                                          text
-                                          color="deep-purple accent-3"
-                                          >Iniciar Trivia</v-btn
-                                        >
-                                      </v-row>
-                                    </v-card-actions>
-                                  </v-col>
-                                </v-row>
-                              </v-col>
-                            </v-row>
-                          </v-container>
-                        </v-card>
-                      </v-dialog>
-                    </div>
+                  <v-card>
+                    <table style="width:100%">
+                      <tr>
+                        <th v-for="header in headers" :key="header.id">
+                          {{ header }}
+                        </th>
+                      </tr>
+                      <!-- <v-divider color="primary"></v-divider> -->
+                      <tr
+                        v-for="trivia in trivias"
+                        :key="trivia.id"
+                        @click="sendSelectedTrivia(trivia)"
+                      >
+                        <td class="tableText">{{ trivia.question }}</td>
+                        <td class="tableText" @click="log(trivia.answer1)">
+                          {{ trivia.answer1 }}
+                        </td>
+                        <td class="tableText">{{ trivia.answer2 }}</td>
+                        <td class="tableText">{{ trivia.answer3 }}</td>
+                        <td class="tableText">{{ trivia.answer4 }}</td>
+                        <td class="tableText">{{ trivia.right_answer }}</td>
+                      </tr>
+                    </table>
                   </v-card>
                 </v-col>
               </v-row>
@@ -365,10 +378,88 @@ export default {
 
   data() {
     return {
+      data_loading: true,
+      headers: [
+        "Pregunta",
+        "Respuesta 1",
+        "Respuesta 2",
+        "Respuesta 3",
+        "Respuesta 4",
+        "Respuesta Correcta"
+      ],
+      grupos: [
+        {
+          hora: "¿qué es la energía?",
+          lunes: "A-1",
+          martes: "B-3",
+          miercoles: "E-1",
+          jueves: "C-2",
+          viernes: "C-1"
+        },
+        {
+          hora: "07:50 - 08:40",
+          lunes: "B-1",
+          martes: "B-2",
+          miercoles: "B-3",
+          protein: "A-2",
+          viernes: "A-1"
+        },
+        {
+          hora: "9:10 - 10:00",
+          lunes: "B-2",
+          martes: "C-1",
+          miercoles: "A-1",
+          protein: "E-2",
+          viernes: "B-3"
+        },
+        {
+          hora: "10:00 - 10:50",
+          lunes: "A-3",
+          martes: "A-3",
+          miercoles: "B-2",
+          jueves: "E-1",
+          viernes: "E-2"
+        },
+        {
+          hora: "10:50 - 11:40",
+          lunes: "C-1",
+          martes: "C-3",
+          miercoles: "A-2",
+          jueves: "C-1",
+          viernes: "A-1"
+        },
+        {
+          hora: "11:40 - 12:30",
+          lunes: "A-2",
+          martes: "D-1",
+          miercoles: "C-2",
+          jueves: "B-3",
+          viernes: "A-1"
+        },
+        {
+          hora: "12:50 - 13:40",
+          lunes: "C-2",
+          martes: "D-2",
+          miercoles: "B-1",
+          jueves: "A-2",
+          viernes: "A-1"
+        },
+        {
+          hora: "13:40 - 14:30",
+          lunes: "",
+          martes: "E-1",
+          miercoles: "B-3",
+          jueves: "A-1",
+          viernes: "C-2"
+        }
+      ],
+      img_resources: null,
+      video_resources: null,
+      text_resources: null,
       snackbar: null,
       trivia_results: null,
       trivias: [],
-      streamer: null,
+      classroom_stream: null,
       correct_percentage: null,
       incorrect_percentage: null,
       correct_answers: null,
@@ -433,8 +524,8 @@ export default {
     }
   },
   created() {
-    // this.streamer = 'https://player.twitch.tv/?channel='+ this.test +'&muted=true'
-    this.streamer =
+    // this.classroom_stream = 'https://player.twitch.tv/?channel='+ this.test +'&muted=true'
+    this.classroom_stream =
       "https://player.twitch.tv/?channel=" + "grapho" + "&muted=true";
   },
   async mounted() {
@@ -450,15 +541,16 @@ export default {
         const documents = querySnapshot.docs.map(doc => doc.data());
         this.students = documents;
       });
-    // db.collection(this.classroom + "-trivia")
-    //   .doc("¿qué es la energía?")
-    //   .get()
-    //   .then(snapshot => {
-    //     const document = snapshot.data();
-    //     this.correct_answers = document.correct_answers;
-    //     this.incorrect_answers = document.incorrect_answers;
-    //     console.log("triviaDocument", document);
-    //   });
+    db.collection(this.classroom +'-trivia')
+      .doc('trivia')
+      .get()
+      .then(snapshot => {
+        const document = snapshot.data();
+        console.log("triviaDocument", document);
+        if(document.trivia_is_active === true){
+          this.trivia_is_active = true
+        }
+      });
     let ref = db.collection(this.classroom + "-messages").orderBy("timestamp");
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
@@ -487,10 +579,31 @@ export default {
         }
       });
     });
+    db.collection("ingeniería-preparatoria-stjohns" + "-img-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.img_resources = documents;
+      });
+    db.collection("ingeniería-preparatoria-stjohns" + "-video-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.video_resources = documents;
+      });
+    db.collection("ingeniería-preparatoria-stjohns" + "-text-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.text_resources = documents;
+      });
   },
   methods: {
     showTrivia(trivia) {
-      console.log("trivia", trivia);
+      console.log("trivia", trivia.question);
       this.question = trivia.question;
       this.answer1 = trivia.answer1;
       this.answer2 = trivia.answer2;
@@ -515,6 +628,7 @@ export default {
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map(doc => doc.data());
           console.log("correctos", documents.length);
+          this.correct_answers = documents.length;
           this.snackbar = true;
           db.collection(this.classroom + "-students")
             .get()
@@ -522,17 +636,30 @@ export default {
               const documents = querySnapshot.docs.map(doc => {
                 db.collection(this.classroom + "-students")
                   .doc(doc.id)
-                  .update({ right: null });
+                  .update({ right: null })
+                  .then(() =>{
+                    db.collection(this.classroom + '-trivia')
+                      .doc('trivia')
+                      .update({ trivia_is_active: false })
+                  })
               });
             });
+
           // aqui enviar info
         });
     },
     // hacer otra coleccion para los resultados?
-    sendSelectedTrivia() {
+    sendSelectedTrivia(trivia) {
+      this.question = trivia.question;
+      this.answer1 = trivia.answer1;
+      this.answer2 = trivia.answer2;
+      this.answer3 = trivia.answer3;
+      this.answer4 = trivia.answer4;
+      this.right_answer = trivia.right_answer;
       db.collection(this.classroom + "-trivia")
         .doc("trivia")
         .set({
+          trivia_is_active: true,
           question: this.question,
           answer1: this.answer1,
           answer2: this.answer2,
@@ -545,6 +672,22 @@ export default {
         .then(() => {
           this.dialogTrivia = false;
           this.trivia_is_active = true;
+          db.collection(this.classroom + "-students")
+            .where("right", "==", true)
+            .get()
+            .then(querySnapshot => {
+              const documents = querySnapshot.docs.map(doc => doc.data());
+              db.collection(this.classroom + "-students")
+                .get()
+                .then(querySnapshot => {
+                  const documents = querySnapshot.docs.map(doc => {
+                    db.collection(this.classroom + "-students")
+                      .doc(doc.id)
+                      .update({ answered: false });
+                  });
+                });
+              // aqui enviar info
+            });
           console.log("sent trivia");
         });
     },
@@ -772,6 +915,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tableText {
+  text-align: center;
+}
 .header {
   height: 20vh;
 }

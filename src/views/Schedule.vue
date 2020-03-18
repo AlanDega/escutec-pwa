@@ -40,7 +40,6 @@ export default {
     return {
       data_loading:true,
       headers: [ 'lunes', 'martes', 'miercoles' , 'jueves', 'viernes' ],
-       
       grupos: [
         {
           hora: "07:00 - 07:50",

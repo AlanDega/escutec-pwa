@@ -4,6 +4,8 @@
     <v-text-field label="Nombre" v-model="name"></v-text-field>
     <v-text-field label="Email" v-model="email"></v-text-field>
     <v-text-field label="contraseña" v-model="password"></v-text-field>
+    <v-text-field label="confirmar contraseña" v-model="confirmed_password"></v-text-field>
+    <!-- <v-select :items="levels" label="Nivel Escolar" v-model="scholar_level"></v-select > -->
 
     <v-btn rounded dark color="deep-purple accent-3" @click="signUp">Continuar</v-btn>
   </v-container>
@@ -16,8 +18,11 @@ import { db } from "../../db";
 export default {
   data() {
     return {
+      // scholar_level:null,
+      // levels:['primaria','secundaria','preparatoria','universidad'],
       email: null,
       password: null,
+      confirmed_password:null,
       name: null
     };
   },
@@ -46,8 +51,10 @@ export default {
           db.collection("usuarios")
             .doc(this.email)
             .set({
+              name: this.name,
               email: this.email,
-              password: this.email
+              password: this.email,
+              // scholar_level: this.scholar_level
             });
           this.$router.push("/");
         });

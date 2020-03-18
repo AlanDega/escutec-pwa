@@ -8,6 +8,7 @@ import Login from '../views/auth/Login.vue'
 import SignUp from '../views/auth/SignUp.vue'
 import Dashboard from '../views/director/Dashboard.vue'
 import Trivias from '../views/prof/Trivias.vue'
+import Resources from '../views/prof/Resources.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +36,11 @@ const routes = [
     path: '/classroom',
     name: 'Classroom',
     component: Classroom
+  },
+  {
+    path: '/resources',
+    name: 'Resources',
+    component: Resources
   },
   {
     path: '/schedule',

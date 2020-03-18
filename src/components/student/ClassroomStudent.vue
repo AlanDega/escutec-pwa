@@ -15,7 +15,7 @@
           </v-card>
         </v-container>
         <v-tabs centered color="deep-purple accent-3">
-          <v-tab @click="renderTransmision">transmisión</v-tab>
+          <v-tab @click="renderChat">chat</v-tab>
           <v-tab @click="renderResources">Recursos</v-tab>
           <v-tab @click="renderTrivia">Trivia</v-tab>
           <!-- <v-tab @click="renderEstadisticas">estadisticas</v-tab> -->
@@ -24,26 +24,8 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-card class="chat_notes_card" flat>
-                    <v-toolbar color="white" flat dense>
-                      <template v-slot:extension>
-                        <v-fab-transition>
-                          <v-btn
-                            color="deep-purple accent-3"
-                            dark
-                            absolute
-                            top
-                            right
-                            fab
-                          >
-                            <v-icon>mdi-plus</v-icon>
-                          </v-btn>
-                        </v-fab-transition>
-                      </template>
-                    </v-toolbar>
-
+                  <v-card class="chat_notes_card">
                     <v-list ref="chat" id="logs">
-                      <h3>{{ xp }}</h3>
                       <template v-for="(message, index) in messages">
                         <v-subheader v-if="message" :key="index">
                           {{ message.sender + ":" + message.message }}
@@ -77,16 +59,82 @@
             </v-container>
           </v-tab-item>
           <v-tab-item>
-            <h2>recursos</h2>
-            <a href="https://www.github.com">github</a>
+            <v-container>
+              <v-row>
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-image</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center">
+                        <v-col>
+                          <v-row justify="center">
+                            <v-btn
+                              v-for="(img, index) in img_resources"
+                              :key="index"
+                              text
+                              :href="img.url"
+                            >
+                              {{ img.title }}
+                            </v-btn>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-play-box</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center">
+                        <v-btn
+                          v-for="(video, index) in video_resources"
+                          :key="index"
+                          text
+                          :href="video.url"
+                        >
+                          {{ video.title }}
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
+                <v-col cols="4">
+                  <v-card>
+                    <v-col>
+                      <v-row justify="center">
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-text</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center">
+                        <v-btn
+                          v-for="(text, index) in text_resources"
+                          :key="index"
+                          text
+                          :href="text.url"
+                        >
+                          {{ text.title }}
+                        </v-btn>
+                      </v-row>
+                    </v-col>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-tab-item>
           <v-tab-item>
             <v-container>
-              <v-row justify="center">
-                <h2>Pregunta</h2>
-              </v-row>
-              <v-row justify="center">
-                <h3>{{ question }}</h3>
+              <v-row justify="center" class="mt-6">
+                <h1>{{ question }}</h1>
               </v-row>
               <v-row>
                 <v-col>
@@ -94,9 +142,7 @@
                     :disabled="answered"
                     @click="checkAnswer1"
                     outlined
-                    dark
-                    class="mx-auto"
-                    max-width="240"
+                    class="answerButton"
                     color="deep-purple accent-3"
                     >{{ answer1 }}</v-btn
                   >
@@ -106,9 +152,7 @@
                     :disabled="answered"
                     @click="checkAnswer2"
                     outlined
-                    dark
-                    class="mx-auto"
-                    max-width="240"
+                    class="answerButton"
                     color="deep-purple accent-3"
                     >{{ answer2 }}</v-btn
                   >
@@ -119,10 +163,8 @@
                   <v-btn
                     :disabled="answered"
                     @click="checkAnswer3"
-                    dark
                     outlined
-                    class="mx-auto"
-                    max-width="240"
+                    class="answerButton"
                     color="deep-purple accent-3"
                     >{{ answer3 }}</v-btn
                   >
@@ -132,8 +174,7 @@
                     :disabled="answered"
                     @click="checkAnswer4"
                     outlined
-                    class="mx-auto"
-                    max-width="240"
+                    class="answerButton"
                     color="deep-purple accent-3"
                     >{{ answer4 }}</v-btn
                   >
@@ -160,104 +201,109 @@
         <div v-if="resources"></div>
       </v-col>
       <!-- -------------------------------------- SideBar Right _____________------------------ -->
-      <v-col class="side-bar-right">
-        <!-- <v-list>
-          <v-list-item>
-            <v-list-item-content> -->
-        <v-row justify="center">
-          <v-img
-            contain
-            src="../../assets/level.svg"
-            height="80"
-            width="80"
-          ></v-img>
-        </v-row>
-        <!-- </v-list-item-content>
-          </v-list-item>
-          <v-list-item> -->
-        <v-row>
-          <v-col justify="right">
-            <v-text class="xpText">{{
-              xp + "/" + next_level_xp + " XP"
-            }}</v-text>
-            <v-progress-linear
-              rounded
-              height="6"
-              color="deep-purple accent-3"
-              v-model="xp"
-            ></v-progress-linear>
-          </v-col>
-        </v-row>
-        <!-- </v-list-item> -->
-        <v-divider></v-divider>
-        <v-row class="mt-6" justify="center">
-          <v-text class="xpText">Retos</v-text>
-        </v-row>
-        <v-list-item three-line dark>
-          <v-list-content>
-            <v-list-item-title>
-              3 aciertos
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              1/3
-            </v-list-item-subtitle>
-          </v-list-content>
-        </v-list-item>
-        <v-list-item three-line dark>
-          <v-list-content>
-            <v-list-item-title>
-              3 aciertos
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              1/3
-            </v-list-item-subtitle>
-          </v-list-content>
-        </v-list-item>
-        <v-list-item three-line dark>
-          <v-list-content>
-            <v-list-item-title>
-              3 aciertos
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              1/3
-            </v-list-item-subtitle>
-          </v-list-content>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-container>
-          <v-row>
-            <v-img
-              contain
-              src="../../assets/cash.svg"
-              height="32"
-              width="32"
-            ></v-img>
-            <v-text class="xpText">30</v-text>
-          </v-row>
-        </v-container>
-        <v-divider></v-divider>
-        <v-container>
-          <v-row justify="center">
-            <v-col>
-              <v-row justify="center">
-                <v-list-item dark>
-                  <v-list-content>
-                    <v-list-title>{{ "Alumno 4/12000XP" }} </v-list-title>
-                  </v-list-content>
-                </v-list-item>
-                <v-list-item dark>
-                  <v-list-content>
-                    <v-list-title>{{ "Alumno 10/10050XP" }} </v-list-title>
-                  </v-list-content>
-                </v-list-item>
-                <v-list-item dark>
-                  <v-list-content>
-                    <v-list-title>{{ "Alumno 1/2800XP" }} </v-list-title>
-                  </v-list-content>
-                </v-list-item>
+
+      <v-col>
+        <v-container fluid>
+          <v-card class="side-bar-right">
+          
+            <v-row justify="center">
+              <v-img
+              class="mt-4"
+                contain
+                src="../../assets/level.svg"
+                height="80"
+                width="80"
+              ></v-img>
+            </v-row>
+            <v-container>
+               <v-row >
+              <v-col justify="right">
+                <v-text class="xpText" justify="right">{{
+                  xp + "/" + next_level_xp + " XP"
+                }}</v-text>
+                <v-progress-linear
+                  rounded
+                  height="6"
+                  color="deep-purple accent-3"
+                  v-model="xp"
+                ></v-progress-linear>
+              </v-col>
+            </v-row>
+            </v-container>
+           
+            <!-- </v-list-item> -->
+            <v-divider></v-divider>
+            <v-row class="mt-6" justify="center">
+              <v-text class="xpText">Retos</v-text>
+            </v-row>
+            <v-list-item three-line dark>
+              <v-list-content>
+                <v-list-item-title>
+                  3 aciertos
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  1/3
+                </v-list-item-subtitle>
+              </v-list-content>
+            </v-list-item>
+            <v-list-item three-line dark>
+              <v-list-content>
+                <v-list-item-title>
+                  3 asistencias
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  1/3
+                </v-list-item-subtitle>
+              </v-list-content>
+            </v-list-item>
+            <v-list-item three-line dark>
+              <v-list-content>
+                <v-list-item-title>
+                  3 tareas
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  1/3
+                </v-list-item-subtitle>
+              </v-list-content>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-container>
+              <v-row>
+                <v-img
+                  contain
+                  src="../../assets/cash.svg"
+                  height="32"
+                  width="32"
+                ></v-img>
+                <v-text class="xpText">30</v-text>
               </v-row>
-            </v-col>
-          </v-row>
+            </v-container>
+            <v-divider></v-divider>
+            <v-container>
+              <v-row justify="center">
+                <v-col>
+                  <v-row justify="center">
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>{{ "Alumno/12000 XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>{{ "Alumno/10050 XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon> {{ "Alumno/2800 XP" }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                  </v-row>
+                  <v-divider class="mt-4"></v-divider>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
         </v-container>
       </v-col>
     </v-row>
@@ -296,16 +342,19 @@
     <div>
       <v-snackbar
         top
-        color="failure"
+        color="red"
         :vertical="vertical"
         v-model="errorNotif"
         :timeout="timeout"
       >
         <v-row justify="center">
-          <span class="notifText">{{ text }}</span>
+          <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
         <v-row justify="center">
-          <span class="earnedText">{{ earned_xp }}</span>
+          <span class="notifText">La respuesta correcta es:</span>
+        </v-row>
+        <v-row justify="center">
+          <span class="notifText">{{ right_answer }}</span>
         </v-row>
 
         <!-- <v-btn
@@ -334,7 +383,9 @@ export default {
 
   data() {
     return {
-      response_time: 10,
+      text_resources: [],
+      img_resources: [],
+      video_resources: [],
       answered: false,
       errorNotif: false,
       earned_xp: "+ 50xp",
@@ -439,14 +490,29 @@ export default {
       setTimeout(() => {
         this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
       }, 0);
+    },
+    question() {
+      this.answered = false;
     }
   },
 
   mounted() {
     // borrar en cierta cantidad de tiempo despues de obtener y guardar los resultados generales
     firebase.auth().onAuthStateChanged(user => {
-      this.user = user.email;
-      console.log("user", this.user);
+      if (user) {
+        this.user = user.email;
+        console.log("user", this.user);
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .get()
+          .then(snapshot => {
+            const document = snapshot.data();
+            console.log("userDoc", document);
+            if (document.answered === true) {
+              this.answered = true;
+            }
+          });
+      }
     });
     // db.collection(this.classroom + "-students")
     //   .get()
@@ -490,22 +556,39 @@ export default {
           console.log("changeDoc", doc.data());
           this.question = doc.data().question;
           this.answer1 = doc.data().answer1;
+          this.answer2 = doc.data().answer2;
+          this.answer3 = doc.data().answer3;
+          this.answer4 = doc.data().answer4;
           this.right_answer = doc.data().right_answer;
-          this.correct_answers = doc.data().correct_answers;
-          this.incorrect_answers = doc.data().incorrect_answers;
-          this.response_time = 20;
-          // const countdown = setInterval(() => {
-          //   if (this.response_time > 0) {
-          //     this.response_time -= 1;
-          //   } else {
-          //     function stop() {
-          //       clearInterval(countdown);
-          //     }
-          //   }
-          // }, 1000);
+          if (doc.data().trivia_is_active === false) {
+            this.answered = true;
+          }
+          // this.correct_answers = doc.data().correct_answers;
+          // this.incorrect_answers = doc.data().incorrect_answers;
         }
       });
     });
+    db.collection("ingeniería-preparatoria-stjohns" + "-img-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.img_resources = documents;
+      });
+    db.collection("ingeniería-preparatoria-stjohns" + "-video-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.video_resources = documents;
+      });
+    db.collection("ingeniería-preparatoria-stjohns" + "-text-resources")
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("documents", documents);
+        this.text_resources = documents;
+      });
   },
   methods: {
     checkAnswer1() {
@@ -513,54 +596,33 @@ export default {
       if (this.answer1 === this.right_answer) {
         db.collection(this.classroom + "-students")
           .doc(this.user)
-          .update({ right: true })
+          .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        // const increment = firebase.firestore.FieldValue.increment(50);
-        // const xpRef = db
-        //   .collection(this.classroom + "-students")
-        //   .doc(this.user);
-        // const batch = db.batch();
-        // batch.set(xpRef, { xp: increment }, { merge: true });
-        // batch.commit().then(() => {
-        //   console.log("mision cumplida1");
-        //   const increment = firebase.firestore.FieldValue.increment(1);
-        //   // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-        //   const correct_answersRef = db
-        //     .collection(this.classroom + "-trivia")
-        //     .doc("¿qué es la energía?");
-        //   const batch = db.batch();
-        //   batch.set(
-        //     correct_answersRef,
-        //     { correct_answers: increment },
-        //     { merge: true }
-        //   );
-        //   batch.commit();
-        //   console.log("mision 2 cumplida");
-        // });
+        const increment = firebase.firestore.FieldValue.increment(50);
+        const xpRef = db
+          .collection(this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          console.log("mision xp cumplida");
+        });
       } else {
         this.errorNotif = true;
         db.collection(this.classroom + "-students")
           .doc(this.user)
-          .update({ right: false })
-          .then(() => console.log("right updated"));
-        // const increment = firebase.firestore.FieldValue.increment(1);
-        // // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-        // const incorrect_answersRef = db
-        //   .collection(this.classroom + "-trivia")
-        //   .doc("¿qué es la energía?");
-        // const batch = db.batch();
-        // batch.set(
-        //   incorrect_answersRef,
-        //   { incorrect_answers: increment },
-        //   { merge: true }
-        // );
-        // batch.commit();
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
       }
     },
     checkAnswer2() {
       this.answered = true;
       if (this.answer2 === this.right_answer) {
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
@@ -570,40 +632,22 @@ export default {
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
           console.log("mision cumplida1");
-          const increment = firebase.firestore.FieldValue.increment(1);
-          // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-          const correct_answersRef = db
-            .collection(this.classroom + "-trivia")
-            .doc("¿qué es la energía?");
-          const batch = db.batch();
-          batch.set(
-            correct_answersRef,
-            { correct_answers: increment },
-            { merge: true }
-          );
-          batch.commit();
-          console.log("mision 2 cumplida");
         });
       } else {
         this.errorNotif = true;
-
-        const increment = firebase.firestore.FieldValue.increment(1);
-        // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-        const incorrect_answersRef = db
-          .collection(this.classroom + "-trivia")
-          .doc("¿qué es la energía?");
-        const batch = db.batch();
-        batch.set(
-          incorrect_answersRef,
-          { incorrect_answers: increment },
-          { merge: true }
-        );
-        batch.commit();
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
       }
     },
     checkAnswer3() {
       this.answered = true;
       if (this.answer3 === this.right_answer) {
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
@@ -613,41 +657,23 @@ export default {
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
           console.log("mision cumplida1");
-          const increment = firebase.firestore.FieldValue.increment(1);
-          // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-          const correct_answersRef = db
-            .collection(this.classroom + "-trivia")
-            .doc("¿qué es la energía?");
-          const batch = db.batch();
-          batch.set(
-            correct_answersRef,
-            { correct_answers: increment },
-            { merge: true }
-          );
-          batch.commit();
-          console.log("mision 2 cumplida");
         });
       } else {
         this.errorNotif = true;
-
-        const increment = firebase.firestore.FieldValue.increment(1);
-        // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-        const incorrect_answersRef = db
-          .collection(this.classroom + "-trivia")
-          .doc("¿qué es la energía?");
-        const batch = db.batch();
-        batch.set(
-          incorrect_answersRef,
-          { incorrect_answers: increment },
-          { merge: true }
-        );
-        batch.commit();
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
       }
     },
     checkAnswer4() {
       //mejora el timing en la secuencia
       this.answered = true;
       if (this.answer4 === this.right_answer) {
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated,"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
@@ -657,35 +683,13 @@ export default {
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
           console.log("mision cumplida1");
-          const increment = firebase.firestore.FieldValue.increment(1);
-          // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-          const correct_answersRef = db
-            .collection(this.classroom + "-trivia")
-            .doc("¿qué es la energía?");
-          const batch = db.batch();
-          batch.set(
-            correct_answersRef,
-            { correct_answers: increment },
-            { merge: true }
-          );
-          batch.commit();
-          console.log("mision 2 cumplida");
         });
       } else {
         this.errorNotif = true;
-
-        const increment = firebase.firestore.FieldValue.increment(1);
-        // le vmos a pasar el valor estatico del doc en un string que contenga trivia
-        const incorrect_answersRef = db
-          .collection(this.classroom + "-trivia")
-          .doc("¿qué es la energía?");
-        const batch = db.batch();
-        batch.set(
-          incorrect_answersRef,
-          { incorrect_answers: increment },
-          { merge: true }
-        );
-        batch.commit();
+        db.collection(this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
       }
     },
     submit() {
@@ -876,7 +880,7 @@ export default {
       this.transmision = false;
       this.estadisticas = false;
     },
-    renderTransmision() {
+    renderChat() {
       this.selected_trivia = false;
       this.selected_homework = false;
       this.selected_image = false;
@@ -916,6 +920,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.answerButton {
+  margin-top: 30px;
+  font-size: 18px;
+  width: 320px;
+  height: 120px;
+}
 .notifText {
   color: white;
   font-size: 22px;

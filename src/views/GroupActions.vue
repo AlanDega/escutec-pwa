@@ -1,6 +1,6 @@
 <template>
   <v-card id="lateral">
-    <v-card-title>{{ this.$route.params.id}}</v-card-title>
+    <v-card-title>{{ this.$route.params.id }}</v-card-title>
     <!-- <v-spacer></v-spacer> -->
     <v-tabs color="deep-purple accent-3" centered>
       <v-tab>Alumnos</v-tab>
@@ -15,9 +15,12 @@
             <v-col>
               <v-list>
                 <v-row justify="center">
-                  <v-list-item v-for="(student, index) in students" :key="index">
+                  <v-list-item
+                    v-for="(student, index) in students"
+                    :key="index"
+                  >
                     <v-list-content>
-                      <v-list-title>{{ student.name}}</v-list-title>
+                      <v-list-title>{{ student.name }}</v-list-title>
                     </v-list-content>
                   </v-list-item>
                 </v-row>
@@ -44,11 +47,19 @@
             </template>
 
             <v-card>
-              <v-card-title class="headline grey lighten-2" primary-title>Crear Alumno</v-card-title>
+              <v-card-title class="headline grey lighten-2" primary-title
+                >Crear Alumno</v-card-title
+              >
               <v-container>
                 <v-card-text>
-                  <v-text-field label="Nombre" v-model="student_name"></v-text-field>
-                  <v-text-field label="email" v-model="student_email"></v-text-field>
+                  <v-text-field
+                    label="Nombre"
+                    v-model="student_name"
+                  ></v-text-field>
+                  <v-text-field
+                    label="email"
+                    v-model="student_email"
+                  ></v-text-field>
                 </v-card-text>
               </v-container>
 
@@ -56,14 +67,16 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="createStudent">guardar</v-btn>
+                <v-btn color="primary" text @click="createStudent"
+                  >guardar</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-card>
       </v-tab-item>
       <v-tab-item>
-        <h1>tab 2</h1>
+       
       </v-tab-item>
     </v-tabs>
   </v-card>
@@ -73,16 +86,24 @@
 import { db } from "../db";
 
 export default {
-  
   data() {
     return {
+      img_resources:null,
+      img_title: null,
+      img_url: null,
+      video_resources:null,
+      video_title: null,
+      video_url: null,
+      text_resources:null,
+      text_title: null,
+      text_url: null,
       classroom: null,
       students: [],
       student_name: null,
       student_email: null,
-      student_xp:0,
+      student_xp: 0,
       // tokens are lvl2
-      student_tokens:0,
+      student_tokens: 0,
       dialog: false,
       fab: false,
       hidden: false,
@@ -105,7 +126,7 @@ export default {
     }
   },
   created() {
-      this.classroom = this.$route.params.id
+    this.classroom = this.$route.params.id;
     db.collection(this.classroom + "-students")
       .get()
       .then(querySnapshot => {
@@ -121,22 +142,23 @@ export default {
       db.collection(this.classroom + "-students")
         .doc(this.student_name)
         .set({
-            name: this.student_name,
-            email: this.student_email,
-            xp: this.student_xp
+          name: this.student_name,
+          email: this.student_email,
+          xp: this.student_xp
         })
         .then(() => {
           console.log("exito");
           db.collection(this.classroom + "-students")
-      .get()
-      .then(querySnapshot => {
-        this.dialog = false
-        const documents = querySnapshot.docs.map(doc => doc.data());
-        console.log("documents", documents);
-        this.students = documents;
-      });
+            .get()
+            .then(querySnapshot => {
+              this.dialog = false;
+              const documents = querySnapshot.docs.map(doc => doc.data());
+              console.log("documents", documents);
+              this.students = documents;
+            });
         });
-    }
+    },
+ 
   }
 };
 </script>

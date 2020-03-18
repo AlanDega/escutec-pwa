@@ -251,6 +251,7 @@ export default {
       items: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
+        { title: "Recursos", icon: "mdi-folder-multiple-image", path: "/resources" },
         { title: "Trivias", icon: "mdi-gamepad-circle-left", path: "/trivias" },
         { title: "Clasificación", icon: "mdi-trophy-outline", path: "/schedule" },
         { title: "Estadisticas", icon: "mdi-chart-timeline-variant", path: "/schedule" },

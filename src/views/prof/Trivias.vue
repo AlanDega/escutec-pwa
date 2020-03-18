@@ -2,9 +2,9 @@
   <v-container>
     <v-card class="mx-auto" max-width="900">
       <v-toolbar color="deep-purple accent-3" dark>
-        <v-toolbar-title>
-          <h1>Trivias</h1>
-        </v-toolbar-title>
+         <v-row justify="center" class="mt-6">
+              <v-icon height="100" width="100">mdi-gamepad-circle-left</v-icon>
+            </v-row>
         <template v-slot:extension>
           <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on }">
