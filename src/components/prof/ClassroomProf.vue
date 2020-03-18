@@ -270,89 +270,89 @@
         </v-tabs>
         <div></div>
       </v-col>
-      <v-col>
-        <v-container>
-          <v-stepper flat v-model="e6" vertical dark class="daStepper">
-            <v-stepper-step
-              color="deep-purple accent-3"
-              :complete="e6 > 1"
-              step="1"
-            >
-              Pasar Lista
-              <small>Sumar xp</small>
-            </v-stepper-step>
-
-            <v-stepper-content color="deep-purple accent-3" step="1">
-              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 2"
-                >Hecho</v-btn
-              >
-            </v-stepper-content>
-
-            <v-stepper-step
-              color="deep-purple accent-3"
-              :complete="e6 > 2"
-              step="2"
-              >Hacer trivia de Ingeniería</v-stepper-step
-            >
-
-            <v-stepper-content color="deep-purple accent-3" step="2">
-              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 3"
-                >Hecho</v-btn
-              >
-            </v-stepper-content>
-
-            <v-stepper-step
-              color="deep-purple accent-3"
-              :complete="e6 > 3"
-              step="3"
-              >Revisar Tarea
-            </v-stepper-step>
-
-            <v-stepper-content color="deep-purple accent-3" step="3">
-              <v-btn rounded color="deep-purple accent-3" dark @click="e6 = 4"
-                >Hecho</v-btn
-              >
-            </v-stepper-content>
+    <v-col class="col-side">
+        <!-- <v-container fluid> -->
+          <v-card class="side-bar-right">
+          
+              
             <v-container>
-              <v-divider class="mt-2"></v-divider>
+              
+            </v-container>
+           
+            <!-- </v-list-item> -->
+            
+        
+            <v-divider></v-divider>
+            <v-container>
               <v-row justify="center">
                 <v-col>
+                    <h1 class="sidebar-classroom" >A-1</h1>
                   <v-row justify="center">
-                    <v-list-item>
+                  
+                    <v-list-item dark>
                       <v-list-content>
-                        <v-list-title>{{ "Alumno 4/12000XP" }} </v-list-title>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>{{ "Alumno/12000 " }} </v-list-title>
                       </v-list-content>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item dark>
                       <v-list-content>
-                        <v-list-title>{{ "Alumno 10/10050XP" }} </v-list-title>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>{{ "Alumno/10050 " }} </v-list-title>
                       </v-list-content>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item dark>
                       <v-list-content>
-                        <v-list-title>{{ "Alumno 1/2800XP" }} </v-list-title>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-4-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-5-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-6-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-7-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-8-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
+                      </v-list-content>
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-list-content>
+                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-9-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
                       </v-list-content>
                     </v-list-item>
                   </v-row>
+                  <v-divider class="mt-4"></v-divider>
                 </v-col>
               </v-row>
             </v-container>
-            <v-divider></v-divider>
-            <v-row justify="center" align="center">
-              <v-container>
-                <v-row justify="center">
-                  <v-img
-                    class="mt-6"
-                    contain
-                    height="120"
-                    width="120"
-                    src="../../assets/boost.svg"
-                  ></v-img>
-                </v-row>
-              </v-container>
-            </v-row>
-          </v-stepper>
-        </v-container>
+            <v-container>
+              <v-row justify="center">
+                <v-img 
+                class="mb-4"
+                contain
+                src="../../assets/available-boost.png"
+                height="100"
+                width="100"
+                >
+                </v-img>
+              </v-row>
+            </v-container>
+          </v-card>
+        <!-- </v-container> -->
       </v-col>
     </v-row>
     <div v-if="trivia_is_active">
@@ -915,6 +915,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sidebar-classroom{
+  color: white;
+  font-size:24px;
+  text-align: center;
+  margin-top: -14px;
+  margin-bottom: 12px;
+}
+.main-col{
+  margin-right: -15px;
+}
+.col-side{
+  padding-top: 0px;
+  padding-right: 14px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  margin-top:12px;
+}
+.side-bar-right {
+  border-left: 1px solid #e3e0e0;
+  background-color: #1e1d20;
+  width: 100%;
+}
 .tableText {
   text-align: center;
 }

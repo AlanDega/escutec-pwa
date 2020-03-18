@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col align="center" cols="10">
+      <v-col align="center" cols="10" class="main-col">
         <v-container>
           <v-card class="TwitchPlayer">
             <iframe
@@ -202,8 +202,8 @@
       </v-col>
       <!-- -------------------------------------- SideBar Right _____________------------------ -->
 
-      <v-col>
-        <v-container fluid>
+      <v-col class="col-side">
+        <!-- <v-container fluid> -->
           <v-card class="side-bar-right">
           
             <v-row justify="center">
@@ -233,39 +233,7 @@
            
             <!-- </v-list-item> -->
             <v-divider></v-divider>
-            <v-row class="mt-6" justify="center">
-              <v-text class="xpText">Retos</v-text>
-            </v-row>
-            <v-list-item three-line dark>
-              <v-list-content>
-                <v-list-item-title>
-                  3 aciertos
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  1/3
-                </v-list-item-subtitle>
-              </v-list-content>
-            </v-list-item>
-            <v-list-item three-line dark>
-              <v-list-content>
-                <v-list-item-title>
-                  3 asistencias
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  1/3
-                </v-list-item-subtitle>
-              </v-list-content>
-            </v-list-item>
-            <v-list-item three-line dark>
-              <v-list-content>
-                <v-list-item-title>
-                  3 tareas
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  1/3
-                </v-list-item-subtitle>
-              </v-list-content>
-            </v-list-item>
+            
             <v-divider></v-divider>
             <v-container>
               <v-row>
@@ -303,8 +271,20 @@
                 </v-col>
               </v-row>
             </v-container>
+            <v-container>
+              <v-row justify="center">
+                <v-img 
+                class="mb-4"
+                contain
+                src="../../assets/available-boost.png"
+                height="100"
+                width="100"
+                >
+                </v-img>
+              </v-row>
+            </v-container>
           </v-card>
-        </v-container>
+        <!-- </v-container> -->
       </v-col>
     </v-row>
     <div class="text-center">
@@ -920,6 +900,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-col{
+  margin-right: -15px;
+}
+.col-side{
+  padding-top: 0px;
+  padding-right: 14px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  margin-top:12px;
+}
 .answerButton {
   margin-top: 30px;
   font-size: 18px;
@@ -940,6 +930,7 @@ export default {
 .side-bar-right {
   border-left: 1px solid #e3e0e0;
   background-color: #1e1d20;
+  width: 100%;
 }
 .v-btn--example {
 }
