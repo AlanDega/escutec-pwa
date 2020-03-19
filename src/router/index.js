@@ -8,6 +8,8 @@ import GroupActions from "../views/prof/GroupActions.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import Dashboard from "../views/director/Dashboard.vue";
+import Groups from "../views/director/Groups.vue";
+import Group from "../views/director/Group.vue";
 import Trivias from "../views/prof/Trivias.vue";
 import Resources from "../views/prof/Resources.vue";
 Vue.use(VueRouter);
@@ -64,6 +66,16 @@ const routes = [
     path: "/trivias",
     name: "trivias",
     component: Trivias
+  },
+  {
+    path: "/groups",
+    name: "groups",
+    component: Groups
+  },
+  {
+    path: "/group/:id",
+    name: "group",
+    component: Group
   },
   {
     path: "/about",
