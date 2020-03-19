@@ -20,7 +20,7 @@
                     :key="index"
                   >
                     <v-list-content>
-                      <v-list-title>{{ student.name }}</v-list-title>
+                      <v-list-title>{{ student.alias }}</v-list-title>
                     </v-list-content>
                   </v-list-item>
                 </v-row>
@@ -53,10 +53,12 @@
               <v-container>
                 <v-card-text>
                   <v-text-field
-                    label="Nombre"
-                    v-model="student_name"
+                    color="deep-purple accent-3"
+                    label="Alias"
+                    v-model="student_alias"
                   ></v-text-field>
                   <v-text-field
+                    color="deep-purple accent-3"
                     label="email"
                     v-model="student_email"
                   ></v-text-field>
@@ -67,7 +69,7 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="createStudent"
+                <v-btn color="deep-purple accent-3" text @click="createStudent"
                   >guardar</v-btn
                 >
               </v-card-actions>
@@ -75,26 +77,24 @@
           </v-dialog>
         </v-card>
       </v-tab-item>
-      <v-tab-item>
-       
-      </v-tab-item>
+      <v-tab-item> </v-tab-item>
     </v-tabs>
   </v-card>
 </template>
 
 <script>
-import { db } from "../db";
+import { db } from "../../db";
 
 export default {
   data() {
     return {
-      img_resources:null,
+      img_resources: null,
       img_title: null,
       img_url: null,
-      video_resources:null,
+      video_resources: null,
       video_title: null,
       video_url: null,
-      text_resources:null,
+      text_resources: null,
       text_title: null,
       text_url: null,
       classroom: null,
@@ -140,14 +140,16 @@ export default {
   methods: {
     createStudent() {
       db.collection(this.classroom + "-students")
-        .doc(this.student_name)
+        .doc(this.student_alias)
         .set({
-          name: this.student_name,
+          alias: this.student_alias,
           email: this.student_email,
           xp: this.student_xp
         })
         .then(() => {
           console.log("exito");
+          this.student_alias = '',
+          this.student_email = '',
           db.collection(this.classroom + "-students")
             .get()
             .then(querySnapshot => {
@@ -157,8 +159,7 @@ export default {
               this.students = documents;
             });
         });
-    },
- 
+    }
   }
 };
 </script>

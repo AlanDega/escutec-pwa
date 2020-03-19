@@ -1,7 +1,7 @@
 <template>
   <v-app class="app">
-    <div >
-<!-- <v-app-bar
+    <div>
+      <!-- <v-app-bar
      fixed
       app
       color="white"
@@ -18,54 +18,57 @@
       <v-btn @click="logout">logout</v-btn>
 </v-app-bar> -->
     </div>
-    <div >
-    <div v-if="this.$route.name != 'sign-up'">
-      <div v-if="this.$route.name != 'login'">
-
-<v-navigation-drawer app permanent  dark fixed color="deep-purple accent-3">
-      <div v-if="prof">
-        <v-list nav>
-          <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-            @click="goToComponent(item)"
+    <div>
+      <div v-if="this.$route.name != 'sign-up'">
+        <div v-if="this.$route.name != 'login'">
+          <v-navigation-drawer
+            app
+            permanent
+            dark
+            fixed
+            color="deep-purple accent-3"
           >
-            <v-list-item-icon>
-              <v-icon color="">{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            <div v-if="prof">
+              <v-list nav>
+                <v-list-item
+                  v-for="item in items"
+                  :key="item.title"
+                  link
+                  @click="goToComponent(item)"
+                >
+                  <v-list-item-icon>
+                    <v-icon color="">{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
 
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
+            <div v-if="student">
+              <v-list nav>
+                <v-list-item
+                  v-for="item in items2"
+                  :key="item.title"
+                  link
+                  @click="goToComponent(item)"
+                >
+                  <v-list-item-icon>
+                    <v-icon color="">{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
+          </v-navigation-drawer>
+        </div>
       </div>
-      <div v-if="student">
-        <v-list nav>
-          <v-list-item
-            v-for="item in items2"
-            :key="item.title"
-            link
-            @click="goToComponent(item)"
-          >
-            <v-list-item-icon>
-              <v-icon color="">{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </div>
-    </v-navigation-drawer>
-          </div>
-
     </div>
 
-    </div>
-    
     <!-- <div
       v-if="this.$route.name === 'Classroom' && this.student"
     >
@@ -170,9 +173,7 @@
         </v-container>        
       </v-navigation-drawer>
     </div> -->
-    <div
-      v-if="this.$route.name === 'Classroom' && this.prof"
-    >
+    <div v-if="this.$route.name === 'Classroom' && this.prof">
       <!-- <v-navigation-drawer right app permanent clipped fixed>
        
         <v-divider></v-divider>
@@ -232,7 +233,7 @@
 import firebase from "firebase";
 import { db } from "./db";
 
-import Layout from './views/director/layout/Layout'
+import Layout from "./views/director/layout/Layout";
 import ClassSteps from "./components/prof/ClassSteps";
 export default {
   components: {
@@ -241,21 +242,41 @@ export default {
   },
   data() {
     return {
-      xp:null,
-      auth:null,
+      xp: null,
+      auth: null,
       tipo_usuario: null,
       user_email: null,
       prof: null,
       student: null,
-      director:null,
+      director: null,
       items: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
-        { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
-        { title: "Recursos", icon: "mdi-folder-multiple-image", path: "/resources" },
+        {
+          title: "Horario",
+          icon: "mdi-calendar-range",
+          path: "/prof-schedule"
+        },
+        {
+          title: "Recursos",
+          icon: "mdi-folder-multiple-image",
+          path: "/resources"
+        },
         { title: "Trivias", icon: "mdi-gamepad-circle-left", path: "/trivias" },
-        { title: "Clasificación", icon: "mdi-trophy-outline", path: "/schedule" },
-        { title: "Estadisticas", icon: "mdi-chart-timeline-variant", path: "/schedule" },
-        { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline", path: "/schedule" },
+        {
+          title: "Clasificación",
+          icon: "mdi-trophy-outline",
+          path: "/schedule"
+        },
+        {
+          title: "Estadisticas",
+          icon: "mdi-chart-timeline-variant",
+          path: "/schedule"
+        },
+        {
+          title: "Noticias",
+          icon: "mdi-newspaper-variant-multiple-outline",
+          path: "/schedule"
+        },
 
         // {
         //   title: "Notificaciones",
@@ -268,7 +289,11 @@ export default {
       itemsStudentRight: [
         { title: "funciono", icon: "mdi-google-classroom", path: "/classroom" },
         { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
-        { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline", path: "/schedule" },
+        {
+          title: "Noticias",
+          icon: "mdi-newspaper-variant-multiple-outline",
+          path: "/schedule"
+        },
         // {
         //   title: "Notificaciones",
         //   icon: "mdi-calendar-range",
@@ -279,8 +304,12 @@ export default {
       ],
       items2: [
         { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
-        { title: "Horario", icon: "mdi-calendar-range", path: "/schedule" },
-                { title: "Clasificación", icon: "mdi-trophy-outline" },
+        {
+          title: "Horario",
+          icon: "mdi-calendar-range",
+          path: "/student-schedule"
+        },
+        { title: "Clasificación", icon: "mdi-trophy-outline" },
 
         {
           title: "Tareas",
@@ -297,8 +326,16 @@ export default {
           icon: "mdi-video-outline",
           path: "/"
         },
-        { title: "Examenes", icon: "mdi-order-bool-descending", path: "/schedule" },
-        { title: "Calificaciones", icon: "mdi-dice-d10-outline", path: "/schedule" },
+        {
+          title: "Examenes",
+          icon: "mdi-order-bool-descending",
+          path: "/schedule"
+        },
+        {
+          title: "Calificaciones",
+          icon: "mdi-dice-d10-outline",
+          path: "/schedule"
+        },
         // LVL 2 { title: "Estadisticas", icon: "mdi-" },
         { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline" },
         { title: "Ayuda", icon: "mdi-help-circle-outline" }
@@ -306,85 +343,87 @@ export default {
       right: null
     };
   },
-  watch:{
+  watch: {
     // xp(){
-    //   this.xp = 
+    //   this.xp =
     // }
   },
   mounted() {
-    console.log('route-name',this.$route.name)
+    console.log("route-name", this.$route.name);
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         db.collection("usuarios")
           .doc(user.email)
           .get()
-          .then(snapshot => {  
+          .then(snapshot => {
             const document = snapshot.data();
-                      console.log('app',document);
-            if(document.tipo_usuario === 'prof'){
-              this.prof = true
-              this.student = false
-              this.director = false
-            }
-            else if(document.tipo_usuario === 'student'){
-              this.student = true
-              this.director = false
-              this.prof = false
-              }
-            else if(document.tipo_usuario === 'director'){
-              this.director = true
-              this.student = false
-              this.prof = false
+            console.log("app", document);
+            if (document.tipo_usuario === "prof") {
+              this.prof = true;
+              this.student = false;
+              this.director = false;
+            } else if (document.tipo_usuario === "student") {
+              this.student = true;
+              this.director = false;
+              this.prof = false;
+            } else if (document.tipo_usuario === "director") {
+              this.director = true;
+              this.student = false;
+              this.prof = false;
             }
           });
       }
     });
-    let refXp = db.collection(this.classroom + "-students")
-      // .where()
-      refXp.onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-          console.log('changeType',change.type)
-          if(change.type = 'modified'){
-            let doc = change.doc
-          this.xp = doc.data().xp
-            console.log('changeDoc',doc.data())
-            
-            // this.messages.push({
-            //   id: doc.id,
-            //   sender: doc.data().sender,
-            //   message: doc.data().message,
-            //   timestamp: moment(doc.data().timestamp).format('LTS')
-            // })
-          }
-        })
-      })    
+    let refXp = db.collection(this.classroom + "-students");
+    // .where()
+    refXp.onSnapshot(snapshot => {
+      snapshot.docChanges().forEach(change => {
+        console.log("changeType", change.type);
+        if ((change.type = "modified")) {
+          let doc = change.doc;
+          this.xp = doc.data().xp;
+          console.log("changeDoc", doc.data());
+
+          // this.messages.push({
+          //   id: doc.id,
+          //   sender: doc.data().sender,
+          //   message: doc.data().message,
+          //   timestamp: moment(doc.data().timestamp).format('LTS')
+          // })
+        }
+      });
+    });
   },
-  computed:{
-    authRoutes(){
-      if(this.$route.name === "sign-up" || "login" ) {
-        this.auth = true
+  computed: {
+    authRoutes() {
+      if (this.$route.name === "sign-up" || "login") {
+        this.auth = true;
       }
-      this.auth = false
+      this.auth = false;
     }
   },
   methods: {
     goToComponent(item) {
       this.$router.push(item.path);
     },
-    logout(){
-      firebase.auth().signOut().then(() => {
-        console.log('logged out')
-        this.$router.push('/login')
-  // Sign-out successful.
-}).catch(function(error) {
-  // An error happened.
-});
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          console.log("logged out");
+          this.$router.push("/login");
+          // Sign-out successful.
+        })
+        .catch(function(error) {
+          // An error happened.
+        });
     }
   }
 };
 </script>
-<style >
+<style>
 .app {
-  background-color: #282424
+  background-color: #282424;
 }
 </style>

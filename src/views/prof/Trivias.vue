@@ -2,9 +2,9 @@
   <v-container>
     <v-card class="mx-auto" max-width="900">
       <v-toolbar color="deep-purple accent-3" dark>
-         <v-row justify="center" class="mt-6">
-              <v-icon height="100" width="100">mdi-gamepad-circle-left</v-icon>
-            </v-row>
+        <v-row justify="center" class="mt-6">
+          <v-icon height="100" width="100">mdi-gamepad-circle-left</v-icon>
+        </v-row>
         <template v-slot:extension>
           <v-dialog v-model="dialog" width="500">
             <template v-slot:activator="{ on }">
@@ -71,13 +71,15 @@
       </v-toolbar>
       <v-row justify="center">
         <v-col>
-            <v-row justify="center">
-              <v-list-item v-for="(trivia, index) in trivias" :key="index" >
-                <v-list-content justify="center">
-                  <v-list-title justify="center">{{ trivia.question }}</v-list-title>
-                </v-list-content>
-              </v-list-item>
-            </v-row>
+          <v-row justify="center">
+            <v-list-item v-for="(trivia, index) in trivias" :key="index">
+              <v-list-content justify="center">
+                <v-list-title justify="center">{{
+                  trivia.question
+                }}</v-list-title>
+              </v-list-content>
+            </v-list-item>
+          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -133,7 +135,7 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-          this.user = user.email
+        this.user = user.email;
         db.collection(user.email)
           .get()
           .then(querySnapshot => {
@@ -155,7 +157,8 @@ export default {
           answer2: this.answer2,
           answer3: this.answer3,
           answer4: this.answer4,
-          right_answer: this.right_answer
+          right_answer: this.right_answer,
+          selected: null
         })
         .then(() => {
           console.log("exitoTrivia");

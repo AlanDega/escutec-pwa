@@ -22,76 +22,41 @@
           <!-- <v-tab @click="renderEstadisticas">estadisticas</v-tab> -->
 
           <v-tab-item>
-            <v-container>
+            <v-container class="chat-card">
               <v-row>
                 <v-col>
-                  <v-card class="ChatCard">
-                    <v-container>
+                  <v-card>
+                    <v-col>
                       <v-row>
-                        <!-- <v-navigation-drawer permanent> -->
-                        <v-list ref="chat2" id="logs2">
-                          <!-- <v-list> -->
-                          <template>
-                            <v-container
-                              v-for="(student, index) in students"
-                              :key="index"
-                            >
-                              <v-row>
-                                <v-col cols="9">
-                                  <v-subheader
-                                    v-if="student"
-                                    :key="index"
-                                    @click="validatePresence(student)"
-                                    >{{ student.name }}</v-subheader
-                                  >
-                                </v-col>
-                                <v-col>
-                                  <v-container v-if="student_checked">
-                                    <v-row justify="center">
-                                      <v-icon color="deep-purple accent-3"
-                                        >mdi-check</v-icon
-                                      >
-                                    </v-row>
-                                  </v-container>
-                                </v-col>
-                              </v-row>
-                            </v-container>
+                        <v-list ref="chat" id="logs">
+                          <template v-for="(message, index) in messages">
+                            <v-subheader v-if="message" :key="index">
+                              {{ message.sender + ":" + message.message }}
+                            </v-subheader>
                           </template>
                         </v-list>
-                        <!-- </v-navigation-drawer> -->
-                        <v-col>
-                          <v-list ref="chat" id="logs">
-                            <template v-for="(message, index) in messages">
-                              <v-subheader v-if="message" :key="index">
-                                {{ message.sender + ":" + message.message }}
-                              </v-subheader>
-                            </template>
-                          </v-list>
-                          <v-container>
-                            <v-row>
-                              <v-col cols="10">
-                                <v-text-field
-                                  dense
-                                  v-model="msg"
-                                  label="Message"
-                                  outlined
-                                  color="deep-purple accent-3"
-                                ></v-text-field>
-                              </v-col>
-                              <v-col cols="2">
-                                <v-btn
-                                  dark
-                                  color="deep-purple accent-3"
-                                  @click="submit"
-                                  >Enviar</v-btn
-                                >
-                              </v-col>
-                            </v-row>
-                          </v-container>
+                      </v-row>
+                      <v-divider></v-divider>
+                      <v-row class="mt-6">
+                        <v-col cols="10">
+                          <v-text-field
+                            dense
+                            v-model="msg"
+                            label="Message"
+                            outlined
+                            color="deep-purple accent-3"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-btn
+                            dark
+                            color="deep-purple accent-3"
+                            @click="submit"
+                            >Enviar</v-btn
+                          >
                         </v-col>
                       </v-row>
-                    </v-container>
-                    <!-- <v-form @submit.prevent="submit"> -->
+                    </v-col>
                   </v-card>
                 </v-col>
               </v-row>
@@ -177,7 +142,11 @@
                   <v-card>
                     <table style="width:100%">
                       <tr>
-                        <th v-for="header in headers" :key="header.id">
+                        <th
+                          v-for="header in headers"
+                          :key="header.id"
+                          class="headers"
+                        >
                           {{ header }}
                         </th>
                       </tr>
@@ -185,7 +154,8 @@
                       <tr
                         v-for="trivia in trivias"
                         :key="trivia.id"
-                        @click="sendSelectedTrivia(trivia)"
+                        :class="{ selected: trivia.selected }"
+                        @click="renderConfirmationBar(trivia)"
                       >
                         <td class="tableText">{{ trivia.question }}</td>
                         <td class="tableText" @click="log(trivia.answer1)">
@@ -217,48 +187,7 @@
                 </v-fab-transition>
               </v-row>
             </v-container>
-            <!-- <v-container v-if="trivia_is_active">
-              <v-row>
-                <v-col cols="12" class="mt-12">
-                  <v-row justify="center">
-                    <h2>Pregunta :{{ question }}</h2>
-                  </v-row>
-                  <v-row justify="center" class="mt-6">
-                    <h2>Respuesta Correcta : {{ right_answer }}</h2>
-                  </v-row>
-                </v-col>
-              </v-row>
-              <v-row class="mt-12">
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <h1 class="correct">Correctos</h1>
-                  </v-row>
-                  <v-row justify="center">
-                    <h2 class="correct">{{ correct_answers }}</h2>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <h1 class="incorrect">Incorrectos</h1>
-                  </v-row>
-                  <v-row justify="center">
-                    <h2 class="incorrect">{{ incorrect_answers }}</h2>
-                  </v-row>
-                </v-col>
-              </v-row>
-              aqui podemo s agregar info de los estudiantes de quienes lo lograron etc  
 
-              <v-row justify="center" class="mt-12">
-                en finalize trivia agregar info para las estadisticas generales  
-                 <v-btn
-                  rounded
-                  color="deep-purple accent-3"
-                  dark
-                  @click="finalize_trivia"
-                  >Terminar Trivia</v-btn
-                >
-              </v-row>
-            </v-container> -->
             <v-snackbar :vertical="vertical" v-model="snackbar" bottom>
               <h2 class="correct">{{ correct_answers }}</h2>
               <h2 class="incorrect">{{ incorrect_answers }}</h2>
@@ -270,98 +199,190 @@
         </v-tabs>
         <div></div>
       </v-col>
-    <v-col class="col-side">
+      <v-col class="col-side">
         <!-- <v-container fluid> -->
-          <v-card class="side-bar-right">
-          
-              
-            <v-container>
-              
-            </v-container>
-           
-            <!-- </v-list-item> -->
-            
-        
-            <v-divider></v-divider>
-            <v-container>
-              <v-row justify="center">
-                <v-col>
-                    <h1 class="sidebar-classroom" >A-1</h1>
-                  <v-row justify="center">
-                  
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>{{ "Alumno/12000 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>{{ "Alumno/10050 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-4-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-5-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-6-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-7-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-8-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-list-content>
-                        <v-list-title> <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-9-circle</v-icon> {{ "Alumno/2800 " }} </v-list-title>
-                      </v-list-content>
-                    </v-list-item>
-                  </v-row>
-                  <v-divider class="mt-4"></v-divider>
-                </v-col>
-              </v-row>
-            </v-container>
-            <v-container>
-              <v-row justify="center">
-                <v-img 
+        <v-card class="side-bar-right">
+          <v-container>
+            <v-row justify="center">
+              <v-col>
+                <h1 class="sidebar-classroom">A-1</h1>
+                <v-row justify="center">
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >{{ "Alumno/12000 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >{{ "Alumno/10050 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-4-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-5-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-6-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-7-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-8-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                  <v-list-item dark>
+                    <v-list-content>
+                      <v-list-title>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-9-circle</v-icon
+                        >
+                        {{ "Alumno/2800 " }}
+                      </v-list-title>
+                    </v-list-content>
+                  </v-list-item>
+                </v-row>
+                <v-divider class="mt-4"></v-divider>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-container>
+            <v-row justify="center">
+              <v-img
                 class="mb-4"
                 contain
                 src="../../assets/available-boost.png"
                 height="100"
                 width="100"
-                >
-                </v-img>
-              </v-row>
-            </v-container>
-          </v-card>
+              >
+              </v-img>
+            </v-row>
+          </v-container>
+        </v-card>
         <!-- </v-container> -->
       </v-col>
     </v-row>
-    <div v-if="trivia_is_active">
+    <div v-if="confirming_trivia">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
-          <v-btn outlined dark @click="finalize_trivia">Terminar Trivia</v-btn>
+          <v-btn outlined dark @click="initializeTrivia">Empezar Trivia</v-btn>
         </v-row>
       </v-footer>
     </div>
+    <div v-if="trivia_is_active">
+      <v-footer absolute color="deep-purple accent-3">
+        <v-row justify="center">
+          <v-btn outlined dark @click="finalizeTrivia">Terminar Trivia</v-btn>
+        </v-row>
+      </v-footer>
+    </div>
+    <!-- <div v-if="class_is_active && !trivia_is_active">
+      <v-footer absolute color="deep-purple accent-3">
+        <v-row justify="center">
+          <v-btn outlined dark @click="initialize_trivia"
+            >Terminar Trivia</v-btn
+          >
+        </v-row>
+      </v-footer>
+    </div> -->
+    <div v-if="!presence_checked">
+      <v-footer absolute color="deep-purple accent-3">
+        <v-row justify="center">
+          <v-btn outlined dark @click="initializeClass">Pasar Lista</v-btn>
+        </v-row>
+      </v-footer>
+    </div>
+    <div v-if="checking_presence">
+      <v-footer absolute color="deep-purple accent-3">
+        <!-- <v-card-actions class="justify-space-between"> -->
+        <v-row justify="center">
+          <v-btn text @click="next" class="mr-12">
+            <v-icon color="red">mdi-close-circle</v-icon>
+          </v-btn>
+          <v-card flat tile width="200" color="deep-purple accent-3">
+            <v-window v-model="onboarding" vertical>
+              <v-window-item
+                v-for="student in students"
+                :key="`card-${student}`"
+              >
+                <!-- <v-card flat height="100%" color="deep-purple accent-3"> -->
+                <v-row
+                  class="fill-height"
+                  align="center"
+                  justify="center"
+                  tag="v-card-text"
+                >
+                  <p style="font-size: 18px;" class="white--text">
+                    {{ student.alias }}
+                  </p>
+                </v-row>
+                <!-- </v-card> -->
+              </v-window-item>
+            </v-window>
+          </v-card>
+          <v-btn text @click="next" class="ml-12">
+            <v-icon color="green">mdi-check-circle</v-icon>
+          </v-btn>
+        </v-row>
+      </v-footer>
+    </div>
+    <v-snackbar v-model="tableNotif" :timeout="timeout">
+      {{ table_notif_text }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -378,6 +399,17 @@ export default {
 
   data() {
     return {
+      tableNotif: false,
+      timeout: 2500,
+      table_notif_text: "Solo puedes elegir una Trivia",
+      confirming_trivia: null,
+      checking_presence: null,
+      selected_student: null,
+      length: null,
+      onboarding: 0,
+      class_is_active: null,
+      presence_checked: null,
+      model: [],
       data_loading: true,
       headers: [
         "Pregunta",
@@ -539,16 +571,18 @@ export default {
       .get()
       .then(querySnapshot => {
         const documents = querySnapshot.docs.map(doc => doc.data());
+        console.log("student-docs", documents);
+        this.length = documents.length;
         this.students = documents;
       });
-    db.collection(this.classroom +'-trivia')
-      .doc('trivia')
+    db.collection(this.classroom + "-trivia")
+      .doc("trivia")
       .get()
       .then(snapshot => {
         const document = snapshot.data();
         console.log("triviaDocument", document);
-        if(document.trivia_is_active === true){
-          this.trivia_is_active = true
+        if (document.trivia_is_active === true) {
+          this.trivia_is_active = true;
         }
       });
     let ref = db.collection(this.classroom + "-messages").orderBy("timestamp");
@@ -579,6 +613,15 @@ export default {
         }
       });
     });
+    db.collection("Ingeniería-stjohns")
+      .doc("preparatoria")
+      .get()
+      .then(snapshot => {
+        const document = snapshot.data();
+        this.checking_presence = document.checking_presence;
+        this.presence_checked = document.presence_checked;
+      });
+
     db.collection("ingeniería-preparatoria-stjohns" + "-img-resources")
       .get()
       .then(querySnapshot => {
@@ -602,14 +645,75 @@ export default {
       });
   },
   methods: {
+    renderConfirmationBar(trivia) {
+      if (this.confirming_trivia === null) {
+        trivia.selected = !trivia.selected;
+        this.confirming_trivia = true;
+        this.question = trivia.question;
+        this.answer1 = trivia.answer1;
+        this.answer2 = trivia.answer2;
+        this.answer3 = trivia.answer3;
+        this.answer4 = trivia.answer4;
+        this.right_answer = trivia.right_answer;
+      } else {
+        this.tableNotif = true;
+      }
+    },
+    next() {
+      if (this.onboarding === this.students.length - 1) {
+        db.collection("Ingeniería-stjohns")
+          .doc("preparatoria")
+          .set({ presence_checked: true, checking_presence: false })
+          // try this with slow connection
+          .then(() => {
+            this.presence_checked = true;
+            this.checking_presence = false;
+          });
+      }
+      this.selected_student = this.students[this.onboarding];
+      this.onboarding =
+        this.onboarding + 1 === this.length ? 0 : this.onboarding + 1;
+      db.collection(this.classroom + "-students")
+        .doc(this.selected_student.alias)
+        .update({ is_present: true })
+        .then(() => {
+          const increment = firebase.firestore.FieldValue.increment(20);
+          const xpRef = db
+            .collection(this.classroom + "-students")
+            .doc(this.selected_student.alias);
+          const batch = db.batch();
+          batch.set(xpRef, { xp: increment }, { merge: true });
+          batch.commit().then(() => {
+            console.log("mision cumplida");
+          });
+        });
+    },
+    prev() {
+      this.onboarding =
+        this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
+    },
+
+    initializeClass() {
+      db.collection("Ingeniería-stjohns")
+        .doc("preparatoria")
+        .set({
+          checking_presence: true
+        })
+        .then(() => {
+          db.collection("Ingeniería-stjohns")
+            .doc("preparatoria")
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              console.log("classroomDoc", document);
+              if (document.checking_presence === true) {
+                this.checking_presence = true;
+              }
+            });
+        });
+    },
     showTrivia(trivia) {
       console.log("trivia", trivia.question);
-      this.question = trivia.question;
-      this.answer1 = trivia.answer1;
-      this.answer2 = trivia.answer2;
-      this.answer3 = trivia.answer3;
-      this.answer4 = trivia.answer4;
-      this.right_answer = trivia.right_answer;
     },
     getTrivias() {
       db.collection(this.user)
@@ -620,8 +724,10 @@ export default {
           console.log("trivias", documents);
         });
     },
-    finalize_trivia() {
-      this.trivia_is_active = false;
+    finalizeTrivia() {
+      // esto va despues de que se actulizo firestore
+      // this.trivia_is_active = false;
+
       db.collection(this.classroom + "-students")
         .where("right", "==", true)
         .get()
@@ -637,11 +743,12 @@ export default {
                 db.collection(this.classroom + "-students")
                   .doc(doc.id)
                   .update({ right: null })
-                  .then(() =>{
-                    db.collection(this.classroom + '-trivia')
-                      .doc('trivia')
-                      .update({ trivia_is_active: false })
-                  })
+                  .then(() => {
+                    db.collection(this.classroom + "-trivia")
+                      .doc("trivia")
+                      .update({ trivia_is_active: false });
+                    this.trivia_is_active = false;
+                  });
               });
             });
 
@@ -649,16 +756,11 @@ export default {
         });
     },
     // hacer otra coleccion para los resultados?
-    sendSelectedTrivia(trivia) {
-      this.question = trivia.question;
-      this.answer1 = trivia.answer1;
-      this.answer2 = trivia.answer2;
-      this.answer3 = trivia.answer3;
-      this.answer4 = trivia.answer4;
-      this.right_answer = trivia.right_answer;
+    initializeTrivia(trivia) {
       db.collection(this.classroom + "-trivia")
         .doc("trivia")
         .set({
+          confirming_trivia: false,
           trivia_is_active: true,
           question: this.question,
           answer1: this.answer1,
@@ -670,7 +772,6 @@ export default {
           incorrect_answers: 0
         })
         .then(() => {
-          this.dialogTrivia = false;
           this.trivia_is_active = true;
           db.collection(this.classroom + "-students")
             .where("right", "==", true)
@@ -684,6 +785,7 @@ export default {
                     db.collection(this.classroom + "-students")
                       .doc(doc.id)
                       .update({ answered: false });
+                    this.confirming_trivia = false;
                   });
                 });
               // aqui enviar info
@@ -693,11 +795,11 @@ export default {
     },
     validatePresence(student) {
       this.student_checked = true;
-      console.log("student", student.name);
+      console.log("student", student.alias);
       const increment = firebase.firestore.FieldValue.increment(20);
       const xpRef = db
         .collection(this.classroom + "-students")
-        .doc(student.name);
+        .doc(student.alias);
       const batch = db.batch();
       batch.set(xpRef, { xp: increment }, { merge: true });
       batch.commit().then(() => {
@@ -717,7 +819,7 @@ export default {
         });
     },
 
-    // fillData() {
+    // fillmeht
     //   (this.datacollection = {
     //     labels: ["lunes", "martes", "miercoles", "jueves", "viernes"],
     //     datasets: [
@@ -915,22 +1017,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar-classroom{
+.headers {
+  border-bottom: 0.5px solid rgba(51, 54, 52, 0.397);
+  padding: 10px 0px;
+}
+.selected {
+  background: rgba(0, 255, 102, 0.49);
+  color: black;
+}
+.chat-card {
+  max-height: 32vh;
+}
+.sidebar-classroom {
   color: white;
-  font-size:24px;
+  font-size: 24px;
   text-align: center;
   margin-top: -14px;
   margin-bottom: 12px;
 }
-.main-col{
+.main-col {
   margin-right: -15px;
 }
-.col-side{
+.col-side {
   padding-top: 0px;
   padding-right: 14px;
   padding-left: 0px;
   padding-bottom: 0px;
-  margin-top:12px;
+  margin-top: 12px;
 }
 .side-bar-right {
   border-left: 1px solid #e3e0e0;
@@ -940,9 +1053,7 @@ export default {
 .tableText {
   text-align: center;
 }
-.header {
-  height: 20vh;
-}
+
 .correct {
   font-size: 46px;
   color: green;
@@ -952,15 +1063,13 @@ export default {
   color: red;
 }
 #logs {
-  height: 180px;
+  height: 32vh;
   overflow: auto;
+  width: 100%;
 }
-#logs2 {
-  height: 180px;
-  overflow: auto;
-}
+
 .ChatCard {
-  height: 35vh;
+  height: 32vh;
   width: 100%;
   margin-top: 20px;
 }
