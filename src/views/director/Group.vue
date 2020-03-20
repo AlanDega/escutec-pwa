@@ -20,11 +20,7 @@
             <template>
               <div>
                 <v-card>
-                  <v-data-table
-                    :headers="headers"
-                    :items="schedule"
-                    hide-default-footer
-                  >
+                  <v-data-table :headers="headers" :items="schedule" hide-default-footer>
                     <template v-slot:item.hora="props">
                       <v-edit-dialog
                         :return-value.sync="props.item.hora"
@@ -42,7 +38,7 @@
                         <template v-slot:input>
                           <v-text-field
                             v-model="props.item.hora"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -69,7 +65,7 @@
                             outlined
                             v-model="props.item.lunes"
                             :items="subjects"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -96,7 +92,7 @@
                             outlined
                             v-model="props.item.martes"
                             :items="subjects"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -125,7 +121,7 @@
                             outlined
                             v-model="props.item.miercoles"
                             :items="subjects"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -152,7 +148,7 @@
                             outlined
                             v-model="props.item.jueves"
                             :items="subjects"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -181,7 +177,7 @@
                             outlined
                             v-model="props.item.viernes"
                             :items="subjects"
-                            label="Edit"
+                            label="Materia"
                             single-line
                             counter
                             autofocus
@@ -212,92 +208,12 @@ export default {
   data() {
     return {
       group_name: null,
-      school_name: "st.johns",
+      school_name: "stj",
       level_selected: "primaria",
       subjects: [],
       headers: [],
       schedule: [],
       data_loading: true
-
-      //    headers: [
-      //     {
-      //       text: "hora",
-      //       align: "start",
-      //       sortable: false,
-      //       value: "hora"
-      //     },
-      //     { text: "Lunes", value: "lunes" },
-      //     { text: "Martes", value: "martes" },
-      //     { text: "Miércoles", value: "miercoles" },
-      //     { text: "Jueves", value: "jueves" },
-      //     { text: "Viernes", value: "viernes" }
-      //   ],
-      //   grupos: [
-      //     {
-      //       hora: "07:00 - 07:50",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "9:10 - 10:00",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       protein: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "10:00 - 10:50",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "10:50 - 11:40",
-      //       lunes: "",
-      //       martes: "C-3",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "11:40 - 12:30",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "13:40 - 14:30",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     }
-      //   ]
     };
   },
   mounted() {

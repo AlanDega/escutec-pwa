@@ -20,11 +20,7 @@
             <template>
               <div>
                 <v-card>
-                  <v-data-table
-                    :headers="headers"
-                    :items="schedule"
-                    hide-default-footer
-                  >
+                  <v-data-table :headers="headers" :items="schedule" hide-default-footer>
                     <template v-slot:item.hora="props">
                       <v-edit-dialog
                         :return-value.sync="props.item.hora"
@@ -42,7 +38,7 @@
                         <template v-slot:input>
                           <v-text-field
                             v-model="props.item.hora"
-                            label=""
+                            label
                             single-line
                             counter
                             autofocus
@@ -212,7 +208,7 @@ export default {
   data() {
     return {
       prof_name: null,
-      school_name: "st.johns",
+      school_name: "stj",
       level_selected: "primaria",
       subjects: [],
       headers: [],

@@ -15,25 +15,14 @@
                 <v-dialog v-model="dialog" width="500">
                   <template v-slot:activator="{ on }">
                     <v-fab-transition>
-                      <v-btn
-                        color="white"
-                        fab
-                        large
-                        dark
-                        v-on="on"
-                        absolute
-                        bottom
-                        right
-                      >
-                        <v-icon color="deep-purple accent-3"> mdi-plus </v-icon>
+                      <v-btn color="white" fab large dark v-on="on" absolute bottom right>
+                        <v-icon color="deep-purple accent-3">mdi-plus</v-icon>
                       </v-btn>
                     </v-fab-transition>
                   </template>
 
                   <v-card>
-                    <v-card-title class="headline grey lighten-2" primary-title
-                      >Crear Profesor</v-card-title
-                    >
+                    <v-card-title class="headline grey lighten-2" primary-title>Crear Profesor</v-card-title>
                     <v-container>
                       <v-card-text>
                         <v-text-field
@@ -73,12 +62,7 @@
 
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn
-                        color="deep-purple accent-3"
-                        text
-                        @click="createProfessor"
-                        >guardar</v-btn
-                      >
+                      <v-btn color="deep-purple accent-3" text @click="createProfessor">guardar</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -119,7 +103,7 @@ import { db } from "../../db";
 export default {
   data() {
     return {
-      school_name: "st.johns",
+      school_name: "stj",
       items: [
         "Matemáticas",
         "Inglés",
@@ -129,7 +113,9 @@ export default {
         "Español",
         "Civismo",
         "Biología",
-        "Dibujo"
+        "Dibujo",
+        "economia",
+        "ingenieria"
       ],
       value: null,
       dialog: null,
@@ -283,9 +269,10 @@ export default {
         .then(() => {
           console.log("prof created");
           db.collection("usuarios")
-            .doc(this.prof_name)
+            .doc(this.prof_email)
             .set({
               name: this.prof_name,
+              level: this.level_selected,
               tipo_usuario: "prof"
             })
             .then(() => {

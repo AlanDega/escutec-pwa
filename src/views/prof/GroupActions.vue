@@ -15,10 +15,7 @@
             <v-col>
               <v-list>
                 <v-row justify="center">
-                  <v-list-item
-                    v-for="(student, index) in students"
-                    :key="index"
-                  >
+                  <v-list-item v-for="(student, index) in students" :key="index">
                     <v-list-content>
                       <v-list-title>{{ student.alias }}</v-list-title>
                     </v-list-content>
@@ -47,20 +44,20 @@
             </template>
 
             <v-card>
-              <v-card-title class="headline grey lighten-2" primary-title
-                >Crear Alumno</v-card-title
-              >
+              <v-card-title class="headline grey lighten-2" primary-title>Crear Alumno</v-card-title>
               <v-container>
                 <v-card-text>
+                  <v-text-field color="deep-purple accent-3" label="Alias" v-model="student_alias"></v-text-field>
+                  <v-text-field color="deep-purple accent-3" label="email" v-model="student_email"></v-text-field>
                   <v-text-field
                     color="deep-purple accent-3"
-                    label="Alias"
-                    v-model="student_alias"
+                    label="contraseña"
+                    v-model="student_password"
                   ></v-text-field>
                   <v-text-field
                     color="deep-purple accent-3"
-                    label="email"
-                    v-model="student_email"
+                    label="confirmar contraseña"
+                    v-model="student_confirm_password"
                   ></v-text-field>
                 </v-card-text>
               </v-container>
@@ -69,20 +66,19 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="deep-purple accent-3" text @click="createStudent"
-                  >guardar</v-btn
-                >
+                <v-btn color="deep-purple accent-3" text @click="createStudent">guardar</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-card>
       </v-tab-item>
-      <v-tab-item> </v-tab-item>
+      <v-tab-item></v-tab-item>
     </v-tabs>
   </v-card>
 </template>
 
 <script>
+import firebase from "firebase";
 import { db } from "../../db";
 
 export default {
@@ -99,15 +95,19 @@ export default {
       text_url: null,
       classroom: null,
       students: [],
+      school_name: "stj",
       student_name: null,
       student_email: null,
+      student_password: null,
+      student_confirm_password: null,
       student_xp: 0,
-      // tokens are lvl2
+      // tokens are lvl2? yes
       student_tokens: 0,
       dialog: false,
       fab: false,
       hidden: false,
-      tabs: null
+      tabs: null,
+      level: "primaria"
     };
   },
 
@@ -127,7 +127,7 @@ export default {
   },
   created() {
     this.classroom = this.$route.params.id;
-    db.collection(this.classroom + "-students")
+    db.collection(this.school_name + "-" + this.classroom + "-students")
       .get()
       .then(querySnapshot => {
         const documents = querySnapshot.docs.map(doc => doc.data());
@@ -139,25 +139,43 @@ export default {
 
   methods: {
     createStudent() {
-      db.collection(this.classroom + "-students")
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          this.student_email,
+          this.student_password
+        );
+      db.collection(this.school_name + "-" + this.classroom + "-students")
         .doc(this.student_alias)
         .set({
+          level: this.level,
+          group: this.$route.params.id,
           alias: this.student_alias,
           email: this.student_email,
+          student_password: this.student_password,
           xp: this.student_xp
         })
         .then(() => {
-          console.log("exito");
-          this.student_alias = '',
-          this.student_email = '',
-          db.collection(this.classroom + "-students")
-            .get()
-            .then(querySnapshot => {
-              this.dialog = false;
-              const documents = querySnapshot.docs.map(doc => doc.data());
-              console.log("documents", documents);
-              this.students = documents;
+          db.collection("usuarios")
+            .doc(this.student_email)
+            .set({
+              alias: this.student_alias,
+              tipo_usuario: "student",
+              level: this.level,
+              group: this.$route.params.id
             });
+          console.log("exito");
+          (this.student_alias = ""),
+            (this.student_email = ""),
+            db
+              .collection(this.school_name + "-" + this.classroom + "-students")
+              .get()
+              .then(querySnapshot => {
+                this.dialog = false;
+                const documents = querySnapshot.docs.map(doc => doc.data());
+                console.log("documents", documents);
+                this.students = documents;
+              });
         });
     }
   }

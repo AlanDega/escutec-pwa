@@ -49,8 +49,8 @@ const routes = [
     component: Dashboard
   },
   {
-    path: "/classroom",
-    name: "Classroom",
+    path: "/classroom/:id",
+    name: "classroom",
     component: Classroom
   },
   {

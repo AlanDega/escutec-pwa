@@ -1,33 +1,19 @@
 <template>
   <v-app class="app">
     <div>
-      <!-- <v-app-bar
-     fixed
-      app
-      color="white"
-      flat
-      dark
-      absolute
-      clipped-right
-    >
-      <div class="d-flex align-center">
-        <h1>Escutec</h1>
-      </div>
+      <v-app-bar dense fixed app color="white" flat dark absolute clipped-right>
+        <div class="d-flex align-center">
+          <h1>Escutec</h1>
+        </div>
 
-      <v-spacer></v-spacer>
-      <v-btn @click="logout">logout</v-btn>
-</v-app-bar> -->
+        <v-spacer></v-spacer>
+        <v-icon color="deep-purple accent-3" @click="logout">mdi-cog-outline</v-icon>
+      </v-app-bar>
     </div>
     <div>
       <div v-if="this.$route.name != 'sign-up'">
         <div v-if="this.$route.name != 'login'">
-          <v-navigation-drawer
-            app
-            permanent
-            dark
-            fixed
-            color="deep-purple accent-3"
-          >
+          <v-navigation-drawer app permanent dark fixed color="deep-purple accent-3">
             <div v-if="prof">
               <v-list nav>
                 <v-list-item
@@ -37,7 +23,7 @@
                   @click="goToComponent(item)"
                 >
                   <v-list-item-icon>
-                    <v-icon color="">{{ item.icon }}</v-icon>
+                    <v-icon color>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
 
                   <v-list-item-content>
@@ -55,7 +41,7 @@
                   @click="goToComponent(item)"
                 >
                   <v-list-item-icon>
-                    <v-icon color="">{{ item.icon }}</v-icon>
+                    <v-icon color>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
 
                   <v-list-item-content>
@@ -73,7 +59,7 @@
                   @click="goToComponent(item)"
                 >
                   <v-list-item-icon>
-                    <v-icon color="">{{ item.icon }}</v-icon>
+                    <v-icon color>{{ item.icon }}</v-icon>
                   </v-list-item-icon>
 
                   <v-list-item-content>
@@ -190,7 +176,7 @@
           </v-row>
         </v-container>        
       </v-navigation-drawer>
-    </div> -->
+    </div>-->
     <div v-if="this.$route.name === 'Classroom' && this.prof">
       <!-- <v-navigation-drawer right app permanent clipped fixed>
        
@@ -234,13 +220,13 @@
 
         </v-row>
           
-      </v-navigation-drawer> -->
+      </v-navigation-drawer>-->
     </div>
     <!-- <div v-if="director">
       <v-navigation-drawer>
       <Layout />
       </v-navigation-drawer>
-    </div> -->
+    </div>-->
     <v-content>
       <router-view />
     </v-content>
