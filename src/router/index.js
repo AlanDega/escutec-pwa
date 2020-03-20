@@ -1,7 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Classroom from "../views/Classroom.vue";
+import ClassroomProf from "../views/prof/ClassroomProf.vue";
+import ClassroomStudent from "../views/student/ClassroomStudent.vue";
+import ProfLobby from "../views/prof/ProfLobby";
+import StudentLobby from "../views/student/StudentLobby";
 import ProfSchedule from "../views/prof/ProfSchedule.vue";
 import StudentSchedule from "../views/student/StudentSchedule.vue";
 import GroupActions from "../views/prof/GroupActions.vue";
@@ -42,6 +45,17 @@ const routes = [
     name: "student-schedule",
     component: StudentSchedule
   },
+  {
+    path: "/prof-lobby",
+    name: "prof-lobby",
+    component: ProfLobby
+  },
+
+  {
+    path: "/student-lobby",
+    name: "student-lobby",
+    component: StudentLobby
+  },
 
   {
     path: "/dashboard",
@@ -49,9 +63,14 @@ const routes = [
     component: Dashboard
   },
   {
-    path: "/classroom/:id",
-    name: "classroom",
-    component: Classroom
+    path: "/classroom-prof/:id",
+    name: "classroom-prof",
+    component: ClassroomProf
+  },
+  {
+    path: "/classroom-student/:id",
+    name: "classroom-student",
+    component: ClassroomStudent
   },
   {
     path: "/resources",

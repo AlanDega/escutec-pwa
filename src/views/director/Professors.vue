@@ -15,14 +15,25 @@
                 <v-dialog v-model="dialog" width="500">
                   <template v-slot:activator="{ on }">
                     <v-fab-transition>
-                      <v-btn color="white" fab large dark v-on="on" absolute bottom right>
+                      <v-btn
+                        color="white"
+                        fab
+                        large
+                        dark
+                        v-on="on"
+                        absolute
+                        bottom
+                        right
+                      >
                         <v-icon color="deep-purple accent-3">mdi-plus</v-icon>
                       </v-btn>
                     </v-fab-transition>
                   </template>
 
                   <v-card>
-                    <v-card-title class="headline grey lighten-2" primary-title>Crear Profesor</v-card-title>
+                    <v-card-title class="headline grey lighten-2" primary-title
+                      >Crear Profesor</v-card-title
+                    >
                     <v-container>
                       <v-card-text>
                         <v-text-field
@@ -62,7 +73,12 @@
 
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="deep-purple accent-3" text @click="createProfessor">guardar</v-btn>
+                      <v-btn
+                        color="deep-purple accent-3"
+                        text
+                        @click="createProfessor"
+                        >guardar</v-btn
+                      >
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -167,124 +183,128 @@ export default {
     createProfessor() {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.prof_email, this.prof_password);
-      db.collection(
-        this.school_name + "-" + this.level_selected + "-professors"
-      )
-        .doc(this.prof_name)
-        .set({
-          level: this.level_selected,
-          prof_name: this.prof_name,
-          prof_email: this.prof_email,
-          prof_password: this.prof_password,
-          subjects: this.value,
-          headers: [
-            {
-              text: "Hora",
-              align: "start",
-              sortable: false,
-              value: "hora"
-            },
-            { text: "Lunes", value: "lunes" },
-            { text: "Martes", value: "martes" },
-            { text: "Miercoles", value: "miercoles" },
-            { text: "Jueves", value: "jueves" },
-            { text: "Viernes", value: "viernes" }
-          ],
-          schedule: [
-            {
-              index: 0,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 1,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 2,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 3,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 4,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 5,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 6,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            },
-            {
-              index: 7,
-              hora: "00:00 a 00:00",
-              lunes: "grupo",
-              martes: "grupo",
-              miercoles: "grupo",
-              jueves: "grupo",
-              viernes: "grupo"
-            }
-          ]
-        })
+        .createUserWithEmailAndPassword(this.prof_email, this.prof_password)
         .then(() => {
-          console.log("prof created");
-          db.collection("usuarios")
-            .doc(this.prof_email)
+          db.collection(
+            this.school_name + "-" + this.level_selected + "-professors"
+          )
+            .doc(this.prof_name)
             .set({
-              name: this.prof_name,
               level: this.level_selected,
-              tipo_usuario: "prof"
+              prof_name: this.prof_name,
+              prof_email: this.prof_email,
+              prof_password: this.prof_password,
+              subjects: this.value,
+              headers: [
+                {
+                  text: "Hora",
+                  align: "start",
+                  sortable: false,
+                  value: "hora"
+                },
+                { text: "Lunes", value: "lunes" },
+                { text: "Martes", value: "martes" },
+                { text: "Miercoles", value: "miercoles" },
+                { text: "Jueves", value: "jueves" },
+                { text: "Viernes", value: "viernes" }
+              ],
+              schedule: [
+                {
+                  index: 0,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 1,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 2,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 3,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 4,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 5,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 6,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                },
+                {
+                  index: 7,
+                  hora: "00:00 a 00:00",
+                  lunes: "grupo",
+                  martes: "grupo",
+                  miercoles: "grupo",
+                  jueves: "grupo",
+                  viernes: "grupo"
+                }
+              ]
             })
             .then(() => {
-              db.collection(
-                this.school_name + "-" + this.level_selected + "-professors"
-              )
-                .get()
-                .then(querySnapshot => {
-                  this.dialog = false;
-                  const documents = querySnapshot.docs.map(doc => doc.data());
-                  console.log("documents", documents);
-                  this.professors = documents;
+              console.log("prof created");
+              db.collection("usuarios")
+                .doc(this.prof_email)
+                .set({
+                  name: this.prof_name,
+                  level: this.level_selected,
+                  tipo_usuario: "prof"
+                })
+                .then(() => {
+                  db.collection(
+                    this.school_name + "-" + this.level_selected + "-professors"
+                  )
+                    .get()
+                    .then(querySnapshot => {
+                      this.dialog = false;
+                      const documents = querySnapshot.docs.map(doc =>
+                        doc.data()
+                      );
+                      console.log("documents", documents);
+                      this.professors = documents;
+                    });
                 });
             });
         });

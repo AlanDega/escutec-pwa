@@ -7,13 +7,21 @@
         </div>
 
         <v-spacer></v-spacer>
-        <v-icon color="deep-purple accent-3" @click="logout">mdi-cog-outline</v-icon>
+        <v-icon color="deep-purple accent-3" @click="logout"
+          >mdi-cog-outline</v-icon
+        >
       </v-app-bar>
     </div>
     <div>
       <div v-if="this.$route.name != 'sign-up'">
         <div v-if="this.$route.name != 'login'">
-          <v-navigation-drawer app permanent dark fixed color="deep-purple accent-3">
+          <v-navigation-drawer
+            app
+            permanent
+            dark
+            fixed
+            color="deep-purple accent-3"
+          >
             <div v-if="prof">
               <v-list nav>
                 <v-list-item
@@ -177,8 +185,8 @@
         </v-container>        
       </v-navigation-drawer>
     </div>-->
-    <div v-if="this.$route.name === 'Classroom' && this.prof">
-      <!-- <v-navigation-drawer right app permanent clipped fixed>
+    <!-- <div v-if="this.$route.name === 'Classroom' && this.prof"> -->
+    <!-- <v-navigation-drawer right app permanent clipped fixed>
        
         <v-divider></v-divider>
         <v-container>
@@ -221,7 +229,6 @@
         </v-row>
           
       </v-navigation-drawer>-->
-    </div>
     <!-- <div v-if="director">
       <v-navigation-drawer>
       <Layout />
@@ -254,12 +261,16 @@ export default {
       student: null,
       director: null,
       items: [
-        { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         {
-          title: "Horario",
-          icon: "mdi-calendar-range",
-          path: "/prof-schedule"
+          title: "Clase",
+          icon: "mdi-google-classroom",
+          path: "/prof-lobby"
         },
+        // {
+        //   title: "Horario",
+        //   icon: "mdi-calendar-range",
+        //   path: "/prof-schedule"
+        // },
         {
           title: "Recursos",
           icon: "mdi-folder-multiple-image",
@@ -307,12 +318,16 @@ export default {
         { title: "Ayuda", icon: "mdi-help-box" }
       ],
       items2: [
-        { title: "Clase", icon: "mdi-google-classroom", path: "/classroom" },
         {
-          title: "Horario",
-          icon: "mdi-calendar-range",
-          path: "/student-schedule"
+          title: "Clase",
+          icon: "mdi-google-classroom",
+          path: "/student-lobby"
         },
+        // {
+        //   title: "Horario",
+        //   icon: "mdi-calendar-range",
+        //   path: "/student-schedule"
+        // },
         { title: "Clasificación", icon: "mdi-trophy-outline" },
 
         {

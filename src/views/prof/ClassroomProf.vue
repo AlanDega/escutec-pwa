@@ -205,7 +205,7 @@
           <v-container>
             <v-row justify="center">
               <v-col>
-                <h1 class="sidebar-classroom">A-1</h1>
+                <h1 class="sidebar-classroom">{{ this.classroom }}</h1>
                 <v-row justify="center">
                   <v-list-item dark>
                     <v-list-content>
@@ -399,6 +399,7 @@ export default {
 
   data() {
     return {
+      subject: null,
       tableNotif: false,
       timeout: 2500,
       table_notif_text: "Solo puedes elegir una Trivia",
@@ -539,7 +540,8 @@ export default {
       transmision: null,
       // estadisticas: null,
       e6: 1,
-      tabs: null
+      tabs: null,
+      school_name: "stj"
     };
   },
 
@@ -555,26 +557,45 @@ export default {
       }, 0);
     }
   },
-  created() {
-    // this.classroom_stream = 'https://player.twitch.tv/?channel='+ this.test +'&muted=true'
-    this.classroom_stream =
-      "https://player.twitch.tv/?channel=" + "grapho" + "&muted=true";
-  },
   async mounted() {
+    this.classroom = this.$route.params.id;
     // this.transmision =
     await firebase.auth().onAuthStateChanged(user => {
-      console.log("user", user.email);
-      this.user = user.email;
+      if (user) {
+        console.log("user", user.email);
+        this.user = user.email;
+        db.collection("usuarios")
+          .doc(user.email)
+          .get()
+          .then(snapshot => {
+            const document = snapshot.data();
+            console.log("prof-doc", document);
+            this.level = document.level;
+            this.subject = document.subject;
+            this.classroom_stream =
+              "https://player.twitch.tv/?channel=" +
+              this.school_name +
+              "_" +
+              this.level +
+              "_" +
+              this.subject +
+              "&muted=true";
+            db.collection(
+              this.school_name + "-" + this.$route.params.id + "-students"
+            )
+              .get()
+              .then(querySnapshot => {
+                const documents = querySnapshot.docs.map(doc => doc.data());
+                console.log("student-docs", documents);
+                this.length = documents.length;
+                this.students = documents;
+              });
+          });
+
+        this.getTrivias();
+      }
     });
-    this.getTrivias();
-    db.collection(this.classroom + "-students")
-      .get()
-      .then(querySnapshot => {
-        const documents = querySnapshot.docs.map(doc => doc.data());
-        console.log("student-docs", documents);
-        this.length = documents.length;
-        this.students = documents;
-      });
+
     db.collection(this.classroom + "-trivia")
       .doc("trivia")
       .get()
