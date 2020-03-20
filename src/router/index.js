@@ -9,6 +9,8 @@ import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import Dashboard from "../views/director/Dashboard.vue";
 import Groups from "../views/director/Groups.vue";
+import Professors from "../views/director/Professors.vue";
+import Professor from "../views/director/Professor.vue";
 import Group from "../views/director/Group.vue";
 import Trivias from "../views/prof/Trivias.vue";
 import Resources from "../views/prof/Resources.vue";
@@ -76,6 +78,16 @@ const routes = [
     path: "/group/:id",
     name: "group",
     component: Group
+  },
+  {
+    path: "/professors",
+    name: "professors",
+    component: Professors
+  },
+  {
+    path: "/professor/:id",
+    name: "professor",
+    component: Professor
   },
   {
     path: "/about",

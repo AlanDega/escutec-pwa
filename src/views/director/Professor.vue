@@ -6,7 +6,7 @@
       <v-tab>notificaciones</v-tab>
       <v-tab-item>
         <v-container>
-          <h1>{{ group_name }}</h1>
+          <h1>{{ prof_name }}</h1>
           <div v-if="data_loading">
             <v-data-table
               item-key="name"
@@ -42,7 +42,7 @@
                         <template v-slot:input>
                           <v-text-field
                             v-model="props.item.hora"
-                            label="Edit"
+                            label=""
                             single-line
                             counter
                             autofocus
@@ -68,8 +68,8 @@
                           <v-select
                             outlined
                             v-model="props.item.lunes"
-                            :items="subjects"
-                            label="Edit"
+                            :items="groups"
+                            label="Grupo"
                             single-line
                             counter
                             autofocus
@@ -95,7 +95,7 @@
                           <v-select
                             outlined
                             v-model="props.item.martes"
-                            :items="subjects"
+                            :items="groups"
                             label="Edit"
                             single-line
                             counter
@@ -124,7 +124,7 @@
                           <v-select
                             outlined
                             v-model="props.item.miercoles"
-                            :items="subjects"
+                            :items="groups"
                             label="Edit"
                             single-line
                             counter
@@ -151,7 +151,7 @@
                           <v-select
                             outlined
                             v-model="props.item.jueves"
-                            :items="subjects"
+                            :items="groups"
                             label="Edit"
                             single-line
                             counter
@@ -180,7 +180,7 @@
                           <v-select
                             outlined
                             v-model="props.item.viernes"
-                            :items="subjects"
+                            :items="groups"
                             label="Edit"
                             single-line
                             counter
@@ -211,113 +211,44 @@ import { db } from "../../db";
 export default {
   data() {
     return {
-      group_name: null,
+      prof_name: null,
       school_name: "st.johns",
       level_selected: "primaria",
       subjects: [],
       headers: [],
       schedule: [],
+      groups: [],
       data_loading: true
-
-      //    headers: [
-      //     {
-      //       text: "hora",
-      //       align: "start",
-      //       sortable: false,
-      //       value: "hora"
-      //     },
-      //     { text: "Lunes", value: "lunes" },
-      //     { text: "Martes", value: "martes" },
-      //     { text: "Miércoles", value: "miercoles" },
-      //     { text: "Jueves", value: "jueves" },
-      //     { text: "Viernes", value: "viernes" }
-      //   ],
-      //   grupos: [
-      //     {
-      //       hora: "07:00 - 07:50",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "9:10 - 10:00",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       protein: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "10:00 - 10:50",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "10:50 - 11:40",
-      //       lunes: "",
-      //       martes: "C-3",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "11:40 - 12:30",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     },
-      //     {
-      //       hora: "13:40 - 14:30",
-      //       lunes: "",
-      //       martes: "",
-      //       miercoles: "",
-      //       jueves: "",
-      //       viernes: ""
-      //     }
-      //   ]
     };
   },
   mounted() {
     setTimeout(() => (this.data_loading = false), 2000);
-    db.collection(this.school_name + "-" + this.level_selected + "-groups")
+
+    db.collection(this.school_name + "-" + this.level_selected + "-professors")
       .doc(this.$route.params.id)
       .get()
       .then(snapshot => {
         const document = snapshot.data();
-        console.log("group-document", document);
-        this.group_name = document.group_name;
+        console.log("prof-document", document);
+        this.prof_name = document.prof_name;
         this.schedule = document.schedule;
         this.headers = document.headers;
         this.subjects = document.subjects;
+        db.collection(this.school_name + "-" + this.level_selected + "-groups")
+          .get()
+          .then(querySnapshot => {
+            const documents = querySnapshot.docs.map(doc => {
+              this.groups.push(doc.data().group_name);
+            });
+          });
       });
   },
   methods: {
     saveHora(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -327,7 +258,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)
@@ -342,7 +273,9 @@ export default {
     },
     saveLunes(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -352,7 +285,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)
@@ -367,7 +300,9 @@ export default {
     },
     saveMartes(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -377,7 +312,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)
@@ -392,7 +327,9 @@ export default {
     },
     saveMiercoles(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -402,7 +339,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)
@@ -417,7 +354,9 @@ export default {
     },
     saveJueves(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -427,7 +366,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)
@@ -442,7 +381,9 @@ export default {
     },
     saveViernes(change, i) {
       console.log("change", change, "item", i);
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
         .doc(this.$route.params.id)
         .get()
         .then(snapshot => {
@@ -452,7 +393,7 @@ export default {
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
+            this.school_name + "-" + this.level_selected + "-professors"
           )
             .doc(this.$route.params.id)
             .set(newDoc)

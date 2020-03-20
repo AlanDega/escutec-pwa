@@ -64,6 +64,24 @@
                 </v-list-item>
               </v-list>
             </div>
+            <div v-if="director">
+              <v-list nav>
+                <v-list-item
+                  v-for="item in director_items"
+                  :key="item.title"
+                  link
+                  @click="goToComponent(item)"
+                >
+                  <v-list-item-icon>
+                    <v-icon color="">{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
           </v-navigation-drawer>
         </div>
       </div>
@@ -339,6 +357,14 @@ export default {
         // LVL 2 { title: "Estadisticas", icon: "mdi-" },
         { title: "Noticias", icon: "mdi-newspaper-variant-multiple-outline" },
         { title: "Ayuda", icon: "mdi-help-circle-outline" }
+      ],
+      director_items: [
+        { title: "Grupos", icon: "mdi-google-class", path: "/groups" },
+        {
+          title: "Profesores",
+          icon: "mdi-google-classroom",
+          path: "/professors"
+        }
       ],
       right: null
     };

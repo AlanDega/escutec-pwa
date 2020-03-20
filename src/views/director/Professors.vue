@@ -9,7 +9,7 @@
           <v-card class="mx-auto" max-width="900">
             <v-toolbar color="deep-purple accent-3" dark>
               <v-row justify="center" class="mt-6">
-                <h1 class="dialog-3">Grupos</h1>
+                <h1 class="dialog-3">Profesores</h1>
               </v-row>
               <template v-slot:extension>
                 <v-dialog v-model="dialog" width="500">
@@ -32,15 +32,31 @@
 
                   <v-card>
                     <v-card-title class="headline grey lighten-2" primary-title
-                      >Crear Grupo</v-card-title
+                      >Crear Profesor</v-card-title
                     >
                     <v-container>
                       <v-card-text>
                         <v-text-field
                           color="deep-purple accent-3"
-                          label="Nombre del grupo"
-                          v-model="group_name"
+                          label="Nombre completo"
+                          v-model="prof_name"
                         ></v-text-field>
+                        <v-text-field
+                          color="deep-purple accent-3"
+                          label="Email"
+                          v-model="prof_email"
+                        ></v-text-field>
+                        <v-text-field
+                          color="deep-purple accent-3"
+                          label="Contraseña"
+                          v-model="prof_password"
+                        ></v-text-field>
+                        <v-text-field
+                          color="deep-purple accent-3"
+                          label="Confirmar contraseña"
+                          v-model="prof_confirm_password"
+                        ></v-text-field>
+
                         <v-select
                           color="deep-purple accent-3"
                           v-model="value"
@@ -60,7 +76,7 @@
                       <v-btn
                         color="deep-purple accent-3"
                         text
-                        @click="createGroup"
+                        @click="createProfessor"
                         >guardar</v-btn
                       >
                     </v-card-actions>
@@ -73,12 +89,12 @@
               <v-row justify="center" align="center">
                 <v-col cols="4" align="center">
                   <v-card
-                    v-for="(group, i) in groups"
+                    v-for="(prof, i) in professors"
                     :key="i"
                     class="display-1 mt-6"
-                    @click="goToGroup(group.group_name)"
+                    @click="goToGroup(prof.prof_name)"
                   >
-                    <h1 class="group-text">{{ group.group_name }}</h1>
+                    <h1 class="group-text">{{ prof.prof_name }}</h1>
                   </v-card>
                 </v-col>
               </v-row>
@@ -103,6 +119,7 @@ import { db } from "../../db";
 export default {
   data() {
     return {
+      school_name: "st.johns",
       items: [
         "Matemáticas",
         "Inglés",
@@ -116,26 +133,31 @@ export default {
       ],
       value: null,
       dialog: null,
-      school_name: "st.johns",
+      prof_name: null,
+      prof_email: null,
+      prof_password: null,
+      prof_confirmed_password: null,
       first_level: null,
       second_level: null,
       third_level: null,
       level_selected: "primaria",
-      group_name: null,
+      prof_name: null,
       tabs: null,
-      groups: []
+      professors: []
     };
   },
   mounted() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user.email;
-        db.collection(this.school_name + "-" + this.level_selected + "-groups")
+        db.collection(
+          this.school_name + "-" + this.level_selected + "-professors"
+        )
           .get()
           .then(querySnapshot => {
             const documents = querySnapshot.docs.map(doc => doc.data());
             console.log("documents", documents);
-            this.groups = documents;
+            this.professors = documents;
           });
       }
     });
@@ -156,12 +178,19 @@ export default {
       this.second_level = false;
       this.third_level = true;
     },
-    createGroup() {
-      db.collection(this.school_name + "-" + this.level_selected + "-groups")
-        .doc(this.group_name)
+    createProfessor() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.prof_email, this.prof_password);
+      db.collection(
+        this.school_name + "-" + this.level_selected + "-professors"
+      )
+        .doc(this.prof_name)
         .set({
           level: this.level_selected,
-          group_name: this.group_name,
+          prof_name: this.prof_name,
+          prof_email: this.prof_email,
+          prof_password: this.prof_password,
           subjects: this.value,
           headers: [
             {
@@ -180,93 +209,101 @@ export default {
             {
               index: 0,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 1,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 2,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 3,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 4,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 5,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 6,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             },
             {
               index: 7,
               hora: "00:00 a 00:00",
-              lunes: "materia",
-              martes: "materia",
-              miercoles: "materia",
-              jueves: "materia",
-              viernes: "materia"
+              lunes: "grupo",
+              martes: "grupo",
+              miercoles: "grupo",
+              jueves: "grupo",
+              viernes: "grupo"
             }
           ]
         })
         .then(() => {
-          console.log("group created");
-          db.collection(
-            this.school_name + "-" + this.level_selected + "-groups"
-          )
-            .get()
-            .then(querySnapshot => {
-              this.dialog = false;
-              const documents = querySnapshot.docs.map(doc => doc.data());
-              console.log("documents", documents);
-              this.groups = documents;
+          console.log("prof created");
+          db.collection("usuarios")
+            .doc(this.prof_name)
+            .set({
+              name: this.prof_name,
+              tipo_usuario: "prof"
+            })
+            .then(() => {
+              db.collection(
+                this.school_name + "-" + this.level_selected + "-professors"
+              )
+                .get()
+                .then(querySnapshot => {
+                  this.dialog = false;
+                  const documents = querySnapshot.docs.map(doc => doc.data());
+                  console.log("documents", documents);
+                  this.professors = documents;
+                });
             });
         });
     },
-    goToGroup(group) {
-      this.$router.push({ name: "group", params: { id: group } });
+    goToGroup(prof) {
+      this.$router.push({ name: "professor", params: { id: prof } });
     }
   }
 };
