@@ -7,7 +7,7 @@ import ProfLobby from "../views/prof/ProfLobby";
 import StudentLobby from "../views/student/StudentLobby";
 import ProfSchedule from "../views/prof/ProfSchedule.vue";
 import StudentSchedule from "../views/student/StudentSchedule.vue";
-import GroupActions from "../views/prof/GroupActions.vue";
+import ProfGroupsActions from "../views/prof/ProfGroupsActions.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import Dashboard from "../views/director/Dashboard.vue";
@@ -17,6 +17,7 @@ import Professor from "../views/director/Professor.vue";
 import Group from "../views/director/Group.vue";
 import Trivias from "../views/prof/Trivias.vue";
 import Resources from "../views/prof/Resources.vue";
+import ProfGroups from "../views/prof/ProfGroups.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,6 +40,16 @@ const routes = [
     path: "/prof-schedule",
     name: "prof-schedule",
     component: ProfSchedule
+  },
+  {
+    path: "/prof-groups",
+    name: "prof-groups",
+    component: ProfGroups
+  },
+  {
+    path: "/prof-groups-actions/:id",
+    name: "prof-groups-actions",
+    component: ProfGroupsActions
   },
   {
     path: "/student-schedule",
@@ -76,12 +87,6 @@ const routes = [
     path: "/resources",
     name: "Resources",
     component: Resources
-  },
-
-  {
-    path: "/group-actions/:id",
-    name: "group-actions",
-    component: GroupActions
   },
   {
     path: "/trivias",

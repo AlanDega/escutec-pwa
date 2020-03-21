@@ -342,7 +342,7 @@
     <div v-if="!presence_checked">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
-          <v-btn outlined dark @click="initializeClass">Pasar Lista</v-btn>
+          <v-btn outlined dark @click="initializeClass">Iniciar clase</v-btn>
         </v-row>
       </v-footer>
     </div>
@@ -576,9 +576,7 @@ export default {
               "https://player.twitch.tv/?channel=" +
               this.school_name +
               "_" +
-              this.level +
-              "_" +
-              this.subject +
+              this.prof_name +
               "&muted=true";
             db.collection(
               this.school_name + "-" + this.$route.params.id + "-students"
@@ -1047,7 +1045,7 @@ export default {
   color: black;
 }
 .chat-card {
-  max-height: 32vh;
+  max-height: 28vh;
 }
 .sidebar-classroom {
   color: white;
@@ -1084,13 +1082,13 @@ export default {
   color: red;
 }
 #logs {
-  height: 32vh;
+  height: 20vh;
   overflow: auto;
   width: 100%;
 }
 
 .ChatCard {
-  height: 32vh;
+  height: 20vh;
   width: 100%;
   margin-top: 20px;
 }

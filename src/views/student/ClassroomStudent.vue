@@ -27,10 +27,9 @@
                   <v-card class="chat_notes_card">
                     <v-list ref="chat" id="logs">
                       <template v-for="(message, index) in messages">
-                        <v-subheader
-                          v-if="message"
-                          :key="index"
-                        >{{ message.sender + ":" + message.message }}</v-subheader>
+                        <v-subheader v-if="message" :key="index">{{
+                          message.sender + ":" + message.message
+                        }}</v-subheader>
                       </template>
                     </v-list>
                     <v-container>
@@ -45,7 +44,12 @@
                           ></v-text-field>
                         </v-col>
                         <v-col cols="2">
-                          <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                          <v-btn
+                            dark
+                            color="deep-purple accent-3"
+                            @click="submit"
+                            >Enviar</v-btn
+                          >
                         </v-col>
                       </v-row>
                     </v-container>
@@ -61,7 +65,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-image</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-col>
@@ -71,7 +77,8 @@
                               :key="index"
                               text
                               :href="img.url"
-                            >{{ img.title }}</v-btn>
+                              >{{ img.title }}</v-btn
+                            >
                           </v-row>
                         </v-col>
                       </v-row>
@@ -82,7 +89,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-play-box</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -90,7 +99,8 @@
                           :key="index"
                           text
                           :href="video.url"
-                        >{{ video.title }}</v-btn>
+                          >{{ video.title }}</v-btn
+                        >
                       </v-row>
                     </v-col>
                   </v-card>
@@ -99,7 +109,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-text</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -107,7 +119,8 @@
                           :key="index"
                           text
                           :href="text.url"
-                        >{{ text.title }}</v-btn>
+                          >{{ text.title }}</v-btn
+                        >
                       </v-row>
                     </v-col>
                   </v-card>
@@ -128,7 +141,8 @@
                     outlined
                     class="answerButton"
                     color="deep-purple accent-3"
-                  >{{ answer1 }}</v-btn>
+                    >{{ answer1 }}</v-btn
+                  >
                 </v-col>
                 <v-col>
                   <v-btn
@@ -137,7 +151,8 @@
                     outlined
                     class="answerButton"
                     color="deep-purple accent-3"
-                  >{{ answer2 }}</v-btn>
+                    >{{ answer2 }}</v-btn
+                  >
                 </v-col>
               </v-row>
               <v-row>
@@ -148,7 +163,8 @@
                     outlined
                     class="answerButton"
                     color="deep-purple accent-3"
-                  >{{ answer3 }}</v-btn>
+                    >{{ answer3 }}</v-btn
+                  >
                 </v-col>
                 <v-col>
                   <v-btn
@@ -157,7 +173,8 @@
                     outlined
                     class="answerButton"
                     color="deep-purple accent-3"
-                  >{{ answer4 }}</v-btn>
+                    >{{ answer4 }}</v-btn
+                  >
                 </v-col>
               </v-row>
               <v-row>
@@ -189,17 +206,26 @@
             <h2>{{ alias }}</h2>
           </v-row>
           <v-row justify="center">
-            <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
+            <v-img
+              class="mt-4"
+              contain
+              src="../../assets/level.svg"
+              height="80"
+              width="80"
+            ></v-img>
           </v-row>
           <v-container>
             <v-row>
               <v-col justify="right">
                 <v-text class="xpText" justify="right">
-                  {{
-                  xp + "/" + next_level_xp + " XP"
-                  }}
+                  {{ xp + "/" + next_level_xp + " XP" }}
                 </v-text>
-                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
+                <v-progress-linear
+                  rounded
+                  height="6"
+                  color="deep-purple accent-3"
+                  v-model="xp"
+                ></v-progress-linear>
               </v-col>
             </v-row>
           </v-container>
@@ -210,7 +236,12 @@
           <v-divider></v-divider>
           <v-container>
             <v-row>
-              <v-img contain src="../../assets/cash.svg" height="32" width="32"></v-img>
+              <v-img
+                contain
+                src="../../assets/cash.svg"
+                height="32"
+                width="32"
+              ></v-img>
               <v-text class="xpText">30</v-text>
             </v-row>
           </v-container>
@@ -222,7 +253,9 @@
                   <v-list-item dark>
                     <v-list-content>
                       <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >
                         {{ "Alumno/12000 XP" }}
                       </v-list-title>
                     </v-list-content>
@@ -230,7 +263,9 @@
                   <v-list-item dark>
                     <v-list-content>
                       <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >
                         {{ "Alumno/10050 XP" }}
                       </v-list-title>
                     </v-list-content>
@@ -238,7 +273,9 @@
                   <v-list-item dark>
                     <v-list-content>
                       <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
                         {{ "Alumno/2800 XP" }}
                       </v-list-title>
                     </v-list-content>
@@ -272,7 +309,13 @@
       Open Snackbar
       </v-btn>-->
 
-      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
+      <v-snackbar
+        top
+        color="success"
+        :vertical="vertical"
+        v-model="snackbar"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -290,7 +333,13 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
+      <v-snackbar
+        top
+        color="red"
+        :vertical="vertical"
+        v-model="errorNotif"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -461,8 +510,6 @@ export default {
               // aquñi ya tenemos la flexibilidad e eque si le podemos agregr el campo del nombre del prof
               "https://player.twitch.tv/?channel=" +
               this.school_name +
-              "_" +
-              this.level +
               "_" +
               this.$route.params.id +
               "&muted=true";

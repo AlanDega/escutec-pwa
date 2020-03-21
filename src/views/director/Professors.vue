@@ -318,8 +318,8 @@ export default {
 
 <style lang="scss" scoped>
 .group-text {
-  color: #3300ff;
+  color: #6200ff;
   padding: 50px 0px;
-  background: #323241;
+  // background: #323241;
 }
 </style>

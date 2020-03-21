@@ -266,17 +266,31 @@ export default {
           icon: "mdi-google-classroom",
           path: "/prof-lobby"
         },
+        {
+          title: "Grupos",
+          icon: "mdi-google-classroom",
+          path: "/prof-groups"
+        },
         // {
         //   title: "Horario",
         //   icon: "mdi-calendar-range",
         //   path: "/prof-schedule"
         // },
-        {
-          title: "Recursos",
-          icon: "mdi-folder-multiple-image",
-          path: "/resources"
-        },
-        { title: "Trivias", icon: "mdi-gamepad-circle-left", path: "/trivias" },
+        // {
+        //   title: "Crear Recursos",
+        //   icon: "mdi-folder-multiple-image",
+        //   path: "/resources"
+        // },
+        // {
+        //   title: "Crear Trivias",
+        //   icon: "mdi-gamepad-circle-left",
+        //   path: "/trivias"
+        // },
+        // {
+        //   title: "Crear Tareas",
+        //   icon: "mdi-gamepad-circle-left",
+        //   path: "/trivias"
+        // },
         {
           title: "Clasificación",
           icon: "mdi-trophy-outline",
@@ -340,11 +354,11 @@ export default {
           icon: "mdi-gamepad-square-outline",
           path: "/schedule"
         },
-        {
-          title: "Grabaciones",
-          icon: "mdi-video-outline",
-          path: "/"
-        },
+        // {
+        //   title: "Grabaciones",
+        //   icon: "mdi-video-outline",
+        //   path: "/"
+        // },
         {
           title: "Examenes",
           icon: "mdi-order-bool-descending",
@@ -360,12 +374,13 @@ export default {
         { title: "Ayuda", icon: "mdi-help-circle-outline" }
       ],
       director_items: [
-        { title: "Grupos", icon: "mdi-google-class", path: "/groups" },
-        {
-          title: "Profesores",
-          icon: "mdi-google-classroom",
-          path: "/professors"
-        }
+        { title: "Profesores", icon: "mdi-google-class", path: "/professors" },
+        { title: "Grupos", icon: "mdi-google-class", path: "/groups" }
+        // {
+        //   title: "Materias",
+        //   icon: "mdi-google-classroom",
+        //   path: "/materias"
+        // }
       ],
       right: null
     };

@@ -11,7 +11,7 @@
               <v-row justify="center" class="mt-6">
                 <h1 class="dialog-3">Grupos</h1>
               </v-row>
-              <template v-slot:extension>
+              <!-- <template v-slot:extension>
                 <v-dialog v-model="dialog" width="500">
                   <template v-slot:activator="{ on }">
                     <v-fab-transition>
@@ -66,7 +66,7 @@
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
-              </template>
+              </template> -->
             </v-toolbar>
 
             <v-container>
@@ -276,7 +276,7 @@ export default {
         });
     },
     goToGroup(group) {
-      this.$router.push({ name: "group", params: { id: group } });
+      this.$router.push({ name: "prof-groups-actions", params: { id: group } });
     }
   }
 };

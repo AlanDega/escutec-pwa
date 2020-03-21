@@ -9,7 +9,9 @@
 
         <tr v-for="grupo in grupos" :key="grupo.id">
           <td>{{ grupo.hora }}</td>
-          <td @click="log(grupo.lunes)">{{ grupo.lunes }}</td>
+          <td @click="log(grupo.prof)">
+            {{ grupo.lunes + "-" + grupo.prof }}
+          </td>
           <td>{{ grupo.martes }}</td>
           <td>{{ grupo.miercoles }}</td>
           <td>{{ grupo.jueves }}</td>
@@ -62,8 +64,12 @@ export default {
   },
   methods: {
     log(grupo) {
-      console.log(grupo);
-      this.$router.push({ name: "classroom", params: { id: grupo } });
+      console.log("grupo", grupo);
+      const twitchGroup = grupo.replace(" ", "_");
+      this.$router.push({
+        name: "classroom-student",
+        params: { id: twitchGroup }
+      });
     }
   }
 };

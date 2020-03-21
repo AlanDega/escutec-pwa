@@ -15,7 +15,10 @@
             <v-col>
               <v-list>
                 <v-row justify="center">
-                  <v-list-item v-for="(student, index) in students" :key="index">
+                  <v-list-item
+                    v-for="(student, index) in students"
+                    :key="index"
+                  >
                     <v-list-content>
                       <v-list-title>{{ student.alias }}</v-list-title>
                     </v-list-content>
@@ -44,11 +47,21 @@
             </template>
 
             <v-card>
-              <v-card-title class="headline grey lighten-2" primary-title>Crear Alumno</v-card-title>
+              <v-card-title class="headline grey lighten-2" primary-title
+                >Crear Alumno</v-card-title
+              >
               <v-container>
                 <v-card-text>
-                  <v-text-field color="deep-purple accent-3" label="Alias" v-model="student_alias"></v-text-field>
-                  <v-text-field color="deep-purple accent-3" label="email" v-model="student_email"></v-text-field>
+                  <v-text-field
+                    color="deep-purple accent-3"
+                    label="Alias"
+                    v-model="student_alias"
+                  ></v-text-field>
+                  <v-text-field
+                    color="deep-purple accent-3"
+                    label="email"
+                    v-model="student_email"
+                  ></v-text-field>
                   <v-text-field
                     color="deep-purple accent-3"
                     label="contraseña"
@@ -66,7 +79,9 @@
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="deep-purple accent-3" text @click="createStudent">guardar</v-btn>
+                <v-btn color="deep-purple accent-3" text @click="createStudent"
+                  >guardar</v-btn
+                >
               </v-card-actions>
             </v-card>
           </v-dialog>

@@ -20,7 +20,11 @@
             <template>
               <div>
                 <v-card>
-                  <v-data-table :headers="headers" :items="schedule" hide-default-footer>
+                  <v-data-table
+                    :headers="headers"
+                    :items="schedule"
+                    hide-default-footer
+                  >
                     <template v-slot:item.hora="props">
                       <v-edit-dialog
                         :return-value.sync="props.item.hora"
@@ -51,12 +55,20 @@
                         :return-value.sync="props.item.lunes"
                         large
                         persistent
-                        @save="saveLunes(props.item.lunes, props.item.index)"
+                        @save="
+                          saveLunes(
+                            props.item.lunes,
+                            props.item.index,
+                            props.item.prof
+                          )
+                        "
                         @cancel="cancel"
                         @open="open"
                         @close="close"
                       >
-                        <div>{{ props.item.lunes }}</div>
+                        <div>
+                          {{ props.item.lunes + "-" + props.item.prof }}
+                        </div>
                         <template v-slot:input>
                           <div class="mt-4 title">Update lunes</div>
                         </template>
@@ -66,6 +78,15 @@
                             v-model="props.item.lunes"
                             :items="subjects"
                             label="Materia"
+                            single-line
+                            counter
+                            autofocus
+                          ></v-select>
+                          <v-select
+                            outlined
+                            v-model="props.item.prof"
+                            :items="profs"
+                            label="Profesor/a"
                             single-line
                             counter
                             autofocus
@@ -213,7 +234,8 @@ export default {
       subjects: [],
       headers: [],
       schedule: [],
-      data_loading: true
+      data_loading: true,
+      profs: []
     };
   },
   mounted() {
@@ -228,6 +250,15 @@ export default {
         this.schedule = document.schedule;
         this.headers = document.headers;
         this.subjects = document.subjects;
+        db.collection(
+          this.school_name + "-" + this.level_selected + "-professors"
+        )
+          .get()
+          .then(querySnapshot => {
+            const documents = querySnapshot.docs.map(doc => {
+              this.profs.push(doc.data().prof_name);
+            });
+          });
       });
   },
   methods: {
@@ -256,7 +287,7 @@ export default {
             });
         });
     },
-    saveLunes(change, i) {
+    saveLunes(change, i, prof) {
       console.log("change", change, "item", i);
       db.collection(this.school_name + "-" + this.level_selected + "-groups")
         .doc(this.$route.params.id)
@@ -265,6 +296,7 @@ export default {
           const document = snapshot.data();
           console.log("doc-before", document);
           document.schedule[i].lunes = change;
+          document.schedule[i].prof = prof;
           const newDoc = document;
           console.log("doc-after", newDoc);
           db.collection(

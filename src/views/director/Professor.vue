@@ -20,7 +20,11 @@
             <template>
               <div>
                 <v-card>
-                  <v-data-table :headers="headers" :items="schedule" hide-default-footer>
+                  <v-data-table
+                    :headers="headers"
+                    :items="schedule"
+                    hide-default-footer
+                  >
                     <template v-slot:item.hora="props">
                       <v-edit-dialog
                         :return-value.sync="props.item.hora"
