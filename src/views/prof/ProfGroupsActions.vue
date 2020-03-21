@@ -1,95 +1,84 @@
 <template>
-  <v-card id="lateral">
-    <v-card-title>{{ this.$route.params.id }}</v-card-title>
-    <!-- <v-spacer></v-spacer> -->
-    <v-tabs color="deep-purple accent-3" centered>
-      <v-tab>Alumnos</v-tab>
-      <v-tab>Recursos</v-tab>
-      <v-tab>Tareas</v-tab>
-      <v-tab>Examenes</v-tab>
-      <v-tab>Calificaciones</v-tab>
-
-      <v-tab-item>
-        <v-card height="70vh" flat>
-          <v-row justify="center">
-            <v-col>
-              <v-list>
-                <v-row justify="center">
-                  <v-list-item
-                    v-for="(student, index) in students"
-                    :key="index"
+  <v-container>
+    <v-row justify="center">
+      <v-card max-width="1200px" height="800">
+        <!-- <v-card-title>{{ this.$route.params.id }}</v-card-title> -->
+        <!-- <v-spacer></v-spacer> -->
+        <v-toolbar color="deep-purple accent-3">
+          <template v-slot:extension>
+            <v-dialog v-model="dialog" width="500">
+              <template v-slot:activator="{ on }">
+                <v-fab-transition>
+                  <v-btn
+                    color="white"
+                    fab
+                    large
+                    dark
+                    v-on="on"
+                    absolute
+                    bottom
+                    right
                   >
-                    <v-list-content>
-                      <v-list-title>{{ student.alias }}</v-list-title>
-                    </v-list-content>
-                  </v-list-item>
-                </v-row>
-              </v-list>
-            </v-col>
-          </v-row>
-          <v-dialog v-model="dialog" width="500">
-            <template v-slot:activator="{ on }">
-              <v-fab-transition>
-                <v-btn
-                  key="mdi-"
-                  color="deep-purple accent-3"
-                  fab
-                  large
-                  dark
-                  v-on="on"
-                  bottom
-                  left
-                  class="v-btn--example"
+                    <v-icon color="deep-purple accent-3">mdi-plus</v-icon>
+                  </v-btn>
+                </v-fab-transition>
+              </template>
+
+              <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title
+                  >Crear Grupo</v-card-title
                 >
-                  <v-icon>{{ activeFab.icon }}</v-icon>
-                </v-btn>
-              </v-fab-transition>
-            </template>
+                <v-container>
+                  <v-card-text>
+                    <v-text-field
+                      color="deep-purple accent-3"
+                      label="Nombre del grupo"
+                      v-model="group_name"
+                    ></v-text-field>
+                    <v-select
+                      color="deep-purple accent-3"
+                      v-model="value"
+                      :items="items"
+                      chips
+                      label="Materias"
+                      multiple
+                      outlined
+                    ></v-select>
+                  </v-card-text>
+                </v-container>
 
-            <v-card>
-              <v-card-title class="headline grey lighten-2" primary-title
-                >Crear Alumno</v-card-title
-              >
-              <v-container>
-                <v-card-text>
-                  <v-text-field
-                    color="deep-purple accent-3"
-                    label="Alias"
-                    v-model="student_alias"
-                  ></v-text-field>
-                  <v-text-field
-                    color="deep-purple accent-3"
-                    label="email"
-                    v-model="student_email"
-                  ></v-text-field>
-                  <v-text-field
-                    color="deep-purple accent-3"
-                    label="contraseña"
-                    v-model="student_password"
-                  ></v-text-field>
-                  <v-text-field
-                    color="deep-purple accent-3"
-                    label="confirmar contraseña"
-                    v-model="student_confirm_password"
-                  ></v-text-field>
-                </v-card-text>
-              </v-container>
+                <v-divider></v-divider>
 
-              <v-divider></v-divider>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="deep-purple accent-3" text @click="createGroup"
+                    >guardar</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </template>
+          <v-tabs color="white" centered>
+            <v-tab>Alumnos</v-tab>
+            <v-tab>Recursos</v-tab>
+            <v-tab>Tareas</v-tab>
+            <v-tab>Examenes</v-tab>
+            <v-tab>Calificaciones</v-tab>
 
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="deep-purple accent-3" text @click="createStudent"
-                  >guardar</v-btn
-                >
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item></v-tab-item>
-    </v-tabs>
-  </v-card>
+            <v-tab-item>
+              <v-data-table
+                :headers="headers"
+                :items="students"
+                :items-per-page="12"
+                class="elevation-1"
+              ></v-data-table>
+            </v-tab-item>
+            <v-tab-item></v-tab-item>
+          </v-tabs>
+        </v-toolbar>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -123,6 +112,24 @@ export default {
       hidden: false,
       tabs: null,
       level: "primaria"
+      // headers: [
+      //   {
+      //     text: "",
+      //     align: "start",
+      //     sortable: false,
+      //     value: "name"
+      //   },
+      //   { text: "name", value: "name" },
+      //   { text: "points", value: "points" },
+      //   { text: "Carbs (g)", value: "carbs" },
+      //   { text: "Protein (g)", value: "protein" },
+      //   { text: "Iron (%)", value: "iron" }
+      // ],
+      // alumnos:[
+      //   {
+      //     name:
+      //   }
+      // ]
     };
   },
 
@@ -161,7 +168,7 @@ export default {
           this.student_password
         );
       db.collection(this.school_name + "-" + this.classroom + "-students")
-        .doc(this.student_alias)
+        .doc(this.student_email)
         .set({
           level: this.level,
           group: this.$route.params.id,

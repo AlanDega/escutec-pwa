@@ -500,7 +500,7 @@ export default {
       trivia_is_active: null,
       student_checked: null,
       students: [],
-      classroom: "A-1",
+      classroom: this.$route.params.id,
       messages: [],
       logs2: [],
       msg: null,
@@ -541,7 +541,8 @@ export default {
       // estadisticas: null,
       e6: 1,
       tabs: null,
-      school_name: "stj"
+      school_name: "stj",
+      prof_name: null
     };
   },
 
@@ -558,7 +559,7 @@ export default {
     }
   },
   async mounted() {
-    this.classroom = this.$route.params.id;
+    // this.classroom = this.$route.params.id;
     // this.transmision =
     await firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -572,6 +573,8 @@ export default {
             console.log("prof-doc", document);
             this.level = document.level;
             this.subject = document.subject;
+            const beforeReplace = document.name;
+            this.prof_name = beforeReplace.replace(" ", "_");
             this.classroom_stream =
               "https://player.twitch.tv/?channel=" +
               this.school_name +

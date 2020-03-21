@@ -259,7 +259,35 @@ export default {
               jueves: "materia",
               viernes: "materia"
             }
-          ]
+          ],
+          student_headers: [
+            { text: "Alias", align: "center", sortable: false, value: "alias" },
+            {
+              text: "Email",
+              align: "center",
+              sortable: false,
+              value: "email"
+            },
+            {
+              text: "Contraseña",
+              align: "center",
+              sortable: false,
+              value: "contraseña"
+            },
+            {
+              text: "Puntos",
+              align: "center",
+              sortable: false,
+              value: "puntos"
+            },
+            {
+              text: "Rating",
+              align: "center",
+              sortable: false,
+              value: "rating"
+            }
+          ],
+          students: []
         })
         .then(() => {
           console.log("group created");

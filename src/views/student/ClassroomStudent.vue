@@ -513,6 +513,57 @@ export default {
               "_" +
               this.$route.params.id +
               "&muted=true";
+            let ref = db
+              .collection(this.group + "-messages")
+              .orderBy("timestamp");
+            ref.onSnapshot(snapshot => {
+              snapshot.docChanges().forEach(change => {
+                if ((change.type = "added")) {
+                  console.log("nuevo mensaje");
+                  let doc = change.doc;
+                  this.messages.push({
+                    id: doc.id,
+                    sender: doc.data().sender,
+                    message: doc.data().message,
+                    timestamp: moment(doc.data().timestamp).format("LTS")
+                  });
+                }
+              });
+            });
+            let refXp = db.collection(this.classroom + "-students");
+            // .where()
+            refXp.onSnapshot(snapshot => {
+              snapshot.docChanges().forEach(change => {
+                console.log("changeType", change.type);
+                if ((change.type = "modified")) {
+                  let doc = change.doc;
+                  console.log("changeDoc", doc.data());
+                  this.xp = doc.data().xp;
+                }
+              });
+            });
+            let refTrivia = db.collection(this.classroom + "-trivia");
+            // .where()
+            refTrivia.onSnapshot(snapshot => {
+              snapshot.docChanges().forEach(change => {
+                console.log("changeType", change);
+                if ((change.type = "modified")) {
+                  let doc = change.doc;
+                  console.log("changeDoc", doc.data());
+                  this.question = doc.data().question;
+                  this.answer1 = doc.data().answer1;
+                  this.answer2 = doc.data().answer2;
+                  this.answer3 = doc.data().answer3;
+                  this.answer4 = doc.data().answer4;
+                  this.right_answer = doc.data().right_answer;
+                  if (doc.data().trivia_is_active === false) {
+                    this.answered = true;
+                  }
+                  // this.correct_answers = doc.data().correct_answers;
+                  // this.incorrect_answers = doc.data().incorrect_answers;
+                }
+              });
+            });
           });
         //forget about classroom because it is the prof, we need group right now,
         // use the creation of director
@@ -529,60 +580,7 @@ export default {
         //   });
       }
     });
-    // db.collection(this.classroom + "-students")
-    //   .get()
-    //   .then(querySnapshot => {
-    //     const documents = querySnapshot.docs.map(doc => doc.data());
-    //     this.students = documents;
-    //   });
-    let ref = db.collection(this.group + "-messages").orderBy("timestamp");
-    ref.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if ((change.type = "added")) {
-          let doc = change.doc;
-          this.messages.push({
-            id: doc.id,
-            sender: doc.data().sender,
-            message: doc.data().message,
-            timestamp: moment(doc.data().timestamp).format("LTS")
-          });
-        }
-      });
-    });
-    let refXp = db.collection(this.classroom + "-students");
-    // .where()
-    refXp.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        console.log("changeType", change.type);
-        if ((change.type = "modified")) {
-          let doc = change.doc;
-          console.log("changeDoc", doc.data());
-          this.xp = doc.data().xp;
-        }
-      });
-    });
-    let refTrivia = db.collection(this.classroom + "-trivia");
-    // .where()
-    refTrivia.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        console.log("changeType", change);
-        if ((change.type = "modified")) {
-          let doc = change.doc;
-          console.log("changeDoc", doc.data());
-          this.question = doc.data().question;
-          this.answer1 = doc.data().answer1;
-          this.answer2 = doc.data().answer2;
-          this.answer3 = doc.data().answer3;
-          this.answer4 = doc.data().answer4;
-          this.right_answer = doc.data().right_answer;
-          if (doc.data().trivia_is_active === false) {
-            this.answered = true;
-          }
-          // this.correct_answers = doc.data().correct_answers;
-          // this.incorrect_answers = doc.data().incorrect_answers;
-        }
-      });
-    });
+
     db.collection("ingeniería-preparatoria-stjohns" + "-img-resources")
       .get()
       .then(querySnapshot => {
@@ -708,7 +706,7 @@ export default {
       }
     },
     submit() {
-      db.collection(this.classroom + "-messages")
+      db.collection(this.group + "-messages")
         .add({
           sender: this.user,
           message: this.msg,

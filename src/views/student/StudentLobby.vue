@@ -34,12 +34,14 @@ export default {
       grupos: [],
       headers: [],
       subjects: [],
-      prof_name: null
+      prof_name: null,
+      group: null
     };
   },
   mounted() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log("hay user", user);
         db.collection("usuarios")
           .doc(user.email)
           .get()
@@ -50,7 +52,7 @@ export default {
             this.group = document.group;
             console.log();
             db.collection(this.school_name + "-" + this.level + "-groups")
-              .doc(document.group)
+              .doc(this.group)
               .get()
               .then(snapshot => {
                 const document = snapshot.data();
