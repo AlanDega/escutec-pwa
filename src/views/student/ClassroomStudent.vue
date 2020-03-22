@@ -129,52 +129,44 @@
             </v-container>
           </v-tab-item>
           <v-tab-item>
-            <v-container>
+            <v-container v-if="trivia_is_active">
               <v-row justify="center" class="mt-6">
                 <h1>{{ question }}</h1>
               </v-row>
               <v-row>
                 <v-col>
-                  <v-btn
-                    :disabled="answered"
-                    @click="checkAnswer1"
-                    outlined
-                    class="answerButton"
-                    color="deep-purple accent-3"
-                    >{{ answer1 }}</v-btn
-                  >
+                  <v-card @click="checkAnswer1" class="answerButton">{{
+                    answer1
+                  }}</v-card>
                 </v-col>
                 <v-col>
-                  <v-btn
-                    :disabled="answered"
-                    @click="checkAnswer2"
-                    outlined
-                    class="answerButton"
-                    color="deep-purple accent-3"
-                    >{{ answer2 }}</v-btn
-                  >
+                  <v-card @click="checkAnswer2" class="answerButton">{{
+                    answer2
+                  }}</v-card>
                 </v-col>
+              </v-row>
+              <v-row justify="center">
+                <v-progress-circular
+                  rounded
+                  size="90"
+                  width="9"
+                  color="deep-purple accent-3"
+                  :value="response_time"
+                  absolute
+                >
+                  {{ response_time - 90 }}</v-progress-circular
+                >
               </v-row>
               <v-row>
                 <v-col>
-                  <v-btn
-                    :disabled="answered"
-                    @click="checkAnswer3"
-                    outlined
-                    class="answerButton"
-                    color="deep-purple accent-3"
-                    >{{ answer3 }}</v-btn
-                  >
+                  <v-card @click="checkAnswer3" class="answerButton">{{
+                    answer3
+                  }}</v-card>
                 </v-col>
                 <v-col>
-                  <v-btn
-                    :disabled="answered"
-                    @click="checkAnswer4"
-                    outlined
-                    class="answerButton"
-                    color="deep-purple accent-3"
-                    >{{ answer4 }}</v-btn
-                  >
+                  <v-card @click="checkAnswer4" outlined class="answerButton">{{
+                    answer4
+                  }}</v-card>
                 </v-col>
               </v-row>
               <v-row>
@@ -217,9 +209,9 @@
           <v-container>
             <v-row>
               <v-col justify="right">
-                <v-text class="xpText" justify="right">
+                <p class="xpText" justify="right">
                   {{ xp + "/" + next_level_xp + " XP" }}
-                </v-text>
+                </p>
                 <v-progress-linear
                   rounded
                   height="6"
@@ -242,7 +234,7 @@
                 height="32"
                 width="32"
               ></v-img>
-              <v-text class="xpText">30</v-text>
+              <p class="xpText">30</p>
             </v-row>
           </v-container>
           <v-divider></v-divider>
@@ -251,34 +243,22 @@
               <v-col>
                 <v-row justify="center">
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >
-                        {{ "Alumno/12000 XP" }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-1-circle</v-icon
+                    >
+                    {{ "Alumno/12000 XP" }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >
-                        {{ "Alumno/10050 XP" }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-2-circle</v-icon
+                    >
+                    {{ "Alumno/10050 XP" }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
-                        >
-                        {{ "Alumno/2800 XP" }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-3-circle</v-icon
+                    >
+                    {{ "Alumno/2800 XP" }}
                   </v-list-item>
                 </v-row>
                 <v-divider class="mt-4"></v-divider>
@@ -376,6 +356,10 @@ export default {
 
   data() {
     return {
+      response_time: 100,
+      trivia_is_active: null,
+      alias: null,
+      prof_email: null,
       school_name: "stj",
       prof_subject_stream: null,
       group: null,
@@ -403,7 +387,7 @@ export default {
       messages: [],
       user: null,
       nota: null,
-      classroom: "A-1",
+      classroom: null,
       logs: [],
       logs2: [],
       msg: null,
@@ -490,6 +474,13 @@ export default {
     question() {
       this.answered = false;
     }
+    // trivia_is_active(){
+    //   if(trivia_is_active === false){
+    //     this.answered = true
+    //   } else {
+    //     this.answered
+    //   }
+    // }
   },
 
   mounted() {
@@ -499,13 +490,13 @@ export default {
         this.user = user.email;
         console.log("user", this.user);
         db.collection("usuarios")
-          .doc(user.email)
+          .doc(this.user)
           .get()
           .then(snapshot => {
             const document = snapshot.data();
-            this.group = document.group;
+            this.classroom = document.group;
             this.level = document.level;
-            console.log("this.group", this.group);
+            console.log("this.classroom", this.classroom);
             this.prof_subject_stream =
               // aquñi ya tenemos la flexibilidad e eque si le podemos agregr el campo del nombre del prof
               "https://player.twitch.tv/?channel=" +
@@ -513,8 +504,55 @@ export default {
               "_" +
               this.$route.params.id +
               "&muted=true";
+            //aqui puedo hacetrlo mas eficiente si lo buscamos por el name
+            //obejtivo hackear el objeto que contiene el estado de la trivia
+            const name = this.$route.params.id;
+            const replacedName = name.replace("_", " ");
+            console.log("replaced", replacedName);
+            db.collection(this.school_name + "-" + this.level + "-professors")
+              .doc(replacedName)
+              .get()
+              .then(snapshot => {
+                const document = snapshot.data();
+                this.prof_email = document.prof_email;
+                db.collection(this.prof_email)
+                  .doc("?")
+                  .get()
+                  .then(snapshot => {
+                    const document = snapshot.data();
+                    console.log("trivia is active?", document.trivia_is_active);
+                    if (document.trivia_is_active === true) {
+                      this.answered = false;
+                      let refTrivia = db.collection(this.prof_email);
+                      // .where()
+                      refTrivia.onSnapshot(snapshot => {
+                        snapshot.docChanges().forEach(change => {
+                          console.log("changeType", change);
+                          if ((change.type = "modified")) {
+                            let doc = change.doc;
+                            console.log("changeDoc", doc.data());
+                            this.trivia_is_active = doc.data().trivia_is_active;
+                            this.question = doc.data().question;
+                            this.answer1 = doc.data().answer1;
+                            this.answer2 = doc.data().answer2;
+                            this.answer3 = doc.data().answer3;
+                            this.answer4 = doc.data().answer4;
+                            this.right_answer = doc.data().right_answer;
+
+                            // this.correct_answers = doc.data().correct_answers;
+                            // this.incorrect_answers = doc.data().incorrect_answers;
+                          }
+                        });
+                      });
+                    } else {
+                      this.answered = false;
+                    }
+                    // donde coloar ca en asyn los listeners?
+                  });
+              });
+
             let ref = db
-              .collection(this.group + "-messages")
+              .collection(this.classroom + "-messages")
               .orderBy("timestamp");
             ref.onSnapshot(snapshot => {
               snapshot.docChanges().forEach(change => {
@@ -542,42 +580,9 @@ export default {
                 }
               });
             });
-            let refTrivia = db.collection(this.classroom + "-trivia");
-            // .where()
-            refTrivia.onSnapshot(snapshot => {
-              snapshot.docChanges().forEach(change => {
-                console.log("changeType", change);
-                if ((change.type = "modified")) {
-                  let doc = change.doc;
-                  console.log("changeDoc", doc.data());
-                  this.question = doc.data().question;
-                  this.answer1 = doc.data().answer1;
-                  this.answer2 = doc.data().answer2;
-                  this.answer3 = doc.data().answer3;
-                  this.answer4 = doc.data().answer4;
-                  this.right_answer = doc.data().right_answer;
-                  if (doc.data().trivia_is_active === false) {
-                    this.answered = true;
-                  }
-                  // this.correct_answers = doc.data().correct_answers;
-                  // this.incorrect_answers = doc.data().incorrect_answers;
-                }
-              });
-            });
           });
         //forget about classroom because it is the prof, we need group right now,
         // use the creation of director
-
-        // db.collection(this.classroom + "-students")
-        //   .doc(this.user)
-        //   .get()
-        //   .then(snapshot => {
-        //     const document = snapshot.data();
-        //     console.log("userDoc", document);
-        //     if (document.answered === true) {
-        //       this.answered = true;
-        //     }
-        //   });
       }
     });
 
@@ -706,7 +711,7 @@ export default {
       }
     },
     submit() {
-      db.collection(this.group + "-messages")
+      db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
           message: this.msg,
@@ -944,10 +949,12 @@ export default {
   margin-top: 12px;
 }
 .answerButton {
+  background-color: #1e1d20;
   margin-top: 30px;
   font-size: 18px;
   width: 320px;
   height: 120px;
+  color: white;
 }
 .notifText {
   color: white;

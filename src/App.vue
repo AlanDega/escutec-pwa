@@ -375,7 +375,8 @@ export default {
       ],
       director_items: [
         { title: "Profesores", icon: "mdi-google-class", path: "/professors" },
-        { title: "Grupos", icon: "mdi-google-class", path: "/groups" }
+        { title: "Grupos", icon: "mdi-google-class", path: "/groups" },
+        { title: "Alumnos", icon: "mdi-google-class", path: "/students-groups" }
         // {
         //   title: "Materias",
         //   icon: "mdi-google-classroom",

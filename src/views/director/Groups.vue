@@ -1,98 +1,103 @@
 <template>
   <div>
-    <v-tabs centered>
-      <v-tab @click="renderFirstTab">Primaria</v-tab>
-      <v-tab @click="renderSecondTab">Secundaria</v-tab>
-      <v-tab @click="renderThirdTab">Preparatoria</v-tab>
-      <v-tab-item>
-        <v-container>
-          <v-card class="mx-auto" max-width="900">
-            <v-toolbar color="deep-purple accent-3" dark>
-              <v-row justify="center" class="mt-6">
-                <h1 class="dialog-3">Grupos</h1>
-              </v-row>
-              <template v-slot:extension>
-                <v-dialog v-model="dialog" width="500">
-                  <template v-slot:activator="{ on }">
-                    <v-fab-transition>
-                      <v-btn
-                        color="white"
-                        fab
-                        large
-                        dark
-                        v-on="on"
-                        absolute
-                        bottom
-                        right
-                      >
-                        <v-icon color="deep-purple accent-3">mdi-plus</v-icon>
-                      </v-btn>
-                    </v-fab-transition>
-                  </template>
+    <v-row justify="center">
+      <v-tabs centered color="deep-purple accent-3">
+        <v-tab color="deep-purple accent-3" @click="renderFirstTab"
+          >Primaria</v-tab
+        >
+        <v-tab @click="renderSecondTab">Secundaria</v-tab>
+        <v-tab @click="renderThirdTab">Preparatoria</v-tab>
 
-                  <v-card>
-                    <v-card-title class="headline grey lighten-2" primary-title
-                      >Crear Grupo</v-card-title
+        <v-tab-item>
+          <v-container>
+            <v-card class="mx-auto" max-width="900">
+              <v-row justify="center" class="mt-6"> </v-row>
+              <v-toolbar flat height="10">
+                <template v-slot:extension>
+                  <v-dialog v-model="dialog" width="500">
+                    <template v-slot:activator="{ on }">
+                      <v-fab-transition>
+                        <v-btn
+                          color="white"
+                          fab
+                          large
+                          dark
+                          v-on="on"
+                          absolute
+                          bottom
+                          right
+                        >
+                          <v-icon color="deep-purple accent-3">mdi-plus</v-icon>
+                        </v-btn>
+                      </v-fab-transition>
+                    </template>
+
+                    <v-card>
+                      <v-card-title
+                        class="headline grey lighten-2"
+                        primary-title
+                        >Crear Grupo</v-card-title
+                      >
+                      <v-container>
+                        <v-card-text>
+                          <v-text-field
+                            color="deep-purple accent-3"
+                            label="Nombre del grupo"
+                            v-model="group_name"
+                          ></v-text-field>
+                          <v-select
+                            color="deep-purple accent-3"
+                            v-model="value"
+                            :items="items"
+                            chips
+                            label="Materias"
+                            multiple
+                            outlined
+                          ></v-select>
+                        </v-card-text>
+                      </v-container>
+
+                      <v-divider></v-divider>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="deep-purple accent-3"
+                          text
+                          @click="createGroup"
+                          >guardar</v-btn
+                        >
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </template>
+              </v-toolbar>
+
+              <v-container>
+                <v-row justify="center" align="center">
+                  <v-col cols="4" align="center">
+                    <v-card
+                      v-for="(group, i) in groups"
+                      :key="i"
+                      class="display-1 mt-6"
+                      @click="goToGroup(group.group_name)"
                     >
-                    <v-container>
-                      <v-card-text>
-                        <v-text-field
-                          color="deep-purple accent-3"
-                          label="Nombre del grupo"
-                          v-model="group_name"
-                        ></v-text-field>
-                        <v-select
-                          color="deep-purple accent-3"
-                          v-model="value"
-                          :items="items"
-                          chips
-                          label="Materias"
-                          multiple
-                          outlined
-                        ></v-select>
-                      </v-card-text>
-                    </v-container>
-
-                    <v-divider></v-divider>
-
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="deep-purple accent-3"
-                        text
-                        @click="createGroup"
-                        >guardar</v-btn
-                      >
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </template>
-            </v-toolbar>
-
-            <v-container>
-              <v-row justify="center" align="center">
-                <v-col cols="4" align="center">
-                  <v-card
-                    v-for="(group, i) in groups"
-                    :key="i"
-                    class="display-1 mt-6"
-                    @click="goToGroup(group.group_name)"
-                  >
-                    <h1 class="group-text">{{ group.group_name }}</h1>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
-        </v-container>
-      </v-tab-item>
-      <v-tab-item>
-        <h1>secundaria</h1>
-      </v-tab-item>
-      <v-tab-item>
-        <h1>preparatoria</h1>
-      </v-tab-item>
-    </v-tabs>
+                      <h1 class="group-text">{{ group.group_name }}</h1>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card>
+          </v-container>
+        </v-tab-item>
+        <v-tab-item>
+          <h1>secundaria</h1>
+        </v-tab-item>
+        <v-tab-item>
+          <h1>preparatoria</h1>
+        </v-tab-item>
+      </v-tabs>
+    </v-row>
   </div>
 </template>
 
@@ -272,13 +277,13 @@ export default {
               text: "Contraseña",
               align: "center",
               sortable: false,
-              value: "contraseña"
+              value: "student_password"
             },
             {
               text: "Puntos",
               align: "center",
               sortable: false,
-              value: "puntos"
+              value: "xp"
             },
             {
               text: "Rating",
@@ -312,7 +317,8 @@ export default {
 
 <style lang="scss" scoped>
 .group-text {
-  color: #3300ff;
+  color: white;
+  background: #641fff;
   padding: 50px 0px;
   // background: #808081;
 }

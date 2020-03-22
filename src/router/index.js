@@ -18,6 +18,8 @@ import Group from "../views/director/Group.vue";
 import Trivias from "../views/prof/Trivias.vue";
 import Resources from "../views/prof/Resources.vue";
 import ProfGroups from "../views/prof/ProfGroups.vue";
+import StudentsGroups from "../views/director/StudentsGroups.vue";
+import StudentsGroup from "../views/director/StudentsGroup.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -72,6 +74,16 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard
+  },
+  {
+    path: "/students-groups",
+    name: "students-groups",
+    component: StudentsGroups
+  },
+  {
+    path: "/students-group/:id",
+    name: "students-group",
+    component: StudentsGroup
   },
   {
     path: "/classroom-prof/:id",

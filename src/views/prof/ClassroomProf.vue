@@ -136,7 +136,7 @@
             </v-container>
           </v-tab-item>
           <v-tab-item>
-            <v-container>
+            <v-container v-if="!trivia_is_active">
               <v-row>
                 <v-col>
                   <v-card>
@@ -187,6 +187,24 @@
                 </v-fab-transition>
               </v-row>
             </v-container>
+            <v-container v-if="trivia_is_active">
+              <v-row>
+                <h1>{{ trivia.question }}</h1>
+              </v-row>
+              <v-row justify="center">
+                <v-progress-circular
+                  class="circle"
+                  rounded
+                  size="220"
+                  width="16"
+                  color="deep-purple accent-3"
+                  :value="response_time"
+                  absolute
+                >
+                  {{ response_time - 90 }}</v-progress-circular
+                >
+              </v-row>
+            </v-container>
 
             <v-snackbar :vertical="vertical" v-model="snackbar" bottom>
               <h2 class="correct">{{ correct_answers }}</h2>
@@ -208,92 +226,56 @@
                 <h1 class="sidebar-classroom">{{ this.classroom }}</h1>
                 <v-row justify="center">
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >{{ "Alumno/12000 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-1-circle</v-icon
+                    >{{ "Alumno/12000 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >{{ "Alumno/10050 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-2-circle</v-icon
+                    >{{ "Alumno/10050 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-3-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-4-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-4-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-5-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-5-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-6-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-6-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-7-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-7-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-8-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-8-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-list-content>
-                      <v-list-title>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-9-circle</v-icon
-                        >
-                        {{ "Alumno/2800 " }}
-                      </v-list-title>
-                    </v-list-content>
+                    <v-icon color="deep-purple accent-3" class="mr-2"
+                      >mdi-numeric-9-circle</v-icon
+                    >
+                    {{ "Alumno/2800 " }}
                   </v-list-item>
                 </v-row>
                 <v-divider class="mt-4"></v-divider>
@@ -311,6 +293,17 @@
               >
               </v-img>
             </v-row>
+            <v-row justify="center">
+              <div v-if="presence_checked">
+                <v-btn
+                  color="deep-purple accent-3"
+                  rounded
+                  @click="finalizeClass"
+                >
+                  Terminar clase</v-btn
+                >
+              </div>
+            </v-row>
           </v-container>
         </v-card>
         <!-- </v-container> -->
@@ -323,13 +316,13 @@
         </v-row>
       </v-footer>
     </div>
-    <div v-if="trivia_is_active">
+    <!-- <div v-if="trivia_is_active">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
           <v-btn outlined dark @click="finalizeTrivia">Terminar Trivia</v-btn>
         </v-row>
       </v-footer>
-    </div>
+    </div> -->
     <!-- <div v-if="class_is_active && !trivia_is_active">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
@@ -486,12 +479,15 @@ export default {
           viernes: "C-2"
         }
       ],
+      response_time: 100,
+      vertical: true,
       img_resources: null,
       video_resources: null,
       text_resources: null,
       snackbar: null,
       trivia_results: null,
       trivias: [],
+      classroom: this.$route.params.id,
       classroom_stream: null,
       correct_percentage: null,
       incorrect_percentage: null,
@@ -500,7 +496,7 @@ export default {
       trivia_is_active: null,
       student_checked: null,
       students: [],
-      classroom: this.$route.params.id,
+      prof_email: null,
       messages: [],
       logs2: [],
       msg: null,
@@ -542,7 +538,10 @@ export default {
       e6: 1,
       tabs: null,
       school_name: "stj",
-      prof_name: null
+      prof_name: null,
+      level: null,
+      user: null,
+      pre_prof_name: null
     };
   },
 
@@ -559,12 +558,13 @@ export default {
     }
   },
   async mounted() {
-    // this.classroom = this.$route.params.id;
+    // this.prof = this.$route.params.id;
     // this.transmision =
     await firebase.auth().onAuthStateChanged(user => {
       if (user) {
         console.log("user", user.email);
         this.user = user.email;
+        this.prof_email = user.email;
         db.collection("usuarios")
           .doc(user.email)
           .get()
@@ -573,8 +573,8 @@ export default {
             console.log("prof-doc", document);
             this.level = document.level;
             this.subject = document.subject;
-            const beforeReplace = document.name;
-            this.prof_name = beforeReplace.replace(" ", "_");
+            this.pre_prof_name = document.name;
+            this.prof_name = this.pre_prof_name.replace(" ", "_");
             this.classroom_stream =
               "https://player.twitch.tv/?channel=" +
               this.school_name +
@@ -590,51 +590,72 @@ export default {
                 console.log("student-docs", documents);
                 this.length = documents.length;
                 this.students = documents;
+                db.collection(this.prof_email)
+                  .doc("?")
+                  .get()
+                  .then(snapshot => {
+                    const document = snapshot.data();
+                    console.log("trivia-profDocument", document);
+                    //aqui puede ser l rewvez primero el check de si esta a actica la clase y luego la trivia
+                    if (document.trivia_is_active === true) {
+                      this.trivia_is_active = true;
+                    } else {
+                      this.trivia_is_active = false;
+                      db.collection(
+                        this.school_name + "-" + this.level + "-professors"
+                      )
+                        .doc(this.pre_prof_name)
+                        .get()
+                        .then(snapshot => {
+                          const document = snapshot.data();
+                          console.log("si llego");
+                          if (document.presence_checked === true) {
+                            console.log("si llego");
+                            this.presence_checked = true;
+                          } else {
+                            this.presence_checked = false;
+                          }
+                        });
+                    }
+                  });
               });
           });
 
         this.getTrivias();
+        let ref = db
+          .collection(this.$route.params.id + "-messages")
+          .orderBy("timestamp");
+        ref.onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            if ((change.type = "added")) {
+              let doc = change.doc;
+              this.messages.push({
+                id: doc.id,
+                sender: doc.data().sender,
+                message: doc.data().message,
+                timestamp: moment(doc.data().timestamp).format("LTS")
+              });
+            }
+          });
+        });
+        let refTrivia = db.collection(this.prof_email);
+        // .where()
+        refTrivia.onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            console.log("changeType", change);
+            if ((change.type = "modified")) {
+              let doc = change.doc;
+              console.log("changeDoc", doc.data());
+              this.trivia_is_active = doc.data().trivia_is_active;
+              this.right_answer = doc.data().right_answer;
+              this.correct_answers = doc.data().correct_answers;
+              this.incorrect_answers = doc.data().incorrect_answers;
+            }
+          });
+        });
       }
     });
 
-    db.collection(this.classroom + "-trivia")
-      .doc("trivia")
-      .get()
-      .then(snapshot => {
-        const document = snapshot.data();
-        console.log("triviaDocument", document);
-        if (document.trivia_is_active === true) {
-          this.trivia_is_active = true;
-        }
-      });
-    let ref = db.collection(this.classroom + "-messages").orderBy("timestamp");
-    ref.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if ((change.type = "added")) {
-          let doc = change.doc;
-          this.messages.push({
-            id: doc.id,
-            sender: doc.data().sender,
-            message: doc.data().message,
-            timestamp: moment(doc.data().timestamp).format("LTS")
-          });
-        }
-      });
-    });
-    let refTrivia = db.collection(this.classroom + "-trivia");
-    // .where()
-    refTrivia.onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        console.log("changeType", change.type);
-        if ((change.type = "modified")) {
-          let doc = change.doc;
-          console.log("changeDoc", doc.data());
-          this.right_answer = doc.data().right_answer;
-          this.correct_answers = doc.data().correct_answers;
-          this.incorrect_answers = doc.data().incorrect_answers;
-        }
-      });
-    });
     db.collection("Ingeniería-stjohns")
       .doc("preparatoria")
       .get()
@@ -683,9 +704,9 @@ export default {
     },
     next() {
       if (this.onboarding === this.students.length - 1) {
-        db.collection("Ingeniería-stjohns")
-          .doc("preparatoria")
-          .set({ presence_checked: true, checking_presence: false })
+        db.collection(this.school_name + "-" + this.level + "-professors")
+          .doc(this.pre_prof_name)
+          .update({ presence_checked: true, checking_presence: false })
           // try this with slow connection
           .then(() => {
             this.presence_checked = true;
@@ -716,20 +737,38 @@ export default {
     },
 
     initializeClass() {
-      db.collection("Ingeniería-stjohns")
-        .doc("preparatoria")
-        .set({
+      db.collection(this.school_name + "-" + this.level + "-professors")
+        .doc(this.pre_prof_name)
+        .update({
           checking_presence: true
         })
         .then(() => {
-          db.collection("Ingeniería-stjohns")
-            .doc("preparatoria")
+          db.collection(this.school_name + "-" + this.level + "-professors")
+            .doc(this.pre_prof_name)
             .get()
             .then(snapshot => {
               const document = snapshot.data();
-              console.log("classroomDoc", document);
+              console.log("profDoc", document);
               if (document.checking_presence === true) {
                 this.checking_presence = true;
+                this.presence_checked = true;
+              }
+            });
+        });
+    },
+    finalizeClass() {
+      db.collection(this.school_name + "-" + this.level + "-professors")
+        .doc(this.pre_prof_name)
+        .update({ presence_checked: false })
+        .then(() => {
+          db.collection(this.school_name + "-" + this.level + "-professors")
+            .doc(this.pre_prof_name)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              console.log("profDoc", document);
+              if (document.presence_checked === false) {
+                this.presence_checked = false;
               }
             });
         });
@@ -748,9 +787,9 @@ export default {
     },
     finalizeTrivia() {
       // esto va despues de que se actulizo firestore
-      // this.trivia_is_active = false;
+      this.trivia_is_active = false;
 
-      db.collection(this.classroom + "-students")
+      db.collection(this.school_name + "-" + this.group + "-students")
         .where("right", "==", true)
         .get()
         .then(querySnapshot => {
@@ -758,19 +797,20 @@ export default {
           console.log("correctos", documents.length);
           this.correct_answers = documents.length;
           this.snackbar = true;
+          db.collection(this.prof_email)
+            .doc("?")
+            .update({ trivia_is_active: false });
+          this.trivia_is_active = false;
           db.collection(this.classroom + "-students")
             .get()
             .then(querySnapshot => {
               const documents = querySnapshot.docs.map(doc => {
-                db.collection(this.classroom + "-students")
+                db.collection(
+                  this.school_name + "-" + this.classroom + "-students"
+                )
                   .doc(doc.id)
                   .update({ right: null })
-                  .then(() => {
-                    db.collection(this.classroom + "-trivia")
-                      .doc("trivia")
-                      .update({ trivia_is_active: false });
-                    this.trivia_is_active = false;
-                  });
+                  .then(() => {});
               });
             });
 
@@ -779,8 +819,12 @@ export default {
     },
     // hacer otra coleccion para los resultados?
     initializeTrivia(trivia) {
-      db.collection(this.classroom + "-trivia")
-        .doc("trivia")
+      setInterval(() => {
+        const time = this.response_time;
+        this.response_time = time - 10;
+      }, 1000);
+      db.collection(this.prof_email)
+        .doc("?")
         .set({
           confirming_trivia: false,
           trivia_is_active: true,
@@ -792,28 +836,27 @@ export default {
           right_answer: this.right_answer,
           correct_answers: 0,
           incorrect_answers: 0
-        })
-        .then(() => {
-          this.trivia_is_active = true;
-          db.collection(this.classroom + "-students")
-            .where("right", "==", true)
+        });
+      this.trivia_is_active = true;
+
+      db.collection(this.school_name + "-" + this.level + "-students")
+        .where("right", "==", true)
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => doc.data());
+          db.collection(this.school_name + "-" + this.level + "-students")
             .get()
             .then(querySnapshot => {
-              const documents = querySnapshot.docs.map(doc => doc.data());
-              db.collection(this.classroom + "-students")
-                .get()
-                .then(querySnapshot => {
-                  const documents = querySnapshot.docs.map(doc => {
-                    db.collection(this.classroom + "-students")
-                      .doc(doc.id)
-                      .update({ answered: false });
-                    this.confirming_trivia = false;
-                  });
-                });
-              // aqui enviar info
+              const documents = querySnapshot.docs.map(doc => {
+                db.collection(this.school_name + "-" + this.level + "-students")
+                  .doc(doc.id)
+                  .update({ trivia_is_active: false });
+                this.confirming_trivia = false;
+              });
             });
-          console.log("sent trivia");
+          // aqui enviar info
         });
+      console.log("sent trivia");
     },
     validatePresence(student) {
       this.student_checked = true;
@@ -829,7 +872,7 @@ export default {
       });
     },
     submit() {
-      db.collection(this.classroom + "-messages")
+      db.collection(this.$route.params.id + "-messages")
         .add({
           sender: this.user,
           message: this.msg,
@@ -841,46 +884,6 @@ export default {
         });
     },
 
-    // fillmeht
-    //   (this.datacollection = {
-    //     labels: ["lunes", "martes", "miercoles", "jueves", "viernes"],
-    //     datasets: [
-    //       {
-    //         label: "Aciertos",
-    //         backgroundColor: "#03FC2B",
-    //         data: [32, 12, 21, 45, 54]
-    //       }
-    //     ]
-    //   }),
-    //     (this.datacollection2 = {
-    //       labels: ["lunes", "martes", "miercoles", "jueves", "viernes"],
-    //       datasets: [
-    //         {
-    //           label: "fallas",
-    //           backgroundColor: "#FF000F",
-    //           data: [4, 12, 7, 45, 23]
-    //         }
-    //       ]
-    //     }),
-    //     (this.datacollection3 = {
-    //       labels: ["Feliz", "Contento", "Aburrido", "Enojado", "Triste"],
-    //       datasets: [
-    //         {
-    //           label: "Estado Emocional",
-    //           backgroundColor: "#6100FF",
-    //           data: [0, 9, 12, 7, 11, 8]
-    //         }
-    //       ]
-    //     });
-    // },
-    // createChart(chartId, chartData) {
-    //   const ctx = document.getElementById(chartId);
-    //   const myChart = new Chart(ctx, {
-    //     type: chartData.type,
-    //     data: chartData.data,
-    //     options: chartData.options
-    //   });
-    // },
     renderImagesType() {
       (this.images = true), (this.videos = false), (this.links = false);
     },
@@ -987,7 +990,7 @@ export default {
       setTimeout(() => (this.hidden = false), 300);
     },
     renderTrivia() {
-      db.collection(this.classroom + "-trivia");
+      db.collection(this.prof_email);
 
       this.selected_homework = false;
       this.selected_image = false;
@@ -1039,6 +1042,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.circle {
+  font-size: 38px;
+  font-style: bold;
+}
+.line {
+  min-width: 150px;
+  max-width: 150px;
+}
 .headers {
   border-bottom: 0.5px solid rgba(51, 54, 52, 0.397);
   padding: 10px 0px;
