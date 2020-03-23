@@ -30,9 +30,10 @@
                       <v-row>
                         <v-list ref="chat" id="logs">
                           <template v-for="(message, index) in messages">
-                            <v-subheader v-if="message" :key="index">
-                              {{ message.sender + ":" + message.message }}
-                            </v-subheader>
+                            <v-subheader
+                              v-if="message"
+                              :key="index"
+                            >{{ message.sender + ":" + message.message }}</v-subheader>
                           </template>
                         </v-list>
                       </v-row>
@@ -48,12 +49,7 @@
                           ></v-text-field>
                         </v-col>
                         <v-col cols="2">
-                          <v-btn
-                            dark
-                            color="deep-purple accent-3"
-                            @click="submit"
-                            >Enviar</v-btn
-                          >
+                          <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
                         </v-col>
                       </v-row>
                     </v-col>
@@ -69,9 +65,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-image</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-col>
@@ -81,9 +75,7 @@
                               :key="index"
                               text
                               :href="img.url"
-                            >
-                              {{ img.title }}
-                            </v-btn>
+                            >{{ img.title }}</v-btn>
                           </v-row>
                         </v-col>
                       </v-row>
@@ -94,9 +86,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-play-box</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -104,9 +94,7 @@
                           :key="index"
                           text
                           :href="video.url"
-                        >
-                          {{ video.title }}
-                        </v-btn>
+                        >{{ video.title }}</v-btn>
                       </v-row>
                     </v-col>
                   </v-card>
@@ -115,9 +103,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-text</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -125,9 +111,7 @@
                           :key="index"
                           text
                           :href="text.url"
-                        >
-                          {{ text.title }}
-                        </v-btn>
+                        >{{ text.title }}</v-btn>
                       </v-row>
                     </v-col>
                   </v-card>
@@ -137,39 +121,75 @@
           </v-tab-item>
           <v-tab-item>
             <v-container v-if="!trivia_is_active">
-              <v-row>
-                <v-col>
-                  <v-card>
-                    <table style="width:100%">
-                      <tr>
-                        <th
-                          v-for="header in headers"
-                          :key="header.id"
-                          class="headers"
-                        >
-                          {{ header }}
-                        </th>
-                      </tr>
-                      <!-- <v-divider color="primary"></v-divider> -->
-                      <tr
-                        v-for="trivia in trivias"
-                        :key="trivia.id"
-                        :class="{ selected: trivia.selected }"
-                        @click="renderConfirmationBar(trivia)"
-                      >
-                        <td class="tableText">{{ trivia.question }}</td>
-                        <td class="tableText" @click="log(trivia.answer1)">
-                          {{ trivia.answer1 }}
-                        </td>
-                        <td class="tableText">{{ trivia.answer2 }}</td>
-                        <td class="tableText">{{ trivia.answer3 }}</td>
-                        <td class="tableText">{{ trivia.answer4 }}</td>
-                        <td class="tableText">{{ trivia.right_answer }}</td>
-                      </tr>
-                    </table>
-                  </v-card>
-                </v-col>
-              </v-row>
+              <v-card class="trivias_container">
+                <v-row>
+                  <v-col  cols="4">
+                    <v-card   v-for="(trivia, i) in trivias" :key="i" class="trivia" @click.stop="renderConfirmationDialog(trivia)">{{trivia.question}}</v-card>
+                    <v-dialog
+                    v-model="triviaDialog"
+                    width="700"
+                    >
+                    <v-card>
+        <v-card-title
+          color="black"
+          dark
+          primary-title
+        >
+          {{question}}
+        </v-card-title>
+
+        <v-card-text>
+          <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>{{ answer1}}</v-list-item-title>
+        <v-list-item-subtitle>Respuesta 1</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+          <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>{{ answer2  }}</v-list-item-title>
+        <v-list-item-subtitle>Respuesta 2</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+          <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>{{ answer3 }}</v-list-item-title>
+        <v-list-item-subtitle>Respuesta 3</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+          <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>{{ answer4 }}</v-list-item-title>
+        <v-list-item-subtitle>Respuesta 4</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    </v-list-item>
+          <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title>{{ right_answer }}</v-list-item-title>
+        <v-list-item-subtitle>Respuesta Correcta</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="deep-purple accent-3"
+            text
+            @click="initializeTrivia"
+          >
+            I accept
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+                    </v-dialog>
+                   
+                  </v-col>
+                </v-row>
+              </v-card>
 
               <v-row>
                 <v-fab-transition>
@@ -189,7 +209,7 @@
             </v-container>
             <v-container v-if="trivia_is_active">
               <v-row>
-                <h1>{{ trivia.question }}</h1>
+                <h1>{{ question }}</h1>
               </v-row>
               <v-row justify="center">
                 <v-progress-circular
@@ -200,18 +220,14 @@
                   color="deep-purple accent-3"
                   :value="response_time"
                   absolute
-                >
-                  {{ response_time - 90 }}</v-progress-circular
-                >
+                >{{ response_time }}</v-progress-circular>
               </v-row>
             </v-container>
 
             <v-snackbar :vertical="vertical" v-model="snackbar" bottom>
               <h2 class="correct">{{ correct_answers }}</h2>
               <h2 class="incorrect">{{ incorrect_answers }}</h2>
-              <v-icon color="deep-purple accent-3" @click="snackbar = false">
-                mdi-close-circle
-              </v-icon>
+              <v-icon color="deep-purple accent-3" @click="snackbar = false">mdi-close-circle</v-icon>
             </v-snackbar>
           </v-tab-item>
         </v-tabs>
@@ -226,59 +242,42 @@
                 <h1 class="sidebar-classroom">{{ this.classroom }}</h1>
                 <v-row justify="center">
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-1-circle</v-icon
-                    >{{ "Alumno/12000 " }}
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
+                    {{ "Alumno/12000 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-2-circle</v-icon
-                    >{{ "Alumno/10050 " }}
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
+                    {{ "Alumno/10050 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-3-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-4-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-4-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-5-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-5-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-6-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-6-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-7-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-7-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-8-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-8-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-9-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-9-circle</v-icon>
                     {{ "Alumno/2800 " }}
                   </v-list-item>
                 </v-row>
-                <v-divider class="mt-4"></v-divider>
               </v-col>
             </v-row>
           </v-container>
@@ -290,18 +289,18 @@
                 src="../../assets/available-boost.png"
                 height="100"
                 width="100"
-              >
-              </v-img>
+              ></v-img>
             </v-row>
             <v-row justify="center">
               <div v-if="presence_checked">
                 <v-btn
                   color="deep-purple accent-3"
-                  rounded
+                  
+                  outlined
+                  dark
                   @click="finalizeClass"
-                >
-                  Terminar clase</v-btn
-                >
+                  class="finalize-class-btn"
+                >Terminar clase</v-btn>
               </div>
             </v-row>
           </v-container>
@@ -309,20 +308,20 @@
         <!-- </v-container> -->
       </v-col>
     </v-row>
-    <div v-if="confirming_trivia">
+    <!-- <div v-if="confirming_trivia">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
           <v-btn outlined dark @click="initializeTrivia">Empezar Trivia</v-btn>
         </v-row>
       </v-footer>
-    </div>
+    </div> -->
     <!-- <div v-if="trivia_is_active">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
           <v-btn outlined dark @click="finalizeTrivia">Terminar Trivia</v-btn>
         </v-row>
       </v-footer>
-    </div> -->
+    </div>-->
     <!-- <div v-if="class_is_active && !trivia_is_active">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
@@ -331,7 +330,7 @@
           >
         </v-row>
       </v-footer>
-    </div> -->
+    </div>-->
     <div v-if="!presence_checked">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
@@ -348,20 +347,10 @@
           </v-btn>
           <v-card flat tile width="200" color="deep-purple accent-3">
             <v-window v-model="onboarding" vertical>
-              <v-window-item
-                v-for="student in students"
-                :key="`card-${student}`"
-              >
+              <v-window-item v-for="student in students" :key="`card-${student}`">
                 <!-- <v-card flat height="100%" color="deep-purple accent-3"> -->
-                <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
-                  tag="v-card-text"
-                >
-                  <p style="font-size: 18px;" class="white--text">
-                    {{ student.alias }}
-                  </p>
+                <v-row class="fill-height" align="center" justify="center" tag="v-card-text">
+                  <p style="font-size: 18px;" class="white--text">{{ student.alias }}</p>
                 </v-row>
                 <!-- </v-card> -->
               </v-window-item>
@@ -373,9 +362,7 @@
         </v-row>
       </v-footer>
     </div>
-    <v-snackbar v-model="tableNotif" :timeout="timeout">
-      {{ table_notif_text }}
-    </v-snackbar>
+    <v-snackbar v-model="tableNotif" :timeout="timeout">{{ table_notif_text }}</v-snackbar>
   </div>
 </template>
 
@@ -392,6 +379,8 @@ export default {
 
   data() {
     return {
+      triviaDialog: false,
+
       subject: null,
       tableNotif: false,
       timeout: 2500,
@@ -638,21 +627,21 @@ export default {
             }
           });
         });
-        let refTrivia = db.collection(this.prof_email);
-        // .where()
-        refTrivia.onSnapshot(snapshot => {
-          snapshot.docChanges().forEach(change => {
-            console.log("changeType", change);
-            if ((change.type = "modified")) {
-              let doc = change.doc;
-              console.log("changeDoc", doc.data());
-              this.trivia_is_active = doc.data().trivia_is_active;
-              this.right_answer = doc.data().right_answer;
-              this.correct_answers = doc.data().correct_answers;
-              this.incorrect_answers = doc.data().incorrect_answers;
-            }
-          });
-        });
+        // let refTrivia = db.collection(this.prof_email);
+        // // .where()
+        // refTrivia.onSnapshot(snapshot => {
+        //   snapshot.docChanges().forEach(change => {
+        //     console.log("changeType", change);
+        //     if ((change.type = "modified")) {
+        //       let doc = change.doc;
+        //       console.log("changeDoc", doc.data());
+        //       this.trivia_is_active = doc.data().trivia_is_active;
+        //       this.right_answer = doc.data().right_answer;
+        //       this.correct_answers = doc.data().correct_answers;
+        //       this.incorrect_answers = doc.data().incorrect_answers;
+        //     }
+        //   });
+        // });
       }
     });
 
@@ -688,19 +677,21 @@ export default {
       });
   },
   methods: {
-    renderConfirmationBar(trivia) {
-      if (this.confirming_trivia === null) {
-        trivia.selected = !trivia.selected;
-        this.confirming_trivia = true;
+    renderConfirmationDialog(trivia) {
+      // if (this.confirming_trivia === null) {
+        // trivia.selected = !trivia.selected;
+
+        // this.confirming_trivia = true;
+        this.triviaDialog = true
         this.question = trivia.question;
         this.answer1 = trivia.answer1;
         this.answer2 = trivia.answer2;
         this.answer3 = trivia.answer3;
         this.answer4 = trivia.answer4;
         this.right_answer = trivia.right_answer;
-      } else {
-        this.tableNotif = true;
-      }
+      // } else {
+      //   this.tableNotif = true;
+      // }
     },
     next() {
       if (this.onboarding === this.students.length - 1) {
@@ -709,6 +700,8 @@ export default {
           .update({ presence_checked: true, checking_presence: false })
           // try this with slow connection
           .then(() => {
+            db.collection(this.school_name + '-' + this.classroom + '-students')
+              
             this.presence_checked = true;
             this.checking_presence = false;
           });
@@ -716,14 +709,14 @@ export default {
       this.selected_student = this.students[this.onboarding];
       this.onboarding =
         this.onboarding + 1 === this.length ? 0 : this.onboarding + 1;
-      db.collection(this.classroom + "-students")
-        .doc(this.selected_student.alias)
+      db.collection(this.school_name + '-' + this.classroom + "-students")
+        .doc(this.selected_student.email)
         .update({ is_present: true })
         .then(() => {
-          const increment = firebase.firestore.FieldValue.increment(20);
+          const increment = firebase.firestore.FieldValue.increment(10);
           const xpRef = db
-            .collection(this.classroom + "-students")
-            .doc(this.selected_student.alias);
+            .collection(this.school_name + '-' + this.classroom + "-students")
+            .doc(this.selected_student.email);
           const batch = db.batch();
           batch.set(xpRef, { xp: increment }, { merge: true });
           batch.commit().then(() => {
@@ -788,20 +781,20 @@ export default {
     finalizeTrivia() {
       // esto va despues de que se actulizo firestore
       this.trivia_is_active = false;
+          this.snackbar = true;
 
-      db.collection(this.school_name + "-" + this.group + "-students")
+      db.collection(this.school_name + "-" + this.classroom + "-students")
         .where("right", "==", true)
         .get()
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map(doc => doc.data());
           console.log("correctos", documents.length);
           this.correct_answers = documents.length;
-          this.snackbar = true;
           db.collection(this.prof_email)
             .doc("?")
             .update({ trivia_is_active: false });
-          this.trivia_is_active = false;
-          db.collection(this.classroom + "-students")
+          // this.trivia_is_active = false;
+          db.collection(this.school_name + '-' + this.classroom + "-students")
             .get()
             .then(querySnapshot => {
               const documents = querySnapshot.docs.map(doc => {
@@ -809,7 +802,8 @@ export default {
                   this.school_name + "-" + this.classroom + "-students"
                 )
                   .doc(doc.id)
-                  .update({ right: null })
+                  //wrong too
+                  .update({ right: null,  answered: true })
                   .then(() => {});
               });
             });
@@ -819,9 +813,20 @@ export default {
     },
     // hacer otra coleccion para los resultados?
     initializeTrivia(trivia) {
-      setInterval(() => {
-        const time = this.response_time;
-        this.response_time = time - 10;
+      this.triviaDialog = false
+      const countdown = setInterval(() => {
+        if (this.response_time > 0) {
+          const time = this.response_time;
+          this.response_time = time - 10;
+        } else {
+          this.finalizeTrivia()
+          db.collection(this.prof_email)
+            .doc("?")
+            .update({ trivia_is_active: false });
+            
+          clearInterval(countdown);
+          this.response_time = 100;
+        }
       }, 1000);
       db.collection(this.prof_email)
         .doc("?")
@@ -839,24 +844,23 @@ export default {
         });
       this.trivia_is_active = true;
 
-      db.collection(this.school_name + "-" + this.level + "-students")
-        .where("right", "==", true)
-        .get()
-        .then(querySnapshot => {
-          const documents = querySnapshot.docs.map(doc => doc.data());
-          db.collection(this.school_name + "-" + this.level + "-students")
+      // db.collection(this.school_name + "-" + this.level + "-students")
+      //   // .where("right", "==", true)
+      //   .get()
+      //   .then(querySnapshot => {
+      //     const documents = querySnapshot.docs.map(doc => doc.data());
+          db.collection(this.school_name + "-" + this.classroom + "-students")
             .get()
             .then(querySnapshot => {
               const documents = querySnapshot.docs.map(doc => {
-                db.collection(this.school_name + "-" + this.level + "-students")
+                db.collection(this.school_name + "-" + this.classroom + "-students")
                   .doc(doc.id)
-                  .update({ trivia_is_active: false });
-                this.confirming_trivia = false;
+                  .update({ answered: false });
+                  console.log('trivia initialized')
               });
             });
           // aqui enviar info
-        });
-      console.log("sent trivia");
+        
     },
     validatePresence(student) {
       this.student_checked = true;
@@ -1042,6 +1046,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.finalize-class-btn {
+  margin: 20px 0px;
+}
+.trivias_container {
+  overflow: auto;
+  height: 35vh;
+  width: 100%;
+}
+.trivia {
+  height: 80px;
+  width: 240px;
+  color: white;
+  background-color: #1e1d20;
+  font-size: 20px;
+}
 .circle {
   font-size: 38px;
   font-style: bold;
@@ -1140,3 +1159,24 @@ export default {
 .div1 {
 }
 </style>
+
+<!-- <v-card>
+                    <table style="width:100%">
+                      <tr>
+                        <th v-for="header in headers" :key="header.id" class="headers">{{ header }}</th>
+                      </tr>
+                      <tr
+                        v-for="trivia in trivias"
+                        :key="trivia.id"
+                        :class="{ selected: trivia.selected }"
+                        @click="renderConfirmationBar(trivia)"
+                      >
+                        <td class="tableText">{{ trivia.question }}</td>
+                        <td class="tableText" @click="log(trivia.answer1)">{{ trivia.answer1 }}</td>
+                        <td class="tableText">{{ trivia.answer2 }}</td>
+                        <td class="tableText">{{ trivia.answer3 }}</td>
+                        <td class="tableText">{{ trivia.answer4 }}</td>
+                        <td class="tableText">{{ trivia.right_answer }}</td>
+                      </tr>
+                    </table>
+                  </v-card> -->

@@ -27,9 +27,11 @@
                   <v-card class="chat_notes_card">
                     <v-list ref="chat" id="logs">
                       <template v-for="(message, index) in messages">
-                        <v-subheader v-if="message" :key="index">{{
+                        <v-subheader v-if="message" :key="index">
+                          {{
                           message.sender + ":" + message.message
-                        }}</v-subheader>
+                          }}
+                        </v-subheader>
                       </template>
                     </v-list>
                     <v-container>
@@ -44,12 +46,7 @@
                           ></v-text-field>
                         </v-col>
                         <v-col cols="2">
-                          <v-btn
-                            dark
-                            color="deep-purple accent-3"
-                            @click="submit"
-                            >Enviar</v-btn
-                          >
+                          <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -65,9 +62,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-image</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-col>
@@ -77,8 +72,7 @@
                               :key="index"
                               text
                               :href="img.url"
-                              >{{ img.title }}</v-btn
-                            >
+                            >{{ img.title }}</v-btn>
                           </v-row>
                         </v-col>
                       </v-row>
@@ -89,9 +83,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-play-box</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -99,8 +91,7 @@
                           :key="index"
                           text
                           :href="video.url"
-                          >{{ video.title }}</v-btn
-                        >
+                        >{{ video.title }}</v-btn>
                       </v-row>
                     </v-col>
                   </v-card>
@@ -109,9 +100,7 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4"
-                          >mdi-text</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -119,8 +108,7 @@
                           :key="index"
                           text
                           :href="text.url"
-                          >{{ text.title }}</v-btn
-                        >
+                        >{{ text.title }}</v-btn>
                       </v-row>
                     </v-col>
                   </v-card>
@@ -130,43 +118,92 @@
           </v-tab-item>
           <v-tab-item>
             <v-container v-if="trivia_is_active">
-              <v-row justify="center" class="mt-6">
-                <h1>{{ question }}</h1>
+              <v-row justify="center" class="question">
+                <h2>{{ question }}</h2>
               </v-row>
               <v-row>
                 <v-col>
-                  <v-card @click="checkAnswer1" class="answerButton">{{
-                    answer1
-                  }}</v-card>
+                  <v-card @click="checkAnswer1" class="answerButton">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="3">
+                          <v-container>
+                            <v-row justify="center">
+                              <v-icon color="deep-purple accent-3" large>mdi-alpha-a-circle</v-icon>
+                            </v-row>
+                          </v-container>
+                        </v-col>
+                        <v-col>
+                          {{
+                          answer1
+                          }}
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
                 </v-col>
                 <v-col>
-                  <v-card @click="checkAnswer2" class="answerButton">{{
-                    answer2
-                  }}</v-card>
+                  <v-card @click="checkAnswer2" class="answerButton">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="3">
+                          <v-container>
+                            <v-row justify="center">
+                              <v-icon color="deep-purple accent-3" large>mdi-alpha-b-circle</v-icon>
+                            </v-row>
+                          </v-container>
+                        </v-col>
+                        <v-col>
+                          {{
+                          answer2
+                          }}
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
                 </v-col>
               </v-row>
-              <v-row justify="center">
-                <v-progress-circular
-                  rounded
-                  size="90"
-                  width="9"
-                  color="deep-purple accent-3"
-                  :value="response_time"
-                  absolute
-                >
-                  {{ response_time - 90 }}</v-progress-circular
-                >
-              </v-row>
+
               <v-row>
                 <v-col>
-                  <v-card @click="checkAnswer3" class="answerButton">{{
-                    answer3
-                  }}</v-card>
+                  <v-card @click="checkAnswer3" class="answerButton">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="3">
+                          <v-container>
+                            <v-row justify="center">
+                              <v-icon color="deep-purple accent-3" large>mdi-alpha-c-circle</v-icon>
+                            </v-row>
+                          </v-container>
+                        </v-col>
+                        <v-col>
+                          {{
+                          answer3
+                          }}
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
                 </v-col>
                 <v-col>
-                  <v-card @click="checkAnswer4" outlined class="answerButton">{{
-                    answer4
-                  }}</v-card>
+                  <v-card @click="checkAnswer4" outlined class="answerButton">
+                    <v-container>
+                      <v-row>
+                        <v-col cols="3">
+                          <v-container>
+                            <v-row justify="center">
+                              <v-icon color="deep-purple accent-3" large>mdi-alpha-d-circle</v-icon>
+                            </v-row>
+                          </v-container>
+                        </v-col>
+                        <v-col>
+                          {{
+                          answer4
+                          }}
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card>
                 </v-col>
               </v-row>
               <v-row>
@@ -185,6 +222,37 @@
                 </v-fab-transition>
               </v-row>
             </v-container>
+            <v-container v-if="!trivia_is_active">
+              <div v-if="!trivia_loading_state">
+                <v-row justify="center">
+                  <v-card class="trivia-button" @click="initializeStudentTrivia">
+                    <v-row class="mt-6" justify="center">
+                      <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
+                    </v-row>
+                    <v-row justify="center" class="mt-6">
+                      <v-btn
+                        outlined
+                        color="deep-purple accent-3"
+                        @click="initializeStudentTrivia"
+                      >Iniciar Trivia</v-btn>
+                    </v-row>
+                  </v-card>
+                </v-row>
+              </div>
+              <div v-if="trivia_loading_state">
+                <v-row justify="center">
+                  <v-card
+                    class="trivia-button"
+                    @click="initializeStudentTrivia"
+                    loading="deep-purple accent-3"
+                  >
+                    <v-row class="mt-6" justify="center">
+                      <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
+                    </v-row>
+                  </v-card>
+                </v-row>
+              </div>
+            </v-container>
           </v-tab-item>
         </v-tabs>
         <div v-if="resources"></div>
@@ -198,26 +266,31 @@
             <h2>{{ alias }}</h2>
           </v-row>
           <v-row justify="center">
-            <v-img
-              class="mt-4"
-              contain
-              src="../../assets/level.svg"
-              height="80"
-              width="80"
-            ></v-img>
+            <div v-if="svg_level1">
+              <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
+            </div>
+            <div v-if="svg_level2">
+              <v-img class="mt-4" contain src="../../assets/level2.svg" height="80" width="80"></v-img>
+            </div>
+            <div v-if="svg_level3">
+              <v-img class="mt-4" contain src="../../assets/level3.svg" height="80" width="80"></v-img>
+            </div>
           </v-row>
           <v-container>
             <v-row>
-              <v-col justify="right">
-                <p class="xpText" justify="right">
-                  {{ xp + "/" + next_level_xp + " XP" }}
-                </p>
-                <v-progress-linear
-                  rounded
-                  height="6"
-                  color="deep-purple accent-3"
-                  v-model="xp"
-                ></v-progress-linear>
+              <v-col justify="right" v-if="svg_level1">
+                <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
+                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
+              </v-col>
+
+              <v-col justify="right" v-if="svg_level2">
+                <p class="xpText" justify="right">{{ xp + "/" + next_level2_xp + " XP" }}</p>
+                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
+              </v-col>
+
+              <v-col justify="right" v-if="svg_level3">
+                <p class="xpText" justify="right">{{ xp + "/" + next_level3_xp + " XP" }}</p>
+                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
               </v-col>
             </v-row>
           </v-container>
@@ -227,15 +300,10 @@
 
           <v-divider></v-divider>
           <v-container>
-            <v-row>
-              <v-img
-                contain
-                src="../../assets/cash.svg"
-                height="32"
-                width="32"
-              ></v-img>
+            <!-- <v-row>
+              <v-img contain src="../../assets/cash.svg" height="32" width="32"></v-img>
               <p class="xpText">30</p>
-            </v-row>
+            </v-row>-->
           </v-container>
           <v-divider></v-divider>
           <v-container>
@@ -243,21 +311,15 @@
               <v-col>
                 <v-row justify="center">
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-1-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
                     {{ "Alumno/12000 XP" }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-2-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
                     {{ "Alumno/10050 XP" }}
                   </v-list-item>
                   <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2"
-                      >mdi-numeric-3-circle</v-icon
-                    >
+                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
                     {{ "Alumno/2800 XP" }}
                   </v-list-item>
                 </v-row>
@@ -275,6 +337,18 @@
                 width="100"
               ></v-img>
             </v-row>
+            <v-row justify="center">
+              <div v-if="trivia_is_active">
+                <v-progress-circular
+                  rounded
+                  size="90"
+                  width="9"
+                  color="deep-purple accent-3"
+                  v-model="response_time"
+                  absolute
+                >{{ response_time }}</v-progress-circular>
+              </div>
+            </v-row>
           </v-container>
         </v-card>
         <!-- </v-container> -->
@@ -289,13 +363,7 @@
       Open Snackbar
       </v-btn>-->
 
-      <v-snackbar
-        top
-        color="success"
-        :vertical="vertical"
-        v-model="snackbar"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -313,13 +381,7 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar
-        top
-        color="red"
-        :vertical="vertical"
-        v-model="errorNotif"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -356,8 +418,14 @@ export default {
 
   data() {
     return {
+      lvl_2_result: null,
+      lvl_3_result: null,
+      svg_level: null,
+      svg_level1: null,
+      svg_level2: null,
+      svg_level3: null,
+      trivia_loading_state: null,
       response_time: 100,
-      trivia_is_active: null,
       alias: null,
       prof_email: null,
       school_name: "stj",
@@ -366,7 +434,7 @@ export default {
       text_resources: [],
       img_resources: [],
       video_resources: [],
-      answered: false,
+      trivia_is_active: false,
       errorNotif: false,
       earned_xp: "+ 50xp",
       vertical: true,
@@ -381,6 +449,8 @@ export default {
       answer4: null,
       right_answer: null,
       next_level_xp: 100,
+      next_level2_xp: 300,
+      next_level3_xp: 900,
       xp: 0,
       fab: false,
       hidden: false,
@@ -472,13 +542,54 @@ export default {
       }, 0);
     },
     question() {
-      this.answered = false;
+      // this.trivia_is_active = true;
+    },
+    xp() {
+      console.log("works");
+      if (this.xp <= 99) {
+        this.svg_level1 = true;
+        this.svg_level2 = false;
+        this.svg_level3 = false;
+      } else if (this.xp <= 299) {
+        this.svg_level1 = false;
+        this.svg_level2 = true;
+        this.svg_level3 = false;
+      } else if (this.xp <= 899) {
+        this.svg_level3 = true;
+        this.svg_level2 = false;
+        this.svg_level1 = false;
+      }
     }
+    // svg_level1(){
+    //   console.log('listener1works')
+    //   if(this.xp <= 99){
+    //     this.svg_level1 = true
+    //   }
+    // },
+    // svg_level2(){
+    //   if(this.xp <= 199){
+    //     this.svg_level2 = true
+    //   }
+    // },
+    // svg_level3(){
+    //   if(this.xp <= 299){
+    //     this.svg_level3 = true
+    //   }
+    // },
     // trivia_is_active(){
-    //   if(trivia_is_active === false){
-    //     this.answered = true
-    //   } else {
-    //     this.answered
+    //   if(this.trivia_is_active === true ){
+    //     const countdown = setInterval(() => {
+    //      if (this.response_time > 0) {
+    //       //  this.response_time = 100
+    //       const time = this.response_time;
+    //       this.response_time = time - 10;
+    //     } else {
+    //       clearInterval(countdown)
+    //       console.log('watch activo')
+    //       this.trivia_is_active = false
+    //       // this.response_time = 100;
+    //     }
+    //   }, 1000);
     //   }
     // }
   },
@@ -509,6 +620,36 @@ export default {
             const name = this.$route.params.id;
             const replacedName = name.replace("_", " ");
             console.log("replaced", replacedName);
+            db.collection(this.school_name + "-" + this.classroom + "-students")
+              .doc(this.user)
+              .get()
+              .then(snapshot => {
+                const document = snapshot.data();
+                this.xp = document.xp;
+                this.percentageLevel2();
+                this.percentageLevel3();
+                if (this.xp <= 99) {
+                  this.svg_level1 = true;
+                  this.svg_level2 = false;
+                  this.svg_level3 = false;
+                } else if (this.xp <= 299) {
+                  this.svg_level1 = false;
+                  this.svg_level2 = true;
+                  this.svg_level3 = false;
+                } else if (this.xp <= 899) {
+                  this.svg_level3 = true;
+                  this.svg_level2 = false;
+                  this.svg_level1 = false;
+                }
+                if (document.answered === true) {
+                  console.log("si es true");
+                  // o pasar exntender a watch?
+                  // this.trivia_is_active = false
+                  // posiblemente si fall a lo demaas tenga que ir aquí
+                } else {
+                  console.log("es flase");
+                }
+              });
             db.collection(this.school_name + "-" + this.level + "-professors")
               .doc(replacedName)
               .get()
@@ -521,32 +662,65 @@ export default {
                   .then(snapshot => {
                     const document = snapshot.data();
                     console.log("trivia is active?", document.trivia_is_active);
-                    if (document.trivia_is_active === true) {
-                      this.answered = false;
-                      let refTrivia = db.collection(this.prof_email);
-                      // .where()
-                      refTrivia.onSnapshot(snapshot => {
-                        snapshot.docChanges().forEach(change => {
-                          console.log("changeType", change);
-                          if ((change.type = "modified")) {
-                            let doc = change.doc;
-                            console.log("changeDoc", doc.data());
-                            this.trivia_is_active = doc.data().trivia_is_active;
-                            this.question = doc.data().question;
-                            this.answer1 = doc.data().answer1;
-                            this.answer2 = doc.data().answer2;
-                            this.answer3 = doc.data().answer3;
-                            this.answer4 = doc.data().answer4;
-                            this.right_answer = doc.data().right_answer;
-
-                            // this.correct_answers = doc.data().correct_answers;
-                            // this.incorrect_answers = doc.data().incorrect_answers;
-                          }
-                        });
-                      });
+                    if ((document.trivia_is_active = true)) {
+                      // porque esto es lo que causa todo?
+                      // this.trivia_is_active = true
                     } else {
-                      this.answered = false;
+                      console.log("activado");
+                      this.trivia_is_active = false;
                     }
+                    //          let refXp = db.collection(
+                    //   this.school_name + "-" + this.classroom + "-students"
+                    // );
+                    // .where()
+                    // refXp.onSnapshot(snapshot => {
+                    //   snapshot.docChanges().forEach(change => {
+                    //     console.log("changeType", change.type);
+                    //     if ((change.type = "modified")) {
+                    //       let doc = change.doc;
+                    //       console.log("changeDocXP", doc.data());
+                    //       this.xp = doc.data().xp;
+                    //     }
+                    //   });
+                    // });
+                    //                 let refTrivia = db.collection(this.prof_email)
+                    //                 refTrivia.onSnapshot(snapshot => {
+                    //                   snapshot.docChanges().forEach(change => {
+                    //                     console.log("TriviachangeType", change);
+                    //                     if ((change.type = "modified")) {
+                    // //                        const countdown = setInterval(() => {
+                    // //    if (this.response_time > 0) {
+                    // //     //  this.response_time = 100
+                    // //     const time = this.response_time;
+                    // //     this.response_time = time - 10;
+                    // //   } else {
+                    // //     clearInterval(countdown)
+                    // //     console.log('watch activo')
+                    // //     this.trivia_is_active = false
+                    // //     // this.response_time = 100;
+                    // //   }
+                    // // }, 1000);
+                    //                       let doc = change.doc;
+                    //                       console.log("changeDoc", doc.data().trivia_is_active);
+                    //                       // this.trivia_is_active = doc.data().trivia_is_active;
+                    //                       this.question = doc.data().question;
+                    //                       this.answer1 = doc.data().answer1;
+                    //                       this.answer2 = doc.data().answer2;
+                    //                       this.answer3 = doc.data().answer3;
+                    //                       this.answer4 = doc.data().answer4;
+                    //                       this.right_answer = doc.data().right_answer;
+
+                    //                       // this.correct_answers = doc.data().correct_answers;
+                    //                       // this.incorrect_answers = doc.data().incorrect_answers;
+                    //                     }
+                    //                   });
+                    //                 });
+                    //   if (document.trivia_is_active === true) {
+                    //   // this.trivia_is_active = true
+                    //   this.answered = false;
+                    // } else {
+                    //   this.trivia_is_active = false;
+                    // }
                     // donde coloar ca en asyn los listeners?
                   });
               });
@@ -565,18 +739,6 @@ export default {
                     message: doc.data().message,
                     timestamp: moment(doc.data().timestamp).format("LTS")
                   });
-                }
-              });
-            });
-            let refXp = db.collection(this.classroom + "-students");
-            // .where()
-            refXp.onSnapshot(snapshot => {
-              snapshot.docChanges().forEach(change => {
-                console.log("changeType", change.type);
-                if ((change.type = "modified")) {
-                  let doc = change.doc;
-                  console.log("changeDoc", doc.data());
-                  this.xp = doc.data().xp;
                 }
               });
             });
@@ -609,17 +771,112 @@ export default {
       });
   },
   methods: {
+    // para elt timpo de sde el login empieoz timer de rleoj timepo actual
+    //retos sumar acietos en cierto contendeor anazalizar primero coual es el sutantebale y eficiente
+    //lvl2 prof rating a alumnos
+    //carousel
+    // ver si para el realtime usamos vuefire bindings o llamadas cada x cantidad de tiempo cada cuelta del carousel ?
+
+    percentageLevel2() {
+      let lvl_2_result = (this.next_level2_xp * this.xp) / 1000;
+      this.lvl_2_result = lvl_2_result;
+      console.log("result", result);
+    },
+    percentageLevel3() {
+      let lvl_3_result = (this.next_level3_xp * this.xp) / 1000;
+      this.lvl_3_result = lvl_3_result;
+      console.log("result", result);
+    },
+    initializeStudentTrivia() {
+      //db trvia is active luego if
+      // si no tiene que se con el contenido di titne o no tiene
+      db.collection(this.prof_email)
+        .doc("?")
+        .get()
+        .then(snapshot => {
+          const document = snapshot.data();
+          console.log("init-doc", document);
+          if (document.trivia_is_active === true) {
+            console.log("si esta activa");
+            this.trivia_is_active = document.trivia_is_active;
+            this.question = document.question;
+            this.answer1 = document.answer1;
+            this.answer2 = document.answer2;
+            this.answer3 = document.answer3;
+            this.answer4 = document.answer4;
+            this.right_answer = document.right_answer;
+            const countdown2 = setInterval(() => {
+              if (this.response_time > 0) {
+                const time = this.response_time;
+                this.response_time = time - 5;
+              } else {
+                clearInterval(countdown2);
+                this.trivia_loading_state = true;
+                this.response_time = 100;
+
+                db.collection(this.prof_email)
+                  .doc("?")
+                  .get()
+                  .then(snapshot => {
+                    const document = snapshot.data();
+                    if (document.trivia_is_active === false) {
+                      this.trivia_loading_state = false;
+                      this.trivia_is_active = false;
+                    }
+                  });
+              }
+            }, 1000);
+          } else {
+            console.log("no hay ninguna trivia activa");
+          }
+        });
+    },
     checkAnswer1() {
-      this.answered = true;
+      this.trivia_is_active = false;
       if (this.answer1 === this.right_answer) {
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
-          .collection(this.classroom + "-students")
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              this.percentageLevel2();
+              this.percentageLevel3();
+            });
+
+          console.log("mision xp cumplida");
+        });
+      } else {
+        this.errorNotif = true;
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
+      }
+    },
+    checkAnswer2() {
+      this.trivia_is_active = false;
+      if (this.answer2 === this.right_answer) {
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
+        this.snackbar = true;
+        const increment = firebase.firestore.FieldValue.increment(50);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
@@ -628,57 +885,32 @@ export default {
         });
       } else {
         this.errorNotif = true;
-        db.collection(this.classroom + "-students")
-          .doc(this.user)
-          .update({ right: false, answered: true })
-          .then(() => console.log("wrong updated"));
-      }
-    },
-    checkAnswer2() {
-      this.answered = true;
-      if (this.answer2 === this.right_answer) {
-        db.collection(this.classroom + "-students")
-          .doc(this.user)
-          .update({ right: true, answered: true })
-          .then(() => console.log("right updated"));
-        this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
-        const xpRef = db
-          .collection(this.classroom + "-students")
-          .doc(this.user);
-        const batch = db.batch();
-        batch.set(xpRef, { xp: increment }, { merge: true });
-        batch.commit().then(() => {
-          console.log("mision cumplida1");
-        });
-      } else {
-        this.errorNotif = true;
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
       }
     },
     checkAnswer3() {
-      this.answered = true;
+      this.trivia_is_active = false;
       if (this.answer3 === this.right_answer) {
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
-          .collection(this.classroom + "-students")
+          .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
-          console.log("mision cumplida1");
+          console.log("mision xp cumplida");
         });
       } else {
         this.errorNotif = true;
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
@@ -686,25 +918,25 @@ export default {
     },
     checkAnswer4() {
       //mejora el timing en la secuencia
-      this.answered = true;
+      this.trivia_is_active = false;
       if (this.answer4 === this.right_answer) {
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
-          .then(() => console.log("right updated,"));
+          .then(() => console.log("right updated"));
         this.snackbar = true;
         const increment = firebase.firestore.FieldValue.increment(50);
         const xpRef = db
-          .collection(this.classroom + "-students")
+          .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
-          console.log("mision cumplida1");
+          console.log("mision xp cumplida");
         });
       } else {
         this.errorNotif = true;
-        db.collection(this.classroom + "-students")
+        db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
@@ -719,7 +951,22 @@ export default {
         })
         .catch(err => console.log("error", err))
         .then(() => {
-          this.msg = "";
+          if (this.msg === "presente") {
+            setTimeout(() => {
+              db.collection(
+                this.school_name + "-" + this.classroom + "-students"
+              )
+                .doc(this.user)
+                .get()
+                .then(snapshot => {
+                  const document = snapshot.data();
+                  this.xp = document.xp;
+                  this.percentageLevel2();
+                  this.percentageLevel3();
+                  this.msg = "";
+                });
+            }, 3000);
+          }
           // db.collection(this.classroom + "-messages")
           //   .get()
           //   .then(querySnapshot => {
@@ -875,19 +1122,50 @@ export default {
       setTimeout(() => (this.hidden = false), 300);
     },
     renderTrivia() {
-      db.collection(this.classroom + "-trivia")
-        .doc("trivia")
-        .get()
-        .then(snapshot => {
-          const document = snapshot.data();
-          console.log("document", document);
-          this.question = document.question;
-          this.answer1 = document.answer1;
-          this.answer2 = document.answer2;
-          this.answer3 = document.answer3;
-          this.answer4 = document.answer4;
-          this.right_answer = document.right_answer;
-        });
+      // db.collection(this.school_name + "-" + this.classroom + "-students")
+      //   .doc(this.user)
+      //   .get()
+      //   .then(snapshot => {
+      //     const document = snapshot.data();
+      //     console.log("answered?", document.answered);
+      //     if (document.answered) {
+      //       this.trivia_is_active = false;
+      //     } else if (!document.answered) {
+      //       console.log("funcione");
+      //       db.collection(this.prof_email)
+      //         .doc("?")
+      //         .get()
+      //         .then(snapshot => {
+      //           const document = snapshot.data();
+      //           console.log("trivia!?", document.trivia_is_active);
+      //           if ((document.trivia_is_active = true)) {
+      //             this.trivia_is_active = true;
+      //             this.question = document.question;
+      //             this.answer1 = document.answer1;
+      //             this.answer2 = document.answer2;
+      //             this.answer3 = document.answer3;
+      //             this.answer4 = document.answer4;
+      //             this.right_answer = document.right_answer;
+      //             setInterval(() => {
+      //               if (this.response_time > 0) {
+      //                 const time = this.response_time;
+      //                 this.response_time = time - 10;
+      //               } else {
+      //                 db.collection(this.prof_email)
+      //                   .doc("?")
+      //                   .get()
+      //                   .then(snapshot => {
+      //                     const document = snapshot.data();
+      //                     this.trivia_is_active = document.trivia_is_active;
+      //                     this.response_time = 100;
+      //                   });
+      //               }
+      //             }, 1000);
+      //           }
+      //         });
+      //     }
+      //   });
+
       this.selected_homework = false;
       this.selected_image = false;
       this.selected_video = false;
@@ -938,6 +1216,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.trivia-button {
+  background-color: #1e1d20;
+  margin-top: 50px;
+  font-size: 18px;
+  width: 320px;
+  height: 160px;
+  color: white;
+}
+.question {
+  height: 40px;
+}
 .main-col {
   margin-right: -15px;
 }
@@ -950,10 +1239,10 @@ export default {
 }
 .answerButton {
   background-color: #1e1d20;
-  margin-top: 30px;
+  margin-top: 0px;
   font-size: 18px;
   width: 320px;
-  height: 120px;
+  height: 90px;
   color: white;
 }
 .notifText {

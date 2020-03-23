@@ -343,6 +343,7 @@ export default {
         //   path: "/student-schedule"
         // },
         { title: "Clasificación", icon: "mdi-trophy-outline" },
+        { title: "Retos", icon: "mdi-trophy-outline" },
 
         {
           title: "Tareas",
