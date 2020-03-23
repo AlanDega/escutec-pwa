@@ -5,6 +5,7 @@
       <v-tab>Recursos</v-tab>
       <v-tab>Trivias</v-tab>
       <v-tab>Tareas</v-tab>
+      <v-tab>Retos</v-tab>
       <v-tab>Examenes</v-tab>
       <v-tab>Calificaciones</v-tab>
 

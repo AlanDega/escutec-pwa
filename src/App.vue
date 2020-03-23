@@ -1,17 +1,26 @@
 <template>
   <v-app class="app">
-    <div>
+    <!-- <div>
       <v-app-bar dense fixed app color="white" flat dark absolute clipped-right>
         <div class="d-flex align-center">
           <h1>Escutec</h1>
         </div>
 
         <v-spacer></v-spacer>
-        <v-icon color="deep-purple accent-3" @click="logout"
+        <v-chip class="ma-2" color="black" text-color="white">
+          <v-avatar left>
+            <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
+          </v-avatar>
+          {{ token_balance }}
+        </v-chip>
+
+        <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
+
+        <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
           >mdi-cog-outline</v-icon
         >
       </v-app-bar>
-    </div>
+    </div> -->
     <div>
       <div v-if="this.$route.name != 'sign-up'">
         <div v-if="this.$route.name != 'login'">
@@ -253,6 +262,7 @@ export default {
   },
   data() {
     return {
+      // token_balance: 0,
       xp: null,
       auth: null,
       tipo_usuario: null,
@@ -266,6 +276,11 @@ export default {
           icon: "mdi-google-classroom",
           path: "/prof-lobby"
         },
+        // {
+        //   title: "Foro",
+        //   icon: "mdi-google-classroom",
+        //   path: "/prof-lobby"
+        // },
         {
           title: "Grupos",
           icon: "mdi-google-classroom",
@@ -337,6 +352,12 @@ export default {
           icon: "mdi-google-classroom",
           path: "/student-lobby"
         },
+        //lvl2
+        // {
+        //   title: "Foro",
+        //   icon: "mdi-google-classroom",
+        //   path: "/student-lobby"
+        // },
         // {
         //   title: "Horario",
         //   icon: "mdi-calendar-range",
@@ -347,6 +368,11 @@ export default {
 
         {
           title: "Tareas",
+          icon: "mdi-calendar-check-outline",
+          path: "/schedule"
+        },
+        {
+          title: "Tienda",
           icon: "mdi-calendar-check-outline",
           path: "/schedule"
         },
@@ -407,6 +433,7 @@ export default {
               this.student = false;
               this.director = false;
             } else if (document.tipo_usuario === "student") {
+              // this.token_balance = document.token_balance;
               this.student = true;
               this.director = false;
               this.prof = false;
@@ -467,6 +494,9 @@ export default {
 };
 </script>
 <style>
+.token-text {
+  color: black;
+}
 .app {
   background-color: #282424;
 }

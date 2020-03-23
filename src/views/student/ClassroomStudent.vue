@@ -1,359 +1,451 @@
 <template>
-  <div>
-    <v-row>
-      <v-col align="center" cols="10" class="main-col">
-        <v-container>
-          <v-card class="TwitchPlayer">
-            <iframe
-              :src="prof_subject_stream"
-              height="100%"
-              width="100%"
-              frameborder="0"
-              scrolling="no"
-              allowfullscreen="true"
-            ></iframe>
-          </v-card>
-        </v-container>
-        <v-tabs centered color="deep-purple accent-3">
-          <v-tab @click="renderChat">chat</v-tab>
-          <v-tab @click="renderResources">Recursos</v-tab>
-          <v-tab @click="renderTrivia">Trivia</v-tab>
-          <!-- <v-tab @click="renderEstadisticas">estadisticas</v-tab> -->
-
-          <v-tab-item>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-card class="chat_notes_card">
-                    <v-list ref="chat" id="logs">
-                      <template v-for="(message, index) in messages">
-                        <v-subheader v-if="message" :key="index">
-                          {{
-                          message.sender + ":" + message.message
-                          }}
-                        </v-subheader>
-                      </template>
-                    </v-list>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="10">
-                          <v-text-field
-                            dense
-                            v-model="msg"
-                            label="Message"
-                            outlined
-                            color="deep-purple accent-3"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-tab-item>
-          <v-tab-item>
-            <v-container>
-              <v-row>
-                <v-col cols="4">
-                  <v-card>
-                    <v-col>
-                      <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
-                      </v-row>
-                      <v-row justify="center">
-                        <v-col>
-                          <v-row justify="center">
-                            <v-btn
-                              v-for="(img, index) in img_resources"
-                              :key="index"
-                              text
-                              :href="img.url"
-                            >{{ img.title }}</v-btn>
-                          </v-row>
-                        </v-col>
-                      </v-row>
-                    </v-col>
-                  </v-card>
-                </v-col>
-                <v-col cols="4">
-                  <v-card>
-                    <v-col>
-                      <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
-                      </v-row>
-                      <v-row justify="center">
-                        <v-btn
-                          v-for="(video, index) in video_resources"
-                          :key="index"
-                          text
-                          :href="video.url"
-                        >{{ video.title }}</v-btn>
-                      </v-row>
-                    </v-col>
-                  </v-card>
-                </v-col>
-                <v-col cols="4">
-                  <v-card>
-                    <v-col>
-                      <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
-                      </v-row>
-                      <v-row justify="center">
-                        <v-btn
-                          v-for="(text, index) in text_resources"
-                          :key="index"
-                          text
-                          :href="text.url"
-                        >{{ text.title }}</v-btn>
-                      </v-row>
-                    </v-col>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-tab-item>
-          <v-tab-item>
-            <v-container v-if="trivia_is_active">
-              <v-row justify="center" class="question">
-                <h2>{{ question }}</h2>
-              </v-row>
-              <v-row>
-                <v-col>
-                  <v-card @click="checkAnswer1" class="answerButton">
-                    <v-container>
-                      <v-row>
-                        <v-col cols="3">
-                          <v-container>
-                            <v-row justify="center">
-                              <v-icon color="deep-purple accent-3" large>mdi-alpha-a-circle</v-icon>
-                            </v-row>
-                          </v-container>
-                        </v-col>
-                        <v-col>
-                          {{
-                          answer1
-                          }}
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-                <v-col>
-                  <v-card @click="checkAnswer2" class="answerButton">
-                    <v-container>
-                      <v-row>
-                        <v-col cols="3">
-                          <v-container>
-                            <v-row justify="center">
-                              <v-icon color="deep-purple accent-3" large>mdi-alpha-b-circle</v-icon>
-                            </v-row>
-                          </v-container>
-                        </v-col>
-                        <v-col>
-                          {{
-                          answer2
-                          }}
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-              </v-row>
-
-              <v-row>
-                <v-col>
-                  <v-card @click="checkAnswer3" class="answerButton">
-                    <v-container>
-                      <v-row>
-                        <v-col cols="3">
-                          <v-container>
-                            <v-row justify="center">
-                              <v-icon color="deep-purple accent-3" large>mdi-alpha-c-circle</v-icon>
-                            </v-row>
-                          </v-container>
-                        </v-col>
-                        <v-col>
-                          {{
-                          answer3
-                          }}
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-                <v-col>
-                  <v-card @click="checkAnswer4" outlined class="answerButton">
-                    <v-container>
-                      <v-row>
-                        <v-col cols="3">
-                          <v-container>
-                            <v-row justify="center">
-                              <v-icon color="deep-purple accent-3" large>mdi-alpha-d-circle</v-icon>
-                            </v-row>
-                          </v-container>
-                        </v-col>
-                        <v-col>
-                          {{
-                          answer4
-                          }}
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                  </v-card>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-fab-transition>
-                  <v-btn
-                    v-show="!hidden"
-                    color="deep-purple accent-3"
-                    dark
-                    absolute
-                    bottom
-                    right
-                    fab
-                  >
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </v-fab-transition>
-              </v-row>
-            </v-container>
-            <v-container v-if="!trivia_is_active">
-              <div v-if="!trivia_loading_state">
-                <v-row justify="center">
-                  <v-card class="trivia-button" @click="initializeStudentTrivia">
-                    <v-row class="mt-6" justify="center">
-                      <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
-                    </v-row>
-                    <v-row justify="center" class="mt-6">
-                      <v-btn
-                        outlined
-                        color="deep-purple accent-3"
-                        @click="initializeStudentTrivia"
-                      >Iniciar Trivia</v-btn>
-                    </v-row>
-                  </v-card>
-                </v-row>
-              </div>
-              <div v-if="trivia_loading_state">
-                <v-row justify="center">
-                  <v-card
-                    class="trivia-button"
-                    @click="initializeStudentTrivia"
-                    loading="deep-purple accent-3"
-                  >
-                    <v-row class="mt-6" justify="center">
-                      <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
-                    </v-row>
-                  </v-card>
-                </v-row>
-              </div>
-            </v-container>
-          </v-tab-item>
-        </v-tabs>
-        <div v-if="resources"></div>
-      </v-col>
-      <!-- -------------------------------------- SideBar Right _____________------------------ -->
-
-      <v-col class="col-side">
-        <!-- <v-container fluid> -->
-        <v-card class="side-bar-right">
-          <v-row>
-            <h2>{{ alias }}</h2>
-          </v-row>
-          <v-row justify="center">
-            <div v-if="svg_level1">
-              <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
+  <v-container>
+    <v-col>
+      <v-row>
+        <div>
+          <v-app-bar dense fixed color="white" flat dark absolute clipped-right>
+            <div class="d-flex align-center">
+              <h1>Escutec</h1>
             </div>
-            <div v-if="svg_level2">
-              <v-img class="mt-4" contain src="../../assets/level2.svg" height="80" width="80"></v-img>
-            </div>
-            <div v-if="svg_level3">
-              <v-img class="mt-4" contain src="../../assets/level3.svg" height="80" width="80"></v-img>
-            </div>
-          </v-row>
+
+            <v-spacer></v-spacer>
+            <v-chip class="ma-2" color="black" text-color="white">
+              <v-avatar left>
+                <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
+              </v-avatar>
+              {{ token_balance }}
+            </v-chip>
+
+            <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
+
+            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
+              >mdi-cog-outline</v-icon
+            >
+          </v-app-bar>
+        </div>
+      </v-row>
+      <v-row class="mt-20">
+        <v-col align="center" cols="10" class="main-col">
           <v-container>
-            <v-row>
-              <v-col justify="right" v-if="svg_level1">
-                <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
-                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
-              </v-col>
-
-              <v-col justify="right" v-if="svg_level2">
-                <p class="xpText" justify="right">{{ xp + "/" + next_level2_xp + " XP" }}</p>
-                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
-              </v-col>
-
-              <v-col justify="right" v-if="svg_level3">
-                <p class="xpText" justify="right">{{ xp + "/" + next_level3_xp + " XP" }}</p>
-                <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
-              </v-col>
-            </v-row>
+            <v-card class="TwitchPlayer">
+              <iframe
+                :src="prof_subject_stream"
+                height="100%"
+                width="100%"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen="true"
+              ></iframe>
+            </v-card>
           </v-container>
+          <v-tabs centered color="deep-purple accent-3">
+            <v-tab @click="renderChat">chat</v-tab>
+            <v-tab @click="renderResources">Recursos</v-tab>
+            <v-tab @click="renderTrivia">Trivia</v-tab>
+            <!-- <v-tab @click="renderEstadisticas">estadisticas</v-tab> -->
 
-          <!-- </v-list-item> -->
-          <v-divider></v-divider>
+            <v-tab-item>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-card class="chat_notes_card">
+                      <v-list ref="chat" id="logs">
+                        <template v-for="(message, index) in messages">
+                          <v-subheader v-if="message" :key="index">
+                            {{ message.sender + ":" + message.message }}
+                          </v-subheader>
+                        </template>
+                      </v-list>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="10">
+                            <v-text-field
+                              dense
+                              v-model="msg"
+                              label="Message"
+                              outlined
+                              color="deep-purple accent-3"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="2">
+                            <v-btn
+                              dark
+                              color="deep-purple accent-3"
+                              @click="submit"
+                              >Enviar</v-btn
+                            >
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-tab-item>
+            <v-tab-item>
+              <v-container>
+                <v-row>
+                  <v-col cols="4">
+                    <v-card>
+                      <v-col>
+                        <v-row justify="center">
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-image</v-icon
+                          >
+                        </v-row>
+                        <v-row justify="center">
+                          <v-col>
+                            <v-row justify="center">
+                              <v-btn
+                                v-for="(img, index) in img_resources"
+                                :key="index"
+                                text
+                                :href="img.url"
+                                >{{ img.title }}</v-btn
+                              >
+                            </v-row>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-card>
+                      <v-col>
+                        <v-row justify="center">
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-play-box</v-icon
+                          >
+                        </v-row>
+                        <v-row justify="center">
+                          <v-btn
+                            v-for="(video, index) in video_resources"
+                            :key="index"
+                            text
+                            :href="video.url"
+                            >{{ video.title }}</v-btn
+                          >
+                        </v-row>
+                      </v-col>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-card>
+                      <v-col>
+                        <v-row justify="center">
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-text</v-icon
+                          >
+                        </v-row>
+                        <v-row justify="center">
+                          <v-btn
+                            v-for="(text, index) in text_resources"
+                            :key="index"
+                            text
+                            :href="text.url"
+                            >{{ text.title }}</v-btn
+                          >
+                        </v-row>
+                      </v-col>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-tab-item>
+            <v-tab-item>
+              <v-container v-if="trivia_is_active">
+                <v-row justify="center" class="question">
+                  <h2>{{ question }}</h2>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <v-card @click="checkAnswer1" class="answerButton">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="3">
+                            <v-container>
+                              <v-row justify="center">
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-a-circle</v-icon
+                                >
+                              </v-row>
+                            </v-container>
+                          </v-col>
+                          <v-col>
+                            {{ answer1 }}
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                  <v-col>
+                    <v-card @click="checkAnswer2" class="answerButton">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="3">
+                            <v-container>
+                              <v-row justify="center">
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-b-circle</v-icon
+                                >
+                              </v-row>
+                            </v-container>
+                          </v-col>
+                          <v-col>
+                            {{ answer2 }}
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                </v-row>
 
-          <v-divider></v-divider>
-          <v-container>
-            <!-- <v-row>
+                <v-row>
+                  <v-col>
+                    <v-card @click="checkAnswer3" class="answerButton">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="3">
+                            <v-container>
+                              <v-row justify="center">
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-c-circle</v-icon
+                                >
+                              </v-row>
+                            </v-container>
+                          </v-col>
+                          <v-col>
+                            {{ answer3 }}
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                  <v-col>
+                    <v-card @click="checkAnswer4" outlined class="answerButton">
+                      <v-container>
+                        <v-row>
+                          <v-col cols="3">
+                            <v-container>
+                              <v-row justify="center">
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-d-circle</v-icon
+                                >
+                              </v-row>
+                            </v-container>
+                          </v-col>
+                          <v-col>
+                            {{ answer4 }}
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-fab-transition>
+                    <v-btn
+                      v-show="!hidden"
+                      color="deep-purple accent-3"
+                      dark
+                      absolute
+                      bottom
+                      right
+                      fab
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </v-fab-transition>
+                </v-row>
+              </v-container>
+              <v-container v-if="!trivia_is_active">
+                <div v-if="!trivia_loading_state">
+                  <v-row justify="center">
+                    <v-card
+                      class="trivia-button"
+                      @click="initializeStudentTrivia"
+                    >
+                      <v-row class="mt-6" justify="center">
+                        <v-icon color="deep-purple accent-3" large
+                          >mdi-gamepad-circle-right</v-icon
+                        >
+                      </v-row>
+                      <v-row justify="center" class="mt-6">
+                        <v-btn
+                          outlined
+                          color="deep-purple accent-3"
+                          @click="initializeStudentTrivia"
+                          >Iniciar Trivia</v-btn
+                        >
+                      </v-row>
+                    </v-card>
+                  </v-row>
+                </div>
+                <div v-if="trivia_loading_state">
+                  <v-row justify="center">
+                    <v-card
+                      class="trivia-button"
+                      @click="initializeStudentTrivia"
+                      loading="deep-purple accent-3"
+                    >
+                      <v-row class="mt-6" justify="center">
+                        <v-icon color="deep-purple accent-3" large
+                          >mdi-gamepad-circle-right</v-icon
+                        >
+                      </v-row>
+                    </v-card>
+                  </v-row>
+                </div>
+              </v-container>
+            </v-tab-item>
+          </v-tabs>
+          <div v-if="resources"></div>
+        </v-col>
+        <!-- -------------------------------------- SideBar Right _____________------------------ -->
+
+        <v-col class="col-side">
+          <!-- <v-container fluid> -->
+          <v-card class="side-bar-right">
+            <v-row>
+              <h2>{{ alias }}</h2>
+            </v-row>
+            <v-row justify="center">
+              <div v-if="svg_level1">
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
+              </div>
+              <div v-if="svg_level2">
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level2.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
+              </div>
+              <div v-if="svg_level3">
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level3.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
+              </div>
+            </v-row>
+            <v-container>
+              <v-row>
+                <v-col justify="right" v-if="svg_level1">
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level_xp + " XP" }}
+                  </p>
+                  <v-progress-linear
+                    rounded
+                    height="6"
+                    color="deep-purple accent-3"
+                    v-model="xp"
+                  ></v-progress-linear>
+                </v-col>
+
+                <v-col justify="right" v-if="svg_level2">
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level2_xp + " XP" }}
+                  </p>
+                  <v-progress-linear
+                    rounded
+                    height="6"
+                    color="deep-purple accent-3"
+                    v-model="xpbar2"
+                  ></v-progress-linear>
+                </v-col>
+
+                <v-col justify="right" v-if="svg_level3">
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level3_xp + " XP" }}
+                  </p>
+                  <v-progress-linear
+                    rounded
+                    height="6"
+                    color="deep-purple accent-3"
+                    v-model="xpbar3"
+                  ></v-progress-linear>
+                </v-col>
+              </v-row>
+            </v-container>
+
+            <!-- </v-list-item> -->
+            <v-divider></v-divider>
+
+            <v-divider></v-divider>
+            <v-container>
+              <!-- <v-row>
               <v-img contain src="../../assets/cash.svg" height="32" width="32"></v-img>
               <p class="xpText">30</p>
             </v-row>-->
-          </v-container>
-          <v-divider></v-divider>
-          <v-container>
-            <v-row justify="center">
-              <v-col>
-                <v-row justify="center">
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                    {{ "Alumno/12000 XP" }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                    {{ "Alumno/10050 XP" }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                    {{ "Alumno/2800 XP" }}
-                  </v-list-item>
-                </v-row>
-                <v-divider class="mt-4"></v-divider>
-              </v-col>
-            </v-row>
-          </v-container>
-          <v-container>
-            <v-row justify="center">
-              <v-img
-                class="mb-4"
-                contain
-                src="../../assets/available-boost.png"
-                height="100"
-                width="100"
-              ></v-img>
-            </v-row>
-            <v-row justify="center">
-              <div v-if="trivia_is_active">
-                <v-progress-circular
-                  rounded
-                  size="90"
-                  width="9"
-                  color="deep-purple accent-3"
-                  v-model="response_time"
-                  absolute
-                >{{ response_time }}</v-progress-circular>
-              </div>
-            </v-row>
-          </v-container>
-        </v-card>
-        <!-- </v-container> -->
-      </v-col>
-    </v-row>
+            </v-container>
+            <v-divider></v-divider>
+            <v-container>
+              <v-row justify="center">
+                <v-col>
+                  <v-row justify="center">
+                    <v-list-item dark>
+                      <v-icon color="deep-purple accent-3" class="mr-2"
+                        >mdi-numeric-1-circle</v-icon
+                      >
+                      {{ "Alumno/12000 XP" }}
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-icon color="deep-purple accent-3" class="mr-2"
+                        >mdi-numeric-2-circle</v-icon
+                      >
+                      {{ "Alumno/10050 XP" }}
+                    </v-list-item>
+                    <v-list-item dark>
+                      <v-icon color="deep-purple accent-3" class="mr-2"
+                        >mdi-numeric-3-circle</v-icon
+                      >
+                      {{ "Alumno/2800 XP" }}
+                    </v-list-item>
+                  </v-row>
+                  <v-divider class="mt-4"></v-divider>
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-container>
+              <v-row justify="center">
+                <v-img
+                  class="mb-4"
+                  contain
+                  src="../../assets/available-boost.png"
+                  height="100"
+                  width="100"
+                ></v-img>
+              </v-row>
+              <v-row justify="center">
+                <div v-if="trivia_is_active">
+                  <v-progress-circular
+                    rounded
+                    size="90"
+                    width="9"
+                    color="deep-purple accent-3"
+                    v-model="response_time"
+                    absolute
+                    >{{ response_time }}</v-progress-circular
+                  >
+                </div>
+              </v-row>
+            </v-container>
+          </v-card>
+          <!-- </v-container> -->
+        </v-col>
+      </v-row>
+    </v-col>
+
     <div class="text-center">
       <!-- <v-btn
       dark
@@ -362,8 +454,45 @@
     >
       Open Snackbar
       </v-btn>-->
+      <v-snackbar
+        top
+        color="#1e1d20"
+        :vertical="vertical"
+        v-model="lvl_up_notif1"
+        permanent
+      >
+        <v-row justify="center">
+          <span class="notifText">Subiste de nivel</span>
+        </v-row>
+        <v-row justify="center">
+          <span class="lvl-up-text">
+            + 30
+          </span>
+          <v-img
+            class="mt-2"
+            contain
+            src="../../assets/cash.svg"
+            height="34"
+            width="34"
+          ></v-img>
+        </v-row>
 
-      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
+        <!-- <v-btn
+        color=""
+        text
+        @click="snackbar = false"
+      >
+        Close
+        </v-btn>-->
+      </v-snackbar>
+
+      <v-snackbar
+        top
+        color="success"
+        :vertical="vertical"
+        v-model="snackbar"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -381,7 +510,13 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
+      <v-snackbar
+        top
+        color="red"
+        :vertical="vertical"
+        v-model="errorNotif"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -401,7 +536,7 @@
         </v-btn>-->
       </v-snackbar>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -418,6 +553,12 @@ export default {
 
   data() {
     return {
+      token_balance: 0,
+      lvl_up_notif1: false,
+      lvl_1_rewarded: null,
+      lvl_2_rewarded: null,
+      lvl_3_rewarded: null,
+      student_xp_level: 0,
       lvl_2_result: null,
       lvl_3_result: null,
       svg_level: null,
@@ -448,10 +589,18 @@ export default {
       answer3: null,
       answer4: null,
       right_answer: null,
-      next_level_xp: 100,
-      next_level2_xp: 300,
-      next_level3_xp: 900,
+
       xp: 0,
+      xpbar1: 0,
+      xpbar2: 0,
+      xpbar3: 0,
+      next_level_xp: 100,
+      next_level2_xp: 200,
+      next_level3_xp: 300,
+      diff_lvl1: 100,
+      diff_lvl2: 100,
+      diff_lvl3: 100,
+
       fab: false,
       hidden: false,
       messages: [],
@@ -545,21 +694,58 @@ export default {
       // this.trivia_is_active = true;
     },
     xp() {
-      console.log("works");
-      if (this.xp <= 99) {
+      //ahi un cambi porque en miunted genera un cambio
+      if (this.xp >= 0 && this.xp <= 99) {
         this.svg_level1 = true;
         this.svg_level2 = false;
         this.svg_level3 = false;
-      } else if (this.xp <= 299) {
+      } else if (this.xp >= 100 && this.xp <= 199) {
+        if (this.student_xp_level === 1 && this.lvl_2_rewarded === false) {
+          this.student_xp_level++;
+          db.collection("usuarios")
+            .doc(this.user)
+            .update({
+              student_xp_level: this.student_xp_level,
+              lvl_1_rewarded: true,
+              token_balance: 10
+            })
+            .then(() => {
+              this.lvl_up_notif1 = true;
+              //timeout
+              db.collection("usuarios")
+                .doc(this.user)
+                .get()
+                .then(snapshot => {
+                  const document = snapshot.data();
+                  this.token_balance = document.token_balance;
+                });
+            });
+        }
         this.svg_level1 = false;
         this.svg_level2 = true;
         this.svg_level3 = false;
-      } else if (this.xp <= 899) {
+        this.xpbar2 = this.xp - 100;
+        // this.percentageLevel2();
+      } else if (this.xp >= 200 && this.xp <= 299) {
+        if ((this.student_xp_level = 2 && this.lvl_2_rewarded === false)) {
+          // level up
+          this.lvl_up_notif2 = true;
+          this.student_xp_level++;
+          db.collection("usuarios")
+            .doc(this.user)
+            .update({
+              student_xp_level: this.student_xp_level,
+              lvl_2_rewarded: true
+            });
+        }
         this.svg_level3 = true;
         this.svg_level2 = false;
         this.svg_level1 = false;
+        this.xpbar3 = this.xp - 200;
+        // this.percentageLevel3();
       }
     }
+
     // svg_level1(){
     //   console.log('listener1works')
     //   if(this.xp <= 99){
@@ -605,7 +791,11 @@ export default {
           .get()
           .then(snapshot => {
             const document = snapshot.data();
+            this.token_balance = document.token_balance;
             this.classroom = document.group;
+            this.student_xp_level = document.student_xp_level;
+            this.lvl_1_rewarded = document.lvl_1_rewarded;
+            this.lvl_2_rewarded = document.lvl_2_rewarded;
             this.level = document.level;
             console.log("this.classroom", this.classroom);
             this.prof_subject_stream =
@@ -626,8 +816,8 @@ export default {
               .then(snapshot => {
                 const document = snapshot.data();
                 this.xp = document.xp;
-                this.percentageLevel2();
-                this.percentageLevel3();
+                // this.percentageLevel2();
+                // this.percentageLevel3();
                 if (this.xp <= 99) {
                   this.svg_level1 = true;
                   this.svg_level2 = false;
@@ -771,6 +961,19 @@ export default {
       });
   },
   methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          console.log("logged out");
+          this.$router.push("/login");
+          // Sign-out successful.
+        })
+        .catch(function(error) {
+          // An error happened.
+        });
+    },
     // para elt timpo de sde el login empieoz timer de rleoj timepo actual
     //retos sumar acietos en cierto contendeor anazalizar primero coual es el sutantebale y eficiente
     //lvl2 prof rating a alumnos
@@ -778,13 +981,13 @@ export default {
     // ver si para el realtime usamos vuefire bindings o llamadas cada x cantidad de tiempo cada cuelta del carousel ?
 
     percentageLevel2() {
-      let lvl_2_result = (this.next_level2_xp * this.xp) / 1000;
-      this.lvl_2_result = lvl_2_result;
+      this.xpbar2 = (this.xp / this.next_level2_xp) * 100;
+
       console.log("result", result);
     },
     percentageLevel3() {
-      let lvl_3_result = (this.next_level3_xp * this.xp) / 1000;
-      this.lvl_3_result = lvl_3_result;
+      let lvl_3_result = (this.xp / this.next_level3_xp) * 100;
+      this.level_percentage_xpbar3 = lvl_3_result;
       console.log("result", result);
     },
     initializeStudentTrivia() {
@@ -852,8 +1055,8 @@ export default {
             .then(snapshot => {
               const document = snapshot.data();
               this.xp = document.xp;
-              this.percentageLevel2();
-              this.percentageLevel3();
+              // this.percentageLevel2();
+              // this.percentageLevel3();
             });
 
           console.log("mision xp cumplida");
@@ -961,8 +1164,8 @@ export default {
                 .then(snapshot => {
                   const document = snapshot.data();
                   this.xp = document.xp;
-                  this.percentageLevel2();
-                  this.percentageLevel3();
+                  // this.percentageLevel2();
+                  // this.percentageLevel3();
                   this.msg = "";
                 });
             }, 3000);
@@ -1216,6 +1419,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.lvl-up-text {
+  color: #641fff;
+  font-size: 32px;
+  margin-left: 100px;
+  margin-right: -30px;
+}
 .trivia-button {
   background-color: #1e1d20;
   margin-top: 50px;
@@ -1257,6 +1466,7 @@ export default {
   color: white;
 }
 .side-bar-right {
+  margin-top: 15px;
   border-left: 1px solid #e3e0e0;
   background-color: #1e1d20;
   width: 100%;
