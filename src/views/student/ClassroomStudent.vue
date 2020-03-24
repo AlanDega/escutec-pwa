@@ -18,9 +18,7 @@
 
             <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
 
-            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
-              >mdi-cog-outline</v-icon
-            >
+            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2">mdi-cog-outline</v-icon>
           </v-app-bar>
         </div>
       </v-row>
@@ -51,9 +49,10 @@
                     <v-card class="chat_notes_card">
                       <v-list ref="chat" id="logs">
                         <template v-for="(message, index) in messages">
-                          <v-subheader v-if="message" :key="index">
-                            {{ message.sender + ":" + message.message }}
-                          </v-subheader>
+                          <v-subheader
+                            v-if="message"
+                            :key="index"
+                          >{{ message.sender + ":" + message.message }}</v-subheader>
                         </template>
                       </v-list>
                       <v-container>
@@ -68,12 +67,7 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="2">
-                            <v-btn
-                              dark
-                              color="deep-purple accent-3"
-                              @click="submit"
-                              >Enviar</v-btn
-                            >
+                            <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
                           </v-col>
                         </v-row>
                       </v-container>
@@ -89,9 +83,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-image</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-col>
@@ -101,8 +93,7 @@
                                 :key="index"
                                 text
                                 :href="img.url"
-                                >{{ img.title }}</v-btn
-                              >
+                              >{{ img.title }}</v-btn>
                             </v-row>
                           </v-col>
                         </v-row>
@@ -113,9 +104,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-play-box</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -123,8 +112,7 @@
                             :key="index"
                             text
                             :href="video.url"
-                            >{{ video.title }}</v-btn
-                          >
+                          >{{ video.title }}</v-btn>
                         </v-row>
                       </v-col>
                     </v-card>
@@ -133,9 +121,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-text</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -143,8 +129,7 @@
                             :key="index"
                             text
                             :href="text.url"
-                            >{{ text.title }}</v-btn
-                          >
+                          >{{ text.title }}</v-btn>
                         </v-row>
                       </v-col>
                     </v-card>
@@ -165,15 +150,11 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-a-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-a-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
-                          <v-col>
-                            {{ answer1 }}
-                          </v-col>
+                          <v-col>{{ answer1 }}</v-col>
                         </v-row>
                       </v-container>
                     </v-card>
@@ -185,15 +166,11 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-b-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-b-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
-                          <v-col>
-                            {{ answer2 }}
-                          </v-col>
+                          <v-col>{{ answer2 }}</v-col>
                         </v-row>
                       </v-container>
                     </v-card>
@@ -208,15 +185,11 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-c-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-c-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
-                          <v-col>
-                            {{ answer3 }}
-                          </v-col>
+                          <v-col>{{ answer3 }}</v-col>
                         </v-row>
                       </v-container>
                     </v-card>
@@ -228,15 +201,11 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-d-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-d-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
-                          <v-col>
-                            {{ answer4 }}
-                          </v-col>
+                          <v-col>{{ answer4 }}</v-col>
                         </v-row>
                       </v-container>
                     </v-card>
@@ -261,22 +230,16 @@
               <v-container v-if="!trivia_is_active">
                 <div v-if="!trivia_loading_state">
                   <v-row justify="center">
-                    <v-card
-                      class="trivia-button"
-                      @click="initializeStudentTrivia"
-                    >
+                    <v-card class="trivia-button" @click="initializeStudentTrivia">
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large
-                          >mdi-gamepad-circle-right</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
                       </v-row>
                       <v-row justify="center" class="mt-6">
                         <v-btn
                           outlined
                           color="deep-purple accent-3"
                           @click="initializeStudentTrivia"
-                          >Iniciar Trivia</v-btn
-                        >
+                        >Iniciar Trivia</v-btn>
                       </v-row>
                     </v-card>
                   </v-row>
@@ -289,9 +252,7 @@
                       loading="deep-purple accent-3"
                     >
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large
-                          >mdi-gamepad-circle-right</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
                       </v-row>
                     </v-card>
                   </v-row>
@@ -311,51 +272,24 @@
             </v-row>
             <v-row justify="center">
               <div v-if="svg_level1">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
               </div>
               <div v-if="svg_level2">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level2.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level2.svg" height="80" width="80"></v-img>
               </div>
               <div v-if="svg_level3">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level3.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level3.svg" height="80" width="80"></v-img>
               </div>
             </v-row>
             <v-container>
               <v-row>
                 <v-col justify="right" v-if="svg_level1">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level_xp + " XP" }}
-                  </p>
-                  <v-progress-linear
-                    rounded
-                    height="6"
-                    color="deep-purple accent-3"
-                    v-model="xp"
-                  ></v-progress-linear>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
+                  <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level2">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level2_xp + " XP" }}
-                  </p>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level2_xp + " XP" }}</p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -365,9 +299,7 @@
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level3">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level3_xp + " XP" }}
-                  </p>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level3_xp + " XP" }}</p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -386,36 +318,58 @@
               <!-- <v-row>
               <v-img contain src="../../assets/cash.svg" height="32" width="32"></v-img>
               <p class="xpText">30</p>
-            </v-row>-->
+              </v-row>-->
             </v-container>
-            <v-divider></v-divider>
             <v-container>
-              <v-row justify="center">
-                <v-col>
-                  <v-row justify="center">
-                    <v-list-item dark>
-                      <v-icon color="deep-purple accent-3" class="mr-2"
-                        >mdi-numeric-1-circle</v-icon
-                      >
-                      {{ "Alumno/12000 XP" }}
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-icon color="deep-purple accent-3" class="mr-2"
-                        >mdi-numeric-2-circle</v-icon
-                      >
-                      {{ "Alumno/10050 XP" }}
-                    </v-list-item>
-                    <v-list-item dark>
-                      <v-icon color="deep-purple accent-3" class="mr-2"
-                        >mdi-numeric-3-circle</v-icon
-                      >
-                      {{ "Alumno/2800 XP" }}
-                    </v-list-item>
-                  </v-row>
-                  <v-divider class="mt-4"></v-divider>
-                </v-col>
-              </v-row>
-            </v-container>
+              
+                    <v-carousel
+                    cycle
+                    height="300"
+                    hide-delimiter-background
+                    hide-delimiters
+                    show-arrows-on-hover
+                    >
+                    <!-- v-for="(student, i) in top9" :key="i" -->
+                    <v-carousel-item v-for="(student, i) in top1_3" :key="i" >
+                      <v-card color="transparent" height="300" >
+                          <v-row class="fill-height" align="center" justify="center">
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
+                              {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
+                               {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
+                               {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                          </v-row>
+                        </v-card>
+                    </v-carousel-item>
+                    <v-carousel-item >
+                      <v-card color="transparent" height="300" v-for="(student, i) in top1_3" :key="i">
+                          <v-row class="fill-height" align="center" justify="center">
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
+                              {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
+                               {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                            <v-list-item dark>
+                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
+                               {{ student.alias + '/' + student.xp }}
+                            </v-list-item>
+                          </v-row>
+                        </v-card>
+                    </v-carousel-item>
+                                          </v-carousel>
+  
+                     
+            </v-container>      
             <v-container>
               <v-row justify="center" v-if="!boost">
                 <v-img
@@ -444,8 +398,7 @@
                     color="deep-purple accent-3"
                     v-model="response_time"
                     absolute
-                    >{{ response_time }}</v-progress-circular
-                  >
+                  >{{ response_time }}</v-progress-circular>
                 </div>
               </v-row>
             </v-container>
@@ -463,27 +416,13 @@
     >
       Open Snackbar
       </v-btn>-->
-      <v-snackbar
-        top
-        color="#1e1d20"
-        :vertical="vertical"
-        v-model="lvl_up_notif1"
-        permanent
-      >
+      <v-snackbar top color="#1e1d20" :vertical="vertical" v-model="lvl_up_notif1" permanent>
         <v-row justify="center">
           <span class="notifText">Subiste de nivel</span>
         </v-row>
         <v-row justify="center">
-          <span class="lvl-up-text">
-            + 30
-          </span>
-          <v-img
-            class="mt-2"
-            contain
-            src="../../assets/cash.svg"
-            height="34"
-            width="34"
-          ></v-img>
+          <span class="lvl-up-text">+ 30</span>
+          <v-img class="mt-2" contain src="../../assets/cash.svg" height="34" width="34"></v-img>
         </v-row>
 
         <!-- <v-btn
@@ -495,13 +434,7 @@
         </v-btn>-->
       </v-snackbar>
 
-      <v-snackbar
-        top
-        color="success"
-        :vertical="vertical"
-        v-model="snackbar"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -519,13 +452,7 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar
-        top
-        color="red"
-        :vertical="vertical"
-        v-model="errorNotif"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -562,6 +489,9 @@ export default {
 
   data() {
     return {
+      top1_3:null,
+      top3_6:null,
+      top6_9:null,
       boost: false,
       token_balance: 0,
       lvl_up_notif1: false,
@@ -802,6 +732,7 @@ export default {
           .then(snapshot => {
             const document = snapshot.data();
             this.token_balance = document.token_balance;
+            this.alias = document.alias;
             this.classroom = document.group;
             this.student_xp_level = document.student_xp_level;
             this.lvl_1_rewarded = document.lvl_1_rewarded;
@@ -869,62 +800,19 @@ export default {
                       console.log("activado");
                       this.trivia_is_active = false;
                     }
-                    //          let refXp = db.collection(
-                    //   this.school_name + "-" + this.classroom + "-students"
-                    // );
-                    // .where()
-                    // refXp.onSnapshot(snapshot => {
-                    //   snapshot.docChanges().forEach(change => {
-                    //     console.log("changeType", change.type);
-                    //     if ((change.type = "modified")) {
-                    //       let doc = change.doc;
-                    //       console.log("changeDocXP", doc.data());
-                    //       this.xp = doc.data().xp;
-                    //     }
-                    //   });
-                    // });
-                    //                 let refTrivia = db.collection(this.prof_email)
-                    //                 refTrivia.onSnapshot(snapshot => {
-                    //                   snapshot.docChanges().forEach(change => {
-                    //                     console.log("TriviachangeType", change);
-                    //                     if ((change.type = "modified")) {
-                    // //                        const countdown = setInterval(() => {
-                    // //    if (this.response_time > 0) {
-                    // //     //  this.response_time = 100
-                    // //     const time = this.response_time;
-                    // //     this.response_time = time - 10;
-                    // //   } else {
-                    // //     clearInterval(countdown)
-                    // //     console.log('watch activo')
-                    // //     this.trivia_is_active = false
-                    // //     // this.response_time = 100;
-                    // //   }
-                    // // }, 1000);
-                    //                       let doc = change.doc;
-                    //                       console.log("changeDoc", doc.data().trivia_is_active);
-                    //                       // this.trivia_is_active = doc.data().trivia_is_active;
-                    //                       this.question = doc.data().question;
-                    //                       this.answer1 = doc.data().answer1;
-                    //                       this.answer2 = doc.data().answer2;
-                    //                       this.answer3 = doc.data().answer3;
-                    //                       this.answer4 = doc.data().answer4;
-                    //                       this.right_answer = doc.data().right_answer;
-
-                    //                       // this.correct_answers = doc.data().correct_answers;
-                    //                       // this.incorrect_answers = doc.data().incorrect_answers;
-                    //                     }
-                    //                   });
-                    //                 });
-                    //   if (document.trivia_is_active === true) {
-                    //   // this.trivia_is_active = true
-                    //   this.answered = false;
-                    // } else {
-                    //   this.trivia_is_active = false;
-                    // }
-                    // donde coloar ca en asyn los listeners?
+                    db.collection(this.school_name + "-" + this.classroom + "-students")
+                      .orderBy("xp", "desc")
+                      .limit(9)
+                      .get()
+                      .then(querySnapshot => {
+                        const documents = querySnapshot.docs.map(doc => doc.data())
+                        console.log('sorted-docs',documents)
+                        this.top1_3 = documents
+                        let d = new Date
+                        console.log('hora',d.getHours()) 
+                      })
                   });
               });
-
             let ref = db
               .collection(this.classroom + "-messages")
               .orderBy("timestamp");
@@ -933,11 +821,11 @@ export default {
                 if ((change.type = "added")) {
                   console.log("nuevo mensaje");
                   let doc = change.doc;
-                  if(doc.data().message === 'impulso'){
-                    this.boost = true
+                  if (doc.data().message === "impulso") {
+                    this.boost = true;
                     setTimeout(() => {
-                      this.boost = false
-                    },60000)
+                      this.boost = false;
+                    }, 60000);
                   }
                   this.messages.push({
                     id: doc.id,

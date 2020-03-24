@@ -573,6 +573,8 @@ export default {
             db.collection(
               this.school_name + "-" + this.$route.params.id + "-students"
             )
+              .orderBy("xp", "desc")
+              .limit(9)
               .get()
               .then(querySnapshot => {
                 const documents = querySnapshot.docs.map(doc => doc.data());
