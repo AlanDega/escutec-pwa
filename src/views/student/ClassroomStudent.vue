@@ -375,12 +375,22 @@
                 <v-img
                   class="mb-4"
                   contain
-                  src="../../assets/available-boost.png"
+                  src="../../assets/unavailable-boost.png"
                   height="100"
                   width="100"
                 ></v-img>
               </v-row>
               <v-row justify="center" v-if="boost">
+                <v-img
+                  @click="activateBoost"
+                  class="mb-4"
+                  contain
+                  src="../../assets/available-boost.png"
+                  height="100"
+                  width="100"
+                ></v-img>
+              </v-row>
+              <v-row justify="center" v-if="boost_activated">
                 <v-img
                   class="mb-4"
                   contain
@@ -495,6 +505,7 @@ export default {
       top3_6:null,
       top6_9:null,
       boost: false,
+      boost_activated: true,
       token_balance: 0,
       lvl_up_notif1: false,
       lvl_1_rewarded: null,
@@ -837,7 +848,6 @@ export default {
                     timestamp: moment(doc.data().timestamp).format("LTS")
                   })
                   if(change.doc.data().sender === this.prof_email && change.doc.data().message === "impulso" && change.doc.data().timestamp >= (Date.now() - 3000 )){
-                    console.log('si es prof e impulsp')
                                         this.boost = true
 
                     setTimeout(() => {
@@ -884,6 +894,13 @@ export default {
       });
   },
   methods: {
+
+    activateBoost(){
+      this.boost_activated = true
+      setTimeout(() => {
+        this.boost_activated = false
+      },30000)
+    },
     logout() {
       firebase
         .auth()
@@ -959,13 +976,13 @@ export default {
     },
     checkAnswer1() {
       this.trivia_is_active = false;
-      if (this.answer1 === this.right_answer) {
+      if (this.answer1 === this.right_answer && this.boost_activated === true) {
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
+        const increment = firebase.firestore.FieldValue.increment(100);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
