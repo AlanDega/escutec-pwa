@@ -123,70 +123,62 @@
             <v-container v-if="!trivia_is_active">
               <v-card class="trivias_container">
                 <v-row>
-                  <v-col  cols="4">
-                    <v-card   v-for="(trivia, i) in trivias" :key="i" class="trivia" @click.stop="renderConfirmationDialog(trivia)">{{trivia.question}}</v-card>
-                    <v-dialog
-                    v-model="triviaDialog"
-                    width="700"
-                    >
-                    <v-card>
-        <v-card-title
-          color="black"
-          dark
-          primary-title
-        >
-          {{question}}
-        </v-card-title>
+                  <v-col v-for="(trivia, i) in trivias" :key="i" cols="4">
+                    <v-card
+                      
+                      
+                      class="trivia"
+                      @click.stop="renderConfirmationDialog(trivia)"
+                    >{{trivia.question}}</v-card>
+                    <v-dialog v-model="triviaDialog" width="700">
+                      <v-card>
+                        <v-card-title color="black" dark primary-title>{{question}}</v-card-title>
 
-        <v-card-text>
-          <v-list-item two-line>
-      <v-list-item-content>
-        <v-list-item-title>{{ answer1}}</v-list-item-title>
-        <v-list-item-subtitle>Respuesta 1</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-          <v-list-item two-line>
-      <v-list-item-content>
-        <v-list-item-title>{{ answer2  }}</v-list-item-title>
-        <v-list-item-subtitle>Respuesta 2</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-          <v-list-item two-line>
-      <v-list-item-content>
-        <v-list-item-title>{{ answer3 }}</v-list-item-title>
-        <v-list-item-subtitle>Respuesta 3</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-          <v-list-item two-line>
-      <v-list-item-content>
-        <v-list-item-title>{{ answer4 }}</v-list-item-title>
-        <v-list-item-subtitle>Respuesta 4</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-    </v-list-item>
-          <v-list-item two-line>
-      <v-list-item-content>
-        <v-list-item-title>{{ right_answer }}</v-list-item-title>
-        <v-list-item-subtitle>Respuesta Correcta</v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-        </v-card-text>
+                        <v-card-text>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{ answer1}}</v-list-item-title>
+                              <v-list-item-subtitle>Respuesta 1</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{ answer2 }}</v-list-item-title>
+                              <v-list-item-subtitle>Respuesta 2</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{ answer3 }}</v-list-item-title>
+                              <v-list-item-subtitle>Respuesta 3</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{ answer4 }}</v-list-item-title>
+                              <v-list-item-subtitle>Respuesta 4</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{ right_answer }}</v-list-item-title>
+                              <v-list-item-subtitle>Respuesta Correcta</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </v-card-text>
 
-        <v-divider></v-divider>
+                        <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="deep-purple accent-3"
-            text
-            @click="initializeTrivia"
-          >
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="deep-purple accent-3"
+                            text
+                            @click="initializeTrivia"
+                          >I accept</v-btn>
+                        </v-card-actions>
+                      </v-card>
                     </v-dialog>
-                   
                   </v-col>
                 </v-row>
               </v-card>
@@ -282,7 +274,7 @@
             </v-row>
           </v-container>
           <v-container>
-            <v-row justify="center">
+            <v-row justify="center" v-if="!boost">
               <v-img
                 class="mb-4"
                 contain
@@ -291,11 +283,19 @@
                 width="100"
               ></v-img>
             </v-row>
+            <v-row justify="center" v-if="boost">
+              <v-img
+                class="mb-4"
+                contain
+                src="../../assets/active-boost.png"
+                height="100"
+                width="100"
+              ></v-img>
+            </v-row>
             <v-row justify="center">
               <div v-if="presence_checked">
                 <v-btn
                   color="deep-purple accent-3"
-                  
                   outlined
                   dark
                   @click="finalizeClass"
@@ -314,7 +314,7 @@
           <v-btn outlined dark @click="initializeTrivia">Empezar Trivia</v-btn>
         </v-row>
       </v-footer>
-    </div> -->
+    </div>-->
     <!-- <div v-if="trivia_is_active">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
@@ -380,7 +380,7 @@ export default {
   data() {
     return {
       triviaDialog: false,
-
+      boost: false,
       subject: null,
       tableNotif: false,
       timeout: 2500,
@@ -388,7 +388,7 @@ export default {
       confirming_trivia: null,
       checking_presence: null,
       selected_student: null,
-      length: null,
+      group_quantity: null,
       onboarding: 0,
       class_is_active: null,
       presence_checked: null,
@@ -577,7 +577,7 @@ export default {
               .then(querySnapshot => {
                 const documents = querySnapshot.docs.map(doc => doc.data());
                 console.log("student-docs", documents);
-                this.length = documents.length;
+                this.group_quantity = documents.length;
                 this.students = documents;
                 db.collection(this.prof_email)
                   .doc("?")
@@ -679,16 +679,16 @@ export default {
   methods: {
     renderConfirmationDialog(trivia) {
       // if (this.confirming_trivia === null) {
-        // trivia.selected = !trivia.selected;
+      // trivia.selected = !trivia.selected;
 
-        // this.confirming_trivia = true;
-        this.triviaDialog = true
-        this.question = trivia.question;
-        this.answer1 = trivia.answer1;
-        this.answer2 = trivia.answer2;
-        this.answer3 = trivia.answer3;
-        this.answer4 = trivia.answer4;
-        this.right_answer = trivia.right_answer;
+      // this.confirming_trivia = true;
+      this.triviaDialog = true;
+      this.question = trivia.question;
+      this.answer1 = trivia.answer1;
+      this.answer2 = trivia.answer2;
+      this.answer3 = trivia.answer3;
+      this.answer4 = trivia.answer4;
+      this.right_answer = trivia.right_answer;
       // } else {
       //   this.tableNotif = true;
       // }
@@ -700,22 +700,24 @@ export default {
           .update({ presence_checked: true, checking_presence: false })
           // try this with slow connection
           .then(() => {
-            db.collection(this.school_name + '-' + this.classroom + '-students')
-              
+            db.collection(
+              this.school_name + "-" + this.classroom + "-students"
+            );
+
             this.presence_checked = true;
             this.checking_presence = false;
           });
       }
       this.selected_student = this.students[this.onboarding];
       this.onboarding =
-        this.onboarding + 1 === this.length ? 0 : this.onboarding + 1;
-      db.collection(this.school_name + '-' + this.classroom + "-students")
+        this.onboarding + 1 === this.group_quantity ? 0 : this.onboarding + 1;
+      db.collection(this.school_name + "-" + this.classroom + "-students")
         .doc(this.selected_student.email)
         .update({ is_present: true })
         .then(() => {
           const increment = firebase.firestore.FieldValue.increment(10);
           const xpRef = db
-            .collection(this.school_name + '-' + this.classroom + "-students")
+            .collection(this.school_name + "-" + this.classroom + "-students")
             .doc(this.selected_student.email);
           const batch = db.batch();
           batch.set(xpRef, { xp: increment }, { merge: true });
@@ -781,7 +783,7 @@ export default {
     finalizeTrivia() {
       // esto va despues de que se actulizo firestore
       this.trivia_is_active = false;
-          this.snackbar = true;
+      this.snackbar = true;
 
       db.collection(this.school_name + "-" + this.classroom + "-students")
         .where("right", "==", true)
@@ -790,11 +792,44 @@ export default {
           const documents = querySnapshot.docs.map(doc => doc.data());
           console.log("correctos", documents.length);
           this.correct_answers = documents.length;
+          // this.incorrect_answers = this.correct_answers - this.length;
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .where("right", "==", false)
+            .get()
+             .then(querySnapshot => {
+              const documents = querySnapshot.docs.map(doc => doc.data());
+              console.log("incorrectos", documents.length);
+              this.incorrect_answers = documents.length;
           db.collection(this.prof_email)
             .doc("?")
             .update({ trivia_is_active: false });
+          const increment = firebase.firestore.FieldValue.increment(this.correct_answers);
+          const statsRef = db
+            .collection("trivia-stats")
+            .doc(this.classroom);
+          const batch = db.batch();
+          batch.set(statsRef, { aciertos: increment }, { merge: true });
+          batch.commit().then(() => { 
+            //  this.pre_prof_name = document.name;
+            // this.prof_name = this.pre_prof_name.replace(" ", "_");
+          //   let replacedAnswers = this.incorrect_answers.replace("-", "")
+          // console.log('replaced',replacedAnswers)
+           
+          const increment2 = firebase.firestore.FieldValue.increment(this.incorrect_answers);
+          const statsRef2 = db
+            .collection("trivia-stats")
+            .doc(this.classroom);
+          const batch2 = db.batch();
+          batch2.set(statsRef2, { fallas: increment2 }, { merge: true });
+          batch2.commit().then(() => {
+            console.log("mision stats cumplida");
+          });
+          });
+            //   this.pre_prof_name = document.name;
+            // this.prof_name = this.pre_prof_name.replace(" ", "_");
+         
           // this.trivia_is_active = false;
-          db.collection(this.school_name + '-' + this.classroom + "-students")
+          db.collection(this.school_name + "-" + this.classroom + "-students")
             .get()
             .then(querySnapshot => {
               const documents = querySnapshot.docs.map(doc => {
@@ -803,27 +838,28 @@ export default {
                 )
                   .doc(doc.id)
                   //wrong too
-                  .update({ right: null,  answered: true })
+                  .update({ right: null, answered: true })
                   .then(() => {});
               });
             });
 
           // aqui enviar info
         });
+        })
     },
     // hacer otra coleccion para los resultados?
     initializeTrivia(trivia) {
-      this.triviaDialog = false
+      this.triviaDialog = false;
       const countdown = setInterval(() => {
         if (this.response_time > 0) {
           const time = this.response_time;
           this.response_time = time - 10;
         } else {
-          this.finalizeTrivia()
+          this.finalizeTrivia();
           db.collection(this.prof_email)
             .doc("?")
             .update({ trivia_is_active: false });
-            
+
           clearInterval(countdown);
           this.response_time = 100;
         }
@@ -849,18 +885,17 @@ export default {
       //   .get()
       //   .then(querySnapshot => {
       //     const documents = querySnapshot.docs.map(doc => doc.data());
-          db.collection(this.school_name + "-" + this.classroom + "-students")
-            .get()
-            .then(querySnapshot => {
-              const documents = querySnapshot.docs.map(doc => {
-                db.collection(this.school_name + "-" + this.classroom + "-students")
-                  .doc(doc.id)
-                  .update({ answered: false });
-                  console.log('trivia initialized')
-              });
-            });
-          // aqui enviar info
-        
+      db.collection(this.school_name + "-" + this.classroom + "-students")
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => {
+            db.collection(this.school_name + "-" + this.classroom + "-students")
+              .doc(doc.id)
+              .update({ answered: false });
+            console.log("trivia initialized");
+          });
+        });
+      // aqui enviar info
     },
     validatePresence(student) {
       this.student_checked = true;
@@ -884,6 +919,12 @@ export default {
         })
         .catch(err => console.log("error", err))
         .then(() => {
+          if(this.msg === 'impulso') {
+              this.boost = true
+              setTimeout(() => {
+                this.boost = false
+              }, 3000)
+          }
           this.msg = "";
         });
     },

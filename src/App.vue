@@ -25,6 +25,7 @@
       <div v-if="this.$route.name != 'sign-up'">
         <div v-if="this.$route.name != 'login'">
           <v-navigation-drawer
+          width="220"
             app
             permanent
             dark

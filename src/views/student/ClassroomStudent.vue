@@ -417,11 +417,20 @@
               </v-row>
             </v-container>
             <v-container>
-              <v-row justify="center">
+              <v-row justify="center" v-if="!boost">
                 <v-img
                   class="mb-4"
                   contain
                   src="../../assets/available-boost.png"
+                  height="100"
+                  width="100"
+                ></v-img>
+              </v-row>
+              <v-row justify="center" v-if="boost">
+                <v-img
+                  class="mb-4"
+                  contain
+                  src="../../assets/active-boost.png"
                   height="100"
                   width="100"
                 ></v-img>
@@ -553,6 +562,7 @@ export default {
 
   data() {
     return {
+      boost: false,
       token_balance: 0,
       lvl_up_notif1: false,
       lvl_1_rewarded: null,
@@ -923,6 +933,12 @@ export default {
                 if ((change.type = "added")) {
                   console.log("nuevo mensaje");
                   let doc = change.doc;
+                  if(doc.data().message === 'impulso'){
+                    this.boost = true
+                    setTimeout(() => {
+                      this.boost = false
+                    },60000)
+                  }
                   this.messages.push({
                     id: doc.id,
                     sender: doc.data().sender,
