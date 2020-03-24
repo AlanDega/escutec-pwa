@@ -489,6 +489,8 @@ export default {
 
   data() {
     return {
+      triggers:[],
+     
       top1_3:null,
       top3_6:null,
       top6_9:null,
@@ -684,8 +686,15 @@ export default {
         this.xpbar3 = this.xp - 200;
         // this.percentageLevel3();
       }
-    }
+    },
+    // boost(){
+    //   if(this.boost = true){
+    //     setTimeout(() => {
+    //       this.boost = false
+    //     },6000)
 
+    //   }
+    // }
     // svg_level1(){
     //   console.log('listener1works')
     //   if(this.xp <= 99){
@@ -819,20 +828,30 @@ export default {
             ref.onSnapshot(snapshot => {
               snapshot.docChanges().forEach(change => {
                 if ((change.type = "added")) {
-                  console.log("nuevo mensaje");
+                  console.log("nuevo mensaje",change.doc.data().timestamp);
                   let doc = change.doc;
-                  if (doc.data().message === "impulso") {
-                    this.boost = true;
-                    setTimeout(() => {
-                      this.boost = false;
-                    }, 60000);
-                  }
                   this.messages.push({
                     id: doc.id,
                     sender: doc.data().sender,
                     message: doc.data().message,
                     timestamp: moment(doc.data().timestamp).format("LTS")
-                  });
+                  })
+                  if(change.doc.data().sender === this.prof_email && change.doc.data().message === "impulso" && change.doc.data().timestamp >= (Date.now() - 3000 )){
+                    console.log('si es prof e impulsp')
+                                        this.boost = true
+
+                    setTimeout(() => {
+                      this.boost = false
+                    }, 6000)
+                    this.triggers.push({
+                       id: doc.id,
+                    sender: doc.data().sender,
+                    message: doc.data().message,
+                    timestamp: moment(doc.data().timestamp).format("LTS")
+                    })
+                  }
+                  
+                 
                 }
               });
             });
