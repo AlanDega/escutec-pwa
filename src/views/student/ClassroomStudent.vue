@@ -18,7 +18,9 @@
 
             <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
 
-            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2">mdi-cog-outline</v-icon>
+            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
+              >mdi-cog-outline</v-icon
+            >
           </v-app-bar>
         </div>
       </v-row>
@@ -49,10 +51,9 @@
                     <v-card class="chat_notes_card">
                       <v-list ref="chat" id="logs">
                         <template v-for="(message, index) in messages">
-                          <v-subheader
-                            v-if="message"
-                            :key="index"
-                          >{{ message.sender + ":" + message.message }}</v-subheader>
+                          <v-subheader v-if="message" :key="index">{{
+                            message.sender + ":" + message.message
+                          }}</v-subheader>
                         </template>
                       </v-list>
                       <v-container>
@@ -67,7 +68,12 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="2">
-                            <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                            <v-btn
+                              dark
+                              color="deep-purple accent-3"
+                              @click="submit"
+                              >Enviar</v-btn
+                            >
                           </v-col>
                         </v-row>
                       </v-container>
@@ -83,7 +89,9 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-image</v-icon
+                          >
                         </v-row>
                         <v-row justify="center">
                           <v-col>
@@ -93,7 +101,8 @@
                                 :key="index"
                                 text
                                 :href="img.url"
-                              >{{ img.title }}</v-btn>
+                                >{{ img.title }}</v-btn
+                              >
                             </v-row>
                           </v-col>
                         </v-row>
@@ -104,7 +113,9 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-play-box</v-icon
+                          >
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -112,7 +123,8 @@
                             :key="index"
                             text
                             :href="video.url"
-                          >{{ video.title }}</v-btn>
+                            >{{ video.title }}</v-btn
+                          >
                         </v-row>
                       </v-col>
                     </v-card>
@@ -121,7 +133,9 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
+                          <v-icon color="deep-purple accent-3" class="mb-4"
+                            >mdi-text</v-icon
+                          >
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -129,7 +143,8 @@
                             :key="index"
                             text
                             :href="text.url"
-                          >{{ text.title }}</v-btn>
+                            >{{ text.title }}</v-btn
+                          >
                         </v-row>
                       </v-col>
                     </v-card>
@@ -150,7 +165,9 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large>mdi-alpha-a-circle</v-icon>
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-a-circle</v-icon
+                                >
                               </v-row>
                             </v-container>
                           </v-col>
@@ -166,7 +183,9 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large>mdi-alpha-b-circle</v-icon>
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-b-circle</v-icon
+                                >
                               </v-row>
                             </v-container>
                           </v-col>
@@ -185,7 +204,9 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large>mdi-alpha-c-circle</v-icon>
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-c-circle</v-icon
+                                >
                               </v-row>
                             </v-container>
                           </v-col>
@@ -201,7 +222,9 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large>mdi-alpha-d-circle</v-icon>
+                                <v-icon color="deep-purple accent-3" large
+                                  >mdi-alpha-d-circle</v-icon
+                                >
                               </v-row>
                             </v-container>
                           </v-col>
@@ -230,16 +253,22 @@
               <v-container v-if="!trivia_is_active">
                 <div v-if="!trivia_loading_state">
                   <v-row justify="center">
-                    <v-card class="trivia-button" @click="initializeStudentTrivia">
+                    <v-card
+                      class="trivia-button"
+                      @click="initializeStudentTrivia"
+                    >
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
+                        <v-icon color="deep-purple accent-3" large
+                          >mdi-gamepad-circle-right</v-icon
+                        >
                       </v-row>
                       <v-row justify="center" class="mt-6">
                         <v-btn
                           outlined
                           color="deep-purple accent-3"
                           @click="initializeStudentTrivia"
-                        >Iniciar Trivia</v-btn>
+                          >Iniciar Trivia</v-btn
+                        >
                       </v-row>
                     </v-card>
                   </v-row>
@@ -252,7 +281,9 @@
                       loading="deep-purple accent-3"
                     >
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
+                        <v-icon color="deep-purple accent-3" large
+                          >mdi-gamepad-circle-right</v-icon
+                        >
                       </v-row>
                     </v-card>
                   </v-row>
@@ -272,24 +303,51 @@
             </v-row>
             <v-row justify="center">
               <div v-if="svg_level1">
-                <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
               </div>
               <div v-if="svg_level2">
-                <v-img class="mt-4" contain src="../../assets/level2.svg" height="80" width="80"></v-img>
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level2.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
               </div>
               <div v-if="svg_level3">
-                <v-img class="mt-4" contain src="../../assets/level3.svg" height="80" width="80"></v-img>
+                <v-img
+                  class="mt-4"
+                  contain
+                  src="../../assets/level3.svg"
+                  height="80"
+                  width="80"
+                ></v-img>
               </div>
             </v-row>
             <v-container>
               <v-row>
                 <v-col justify="right" v-if="svg_level1">
-                  <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
-                  <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level_xp + " XP" }}
+                  </p>
+                  <v-progress-linear
+                    rounded
+                    height="6"
+                    color="deep-purple accent-3"
+                    v-model="xp"
+                  ></v-progress-linear>
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level2">
-                  <p class="xpText" justify="right">{{ xp + "/" + next_level2_xp + " XP" }}</p>
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level2_xp + " XP" }}
+                  </p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -299,7 +357,9 @@
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level3">
-                  <p class="xpText" justify="right">{{ xp + "/" + next_level3_xp + " XP" }}</p>
+                  <p class="xpText" justify="right">
+                    {{ xp + "/" + next_level3_xp + " XP" }}
+                  </p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -321,57 +381,71 @@
               </v-row>-->
             </v-container>
             <v-container>
-              
-                    <v-carousel
-                    cycle
+              <v-carousel
+                cycle
+                height="300"
+                hide-delimiter-background
+                hide-delimiters
+                show-arrows-on-hover
+              >
+                <!-- v-for="(student, i) in top9" :key="i" -->
+                <v-carousel-item v-for="(student, i) in top1_3" :key="i">
+                  <v-card color="transparent" height="300">
+                    <v-row class="fill-height" align="center" justify="center">
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card
+                    color="transparent"
                     height="300"
-                    hide-delimiter-background
-                    hide-delimiters
-                    show-arrows-on-hover
-                    >
-                    <!-- v-for="(student, i) in top9" :key="i" -->
-                    <v-carousel-item v-for="(student, i) in top1_3" :key="i" >
-                      <v-card color="transparent" height="300" >
-                          <v-row class="fill-height" align="center" justify="center">
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                              {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                               {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                               {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                          </v-row>
-                        </v-card>
-                    </v-carousel-item>
-                    <v-carousel-item >
-                      <v-card color="transparent" height="300" v-for="(student, i) in top1_3" :key="i">
-                          <v-row class="fill-height" align="center" justify="center">
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                              {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                               {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                            <v-list-item dark>
-                              <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                               {{ student.alias + '/' + student.xp }}
-                            </v-list-item>
-                          </v-row>
-                        </v-card>
-                    </v-carousel-item>
-                                          </v-carousel>
-  
-                     
-            </v-container>      
+                    v-for="(student, i) in top1_3"
+                    :key="i"
+                  >
+                    <v-row class="fill-height" align="center" justify="center">
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+              </v-carousel>
+            </v-container>
             <v-container>
-              <v-row justify="center" v-if="!boost">
+              <!-- <v-row justify="center" v-if="!boost">
                 <v-img
                   class="mb-4"
                   contain
@@ -379,7 +453,7 @@
                   height="100"
                   width="100"
                 ></v-img>
-              </v-row>
+              </v-row> -->
               <v-row justify="center" v-if="boost">
                 <v-img
                   @click="activateBoost"
@@ -408,7 +482,8 @@
                     color="deep-purple accent-3"
                     v-model="response_time"
                     absolute
-                  >{{ response_time }}</v-progress-circular>
+                    >{{ response_time }}</v-progress-circular
+                  >
                 </div>
               </v-row>
             </v-container>
@@ -426,13 +501,25 @@
     >
       Open Snackbar
       </v-btn>-->
-      <v-snackbar top color="#1e1d20" :vertical="vertical" v-model="lvl_up_notif1" permanent>
+      <v-snackbar
+        top
+        color="#1e1d20"
+        :vertical="vertical"
+        v-model="lvl_up_notif1"
+        permanent
+      >
         <v-row justify="center">
           <span class="notifText">Subiste de nivel</span>
         </v-row>
         <v-row justify="center">
           <span class="lvl-up-text">+ 30</span>
-          <v-img class="mt-2" contain src="../../assets/cash.svg" height="34" width="34"></v-img>
+          <v-img
+            class="mt-2"
+            contain
+            src="../../assets/cash.svg"
+            height="34"
+            width="34"
+          ></v-img>
         </v-row>
 
         <!-- <v-btn
@@ -444,7 +531,13 @@
         </v-btn>-->
       </v-snackbar>
 
-      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
+      <v-snackbar
+        top
+        color="success"
+        :vertical="vertical"
+        v-model="snackbar"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -462,7 +555,13 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
+      <v-snackbar
+        top
+        color="red"
+        :vertical="vertical"
+        v-model="errorNotif"
+        :timeout="timeout"
+      >
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -486,6 +585,7 @@
 </template>
 
 <script>
+import Pizzicato from "pizzicato";
 import { CometChat } from "@cometchat-pro/chat";
 import { db } from "../../db";
 import firebase from "firebase";
@@ -499,13 +599,13 @@ export default {
 
   data() {
     return {
-      triggers:[],
-     
-      top1_3:null,
-      top3_6:null,
-      top6_9:null,
+      triggers: [],
+
+      top1_3: null,
+      top3_6: null,
+      top6_9: null,
       boost: false,
-      boost_activated: true,
+      boost_activated: null,
       token_balance: 0,
       lvl_up_notif1: false,
       lvl_1_rewarded: null,
@@ -698,6 +798,12 @@ export default {
         // this.percentageLevel3();
       }
     },
+    boost() {
+      
+  
+      
+     
+    }
     // boost(){
     //   if(this.boost = true){
     //     setTimeout(() => {
@@ -820,17 +926,21 @@ export default {
                       console.log("activado");
                       this.trivia_is_active = false;
                     }
-                    db.collection(this.school_name + "-" + this.classroom + "-students")
+                    db.collection(
+                      this.school_name + "-" + this.classroom + "-students"
+                    )
                       .orderBy("xp", "desc")
                       .limit(9)
                       .get()
                       .then(querySnapshot => {
-                        const documents = querySnapshot.docs.map(doc => doc.data())
-                        console.log('sorted-docs',documents)
-                        this.top1_3 = documents
-                        let d = new Date
-                        console.log('hora',d.getHours()) 
-                      })
+                        const documents = querySnapshot.docs.map(doc =>
+                          doc.data()
+                        );
+                        console.log("sorted-docs", documents);
+                        this.top1_3 = documents;
+                        let d = new Date();
+                        console.log("hora", d.getHours());
+                      });
                   });
               });
             let ref = db
@@ -839,29 +949,32 @@ export default {
             ref.onSnapshot(snapshot => {
               snapshot.docChanges().forEach(change => {
                 if ((change.type = "added")) {
-                  console.log("nuevo mensaje",change.doc.data().timestamp);
+                  console.log("nuevo mensaje", change.doc.data().timestamp);
                   let doc = change.doc;
                   this.messages.push({
                     id: doc.id,
                     sender: doc.data().sender,
                     message: doc.data().message,
                     timestamp: moment(doc.data().timestamp).format("LTS")
-                  })
-                  if(change.doc.data().sender === this.prof_email && change.doc.data().message === "impulso" && change.doc.data().timestamp >= (Date.now() - 3000 )){
-                                        this.boost = true
+                  });
+                  if (
+                    change.doc.data().sender === this.prof_email &&
+                    change.doc.data().message === "impulso" &&
+                    change.doc.data().timestamp >= Date.now() - 3000
+                  ) {
+                    this.availableBoost()
+                    
 
                     setTimeout(() => {
-                      this.boost = false
-                    }, 6000)
+                      this.boost = false;
+                    }, 6000);
                     this.triggers.push({
-                       id: doc.id,
-                    sender: doc.data().sender,
-                    message: doc.data().message,
-                    timestamp: moment(doc.data().timestamp).format("LTS")
-                    })
+                      id: doc.id,
+                      sender: doc.data().sender,
+                      message: doc.data().message,
+                      timestamp: moment(doc.data().timestamp).format("LTS")
+                    });
                   }
-                  
-                 
                 }
               });
             });
@@ -894,12 +1007,25 @@ export default {
       });
   },
   methods: {
-
-    activateBoost(){
-      this.boost_activated = true
+   availableBoost(){
+     this.boost = true;
+  //           const audio = new Audio(require("../../assets/boost2.mp3"));
+  //     const boostDisponible = new Audio(
+  //       require("../../assets/impulso-disponible.mp3")
+  //     );
+  //     audio.play();
+  //     setTimeout(() => {
+  //       audio.pause();
+  //       boostDisponible.play();
+  //     }, 2000);
+    },
+    activateBoost() {
+      this.boost_activated = true;
+      const audio = new Audio(require("../../assets/boost2.mp3"));
+      audio.play();
       setTimeout(() => {
-        this.boost_activated = false
-      },30000)
+        this.boost_activated = false;
+      }, 30000);
     },
     logout() {
       firebase
@@ -975,8 +1101,11 @@ export default {
         });
     },
     checkAnswer1() {
+      const winAudio = new Audio(require('../../assets/win.wav'))
+      const loseAudio = new Audio(require('../../assets/lose.mp3'))
       this.trivia_is_active = false;
       if (this.answer1 === this.right_answer && this.boost_activated === true) {
+        winAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
@@ -1001,8 +1130,43 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else {
+      } else if(this.answer1 != this.right_answer && this.boost_activated === true) {
         this.errorNotif = true;
+        loseAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
+      }
+      if (this.answer1 === this.right_answer ) {
+        winAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
+        this.snackbar = true;
+        const increment = firebase.firestore.FieldValue.increment(50);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
+          console.log("mision xp cumplida");
+        });
+      } else if(this.answer1 != this.right_answer ) {
+        this.errorNotif = true;
+        loseAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1010,8 +1174,45 @@ export default {
       }
     },
     checkAnswer2() {
+     const winAudio = new Audio(require('../../assets/win.wav'))
+      const loseAudio = new Audio(require('../../assets/lose.mp3'))
       this.trivia_is_active = false;
-      if (this.answer2 === this.right_answer) {
+      if (this.answer2 === this.right_answer && this.boost_activated === true) {
+        winAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
+        this.snackbar = true;
+        const increment = firebase.firestore.FieldValue.increment(100);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
+          console.log("mision xp cumplida");
+        });
+      } else if(this.answer2 != this.right_answer && this.boost_activated === true) {
+        this.errorNotif = true;
+        loseAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
+      }
+      if (this.answer2 === this.right_answer ) {
+        winAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
@@ -1024,10 +1225,21 @@ export default {
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
           console.log("mision xp cumplida");
         });
-      } else {
+      } else if(this.answer2 != this.right_answer ) {
         this.errorNotif = true;
+        loseAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1035,8 +1247,45 @@ export default {
       }
     },
     checkAnswer3() {
+    const winAudio = new Audio(require('../../assets/win.wav'))
+      const loseAudio = new Audio(require('../../assets/lose.mp3'))
       this.trivia_is_active = false;
-      if (this.answer3 === this.right_answer) {
+      if (this.answer3 === this.right_answer && this.boost_activated === true) {
+        winAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
+        this.snackbar = true;
+        const increment = firebase.firestore.FieldValue.increment(100);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
+          console.log("mision xp cumplida");
+        });
+      } else if(this.answer3 != this.right_answer && this.boost_activated === true) {
+        this.errorNotif = true;
+        loseAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
+      }
+      if (this.answer3 === this.right_answer ) {
+        winAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
@@ -1049,10 +1298,21 @@ export default {
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
           console.log("mision xp cumplida");
         });
-      } else {
+      } else if(this.answer3 != this.right_answer ) {
         this.errorNotif = true;
+        loseAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1061,8 +1321,45 @@ export default {
     },
     checkAnswer4() {
       //mejora el timing en la secuencia
+      const winAudio = new Audio(require('../../assets/win.wav'))
+      const loseAudio = new Audio(require('../../assets/lose.mp3'))
       this.trivia_is_active = false;
-      if (this.answer4 === this.right_answer) {
+      if (this.answer4 === this.right_answer && this.boost_activated === true) {
+        winAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: true, answered: true })
+          .then(() => console.log("right updated"));
+        this.snackbar = true;
+        const increment = firebase.firestore.FieldValue.increment(100);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
+          console.log("mision xp cumplida");
+        });
+      } else if(this.answer4 != this.right_answer && this.boost_activated === true) {
+        this.errorNotif = true;
+        loseAudio.play()
+        db.collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user)
+          .update({ right: false, answered: true })
+          .then(() => console.log("wrong updated"));
+      }
+      if (this.answer4 === this.right_answer ) {
+        winAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
@@ -1075,10 +1372,21 @@ export default {
         const batch = db.batch();
         batch.set(xpRef, { xp: increment }, { merge: true });
         batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+
           console.log("mision xp cumplida");
         });
-      } else {
+      } else if(this.answer4 != this.right_answer ) {
         this.errorNotif = true;
+        loseAudio.play()
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
