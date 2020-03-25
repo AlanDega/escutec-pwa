@@ -298,8 +298,8 @@
         <v-col class="col-side">
           <!-- <v-container fluid> -->
           <v-card class="side-bar-right">
-            <v-row>
-              <h2>{{ alias }}</h2>
+            <v-row justify="center">
+              <h3 class="alias-text">{{ alias }}</h3>
             </v-row>
             <v-row justify="center">
               <div v-if="svg_level1">
@@ -585,7 +585,6 @@
 </template>
 
 <script>
-import Pizzicato from "pizzicato";
 import { CometChat } from "@cometchat-pro/chat";
 import { db } from "../../db";
 import firebase from "firebase";
@@ -1667,6 +1666,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.alias-text {
+  color: white;
+  margin-top: 10%;
+}
 .lvl-up-text {
   color: #641fff;
   font-size: 32px;

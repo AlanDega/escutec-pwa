@@ -32,6 +32,15 @@
             fixed
             color="deep-purple accent-3"
           >
+          <v-row justify="center" align="center">
+            <v-img
+             src="./assets/EscutekLogo.svg"
+             height="40"
+             width="40"
+             contain
+             class="mt-6 mb-4 mr-2"
+             ></v-img>
+          </v-row>
             <div v-if="prof">
               <v-list nav>
                 <v-list-item

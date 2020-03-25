@@ -1,6 +1,27 @@
 <template>
   <div>
     <v-row>
+        <div>
+          <v-app-bar dense fixed color="white" flat dark absolute clipped-right>
+            
+
+            <v-spacer></v-spacer>
+            <v-chip class="ma-2" color="black" text-color="white">
+              <v-avatar left>
+                <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
+              </v-avatar>
+              {{ token_balance }}
+            </v-chip>
+
+            <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
+
+            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
+              >mdi-cog-outline</v-icon
+            >
+          </v-app-bar>
+        </div>
+      </v-row>
+    <v-row class="mt-8">
       <v-col align="center" cols="10">
         <v-container>
           <v-card class="TwitchPlayer">
@@ -27,7 +48,7 @@
                 <v-col>
                   <v-card>
                     <v-col>
-                      <v-row>
+                      <v-row >
                         <v-list ref="chat" id="logs">
                           <template v-for="(message, index) in messages">
                             <v-subheader
@@ -229,49 +250,70 @@
         <!-- <v-container fluid> -->
         <v-card class="side-bar-right">
           <v-container>
-            <v-row justify="center">
-              <v-col>
-                <h1 class="sidebar-classroom">{{ this.classroom }}</h1>
-                <v-row justify="center">
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                    {{ "Alumno/12000 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                    {{ "Alumno/10050 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-4-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-5-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-6-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-7-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-8-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                  <v-list-item dark>
-                    <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-9-circle</v-icon>
-                    {{ "Alumno/2800 " }}
-                  </v-list-item>
-                </v-row>
-              </v-col>
-            </v-row>
+             <v-carousel
+                cycle
+                height="300"
+                hide-delimiter-background
+                hide-delimiters
+                show-arrows-on-hover
+              >
+                <!-- v-for="(student, i) in top9" :key="i" -->
+                <v-carousel-item v-for="(student, i) in top1_3" :key="i">
+                  <v-card color="transparent" height="300">
+                    <v-row class="fill-height" align="center" justify="center">
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card
+                    color="transparent"
+                    height="300"
+                    v-for="(student, i) in top1_9"
+                    :key="i"
+                  >
+                    <v-row class="fill-height" align="center" justify="center">
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-1-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-2-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                      <v-list-item dark>
+                        <v-icon color="deep-purple accent-3" class="mr-2"
+                          >mdi-numeric-3-circle</v-icon
+                        >
+                        {{ student.alias + "/" + student.xp }}
+                      </v-list-item>
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+              </v-carousel>
+              <!-- </v-col>
+            </v-row> -->
           </v-container>
           <v-container>
             <v-row justify="center" v-if="!boost">
@@ -292,17 +334,7 @@
                 width="100"
               ></v-img>
             </v-row>
-            <v-row justify="center">
-              <div v-if="presence_checked">
-                <v-btn
-                  color="deep-purple accent-3"
-                  outlined
-                  dark
-                  @click="finalizeClass"
-                  class="finalize-class-btn"
-                >Terminar clase</v-btn>
-              </div>
-            </v-row>
+            
           </v-container>
         </v-card>
         <!-- </v-container> -->
@@ -379,6 +411,39 @@ export default {
 
   data() {
     return {
+      top1_9:[
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+      ],
+      top10_18:[
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+      ],
+      top19_27:[
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+        'alumno1/15200xp',
+      ],
       triviaDialog: false,
       boost: false,
       subject: null,
@@ -679,6 +744,19 @@ export default {
       });
   },
   methods: {
+     logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          console.log("logged out");
+          this.$router.push("/login");
+          // Sign-out successful.
+        })
+        .catch(function(error) {
+          // An error happened.
+        });
+    },
     renderConfirmationDialog(trivia) {
       // if (this.confirming_trivia === null) {
       // trivia.selected = !trivia.selected;
@@ -1127,7 +1205,7 @@ export default {
   color: white;
   font-size: 24px;
   text-align: center;
-  margin-top: -14px;
+  margin-top: 0px;
   margin-bottom: 12px;
 }
 .main-col {
@@ -1141,6 +1219,7 @@ export default {
   margin-top: 12px;
 }
 .side-bar-right {
+  margin-top: 5%;
   border-left: 1px solid #e3e0e0;
   background-color: #1e1d20;
   width: 100%;

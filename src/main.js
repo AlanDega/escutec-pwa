@@ -6,7 +6,6 @@ import store from './store'
 import { firestorePlugin } from 'vuefire'
 import vuetify from './plugins/vuetify';
 import { CometChat } from '@cometchat-pro/chat'
-import { Pizzicato } from 'pizzicato'
 
 var appID = "148211b5f4e935f";
 var region = "us";
