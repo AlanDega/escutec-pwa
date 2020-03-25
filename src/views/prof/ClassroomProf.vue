@@ -250,32 +250,24 @@
         <!-- <v-container fluid> -->
         <v-card class="side-bar-right">
           <v-container>
+            <v-row justify="center" class="mt-4 mb-6" >
+              <h3 class="classroom-text">{{ this.classroom }}</h3>
+            </v-row>
+            
              <v-carousel
                 cycle
-                height="300"
+                height="50%"
                 hide-delimiter-background
                 hide-delimiters
                 show-arrows-on-hover
               >
                 <!-- v-for="(student, i) in top9" :key="i" -->
-                <v-carousel-item v-for="(student, i) in top1_3" :key="i">
-                  <v-card color="transparent" height="300">
+                <v-carousel-item >
+                  <v-card color="transparent" height="600">
                     <v-row class="fill-height" align="center" justify="center">
-                      <v-list-item dark>
+                      <v-list-item dark v-for="(student, i) in top1_9" :key="i">
                         <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
+                          >mdi-numeric-{{i + 1}}-circle</v-icon
                         >
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
@@ -285,26 +277,16 @@
                 <v-carousel-item>
                   <v-card
                     color="transparent"
-                    height="300"
-                    v-for="(student, i) in top1_9"
-                    :key="i"
+                    height="600"
+                    
                   >
                     <v-row class="fill-height" align="center" justify="center">
-                      <v-list-item dark>
+                      <v-list-item 
+                      v-for="(student, i) in top10_18"
+                    :key="i"
+                      dark >
                         <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
+                          >mdi-numeric-{{i + 10}}-circle</v-icon
                         >
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
@@ -363,7 +345,7 @@
         </v-row>
       </v-footer>
     </div>-->
-    <div v-if="!presence_checked">
+    <div v-if="!onclass">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
           <v-btn outlined dark @click="initializeClass">Iniciar clase</v-btn>
@@ -371,7 +353,7 @@
       </v-footer>
     </div>
     <div v-if="checking_presence">
-      <v-footer absolute color="deep-purple accent-3">
+      <v-footer absolute color="light-green accent-4">
         <!-- <v-card-actions class="justify-space-between"> -->
         <v-row justify="center">
           <v-btn text @click="next" class="mr-12">
@@ -395,6 +377,72 @@
       </v-footer>
     </div>
     <v-snackbar v-model="tableNotif" :timeout="timeout">{{ table_notif_text }}</v-snackbar>
+    <v-dialog v-model="survey_time" max-width="500" >
+      <v-window v-model="survey">
+        <v-window-item :value="1" width="300">
+           <v-card>
+        <v-card-title>
+          <v-row justify="center">
+            <h3>Califica al grupo</h3>
+          </v-row>        
+        </v-card-title>
+        <v-container>
+          <v-row >
+            <v-col cols="6">
+              <v-row justify="center">
+                 <v-btn color="deep-purple accent-3">
+                 <v-icon color="white" @click="sendSurveyLike">
+                mdi-thumb-up-outline
+              </v-icon>
+              </v-btn>
+              </v-row>      
+            </v-col>
+            <v-col cols="6">
+              <v-row justify="center">
+                <v-btn color="deep-purple accent-3">
+                <v-icon color="white" @click="sendSurveyUnlike">
+                mdi-thumb-down-outline
+              </v-icon>
+               </v-btn>
+              </v-row>        
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-img>
+
+        </v-img>
+      </v-card>
+        </v-window-item>
+        <v-window-item :value="2" width="500">
+           <v-card>
+        <v-card-title>
+          <v-row justify="center">
+            <h3>Notas del grupo</h3>
+          </v-row>        
+        </v-card-title>
+        <v-container>
+                      <v-row justify="center">
+                        <v-container>
+                            <v-textarea outlined color="deep-purple accent-3" v-model="group_note">
+                </v-textarea>
+                        </v-container>
+              
+              </v-row>      
+                <v-card-actions>
+                   <v-btn text color="deep-purple accent-3" @click="sendGroupNotes">
+                     Enviar
+                  </v-btn>
+                </v-card-actions>      
+        </v-container>
+        <v-img>
+
+        </v-img>
+      </v-card>
+        </v-window-item>
+        
+      </v-window>
+     
+    </v-dialog>
   </div>
 </template>
 
@@ -411,27 +459,49 @@ export default {
 
   data() {
     return {
+      onclass:null,
+      survey:1,
+      group_note:null,
+      survey_time:false,
       top1_9:[
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
+        {alias: 'alumno1',
+        xp:150},
       ],
       top10_18:[
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
+        {alias: 'alumno2',
+        xp:150},
       ],
       top19_27:[
         'alumno1/15200xp',
@@ -691,6 +761,13 @@ export default {
                 message: doc.data().message,
                 timestamp: moment(doc.data().timestamp).format("LTS")
               });
+              if(
+                change.doc.data().sender === this.user &&
+                change.doc.data().message === 'terminar clase' &&
+                change.doc.data().timestamp >= Date.now() - 3000
+              ){
+                this.activateSurveys()
+              }
             }
           });
         });
@@ -744,6 +821,43 @@ export default {
       });
   },
   methods: {
+    activateSurveys(){
+      this.survey_time = true
+    },
+    sendSurveyLike(){
+    
+         const increment = firebase.firestore.FieldValue.increment(1);
+          const surveyLikesRef = db
+            .collection(this.classroom + "-stats")
+            .doc('likes');
+          const batch = db.batch();
+          batch.set(surveyLikesRef, { like: increment }, { merge: true });
+          batch.commit().then(() => {
+            console.log("mision likes cumplida");
+            this.survey ++
+          });
+    },
+    sendSurveyUnlike(){
+         const increment = firebase.firestore.FieldValue.increment(1);
+          const surveyUnlikesRef = db
+            .collection(this.classroom + "-stats")
+            .doc('unlikes');
+          const batch = db.batch();
+          batch.set(surveyUnlikesRef, { unlike: increment }, { merge: true });
+          batch.commit().then(() => {
+            console.log("mision likes cumplida");
+            this.survey ++
+          });
+    },
+    sendGroupNotes(){
+      db.collection(this.classroom)
+        .doc('notes')
+        .set({
+          note: this.group_note
+        }).then(() => {
+          this.survey_time = false
+        })
+    },
      logout() {
       firebase
         .auth()
@@ -815,6 +929,7 @@ export default {
       db.collection(this.school_name + "-" + this.level + "-professors")
         .doc(this.pre_prof_name)
         .update({
+          onclass: true,
           checking_presence: true
         })
         .then(() => {
@@ -991,7 +1106,7 @@ export default {
       });
     },
     submit() {
-      db.collection(this.$route.params.id + "-messages")
+      db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
           message: this.msg,
@@ -1167,6 +1282,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.classroom-text {
+  color: white;
+}
 .finalize-class-btn {
   margin: 20px 0px;
 }
