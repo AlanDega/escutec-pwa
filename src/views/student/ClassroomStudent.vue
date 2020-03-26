@@ -18,9 +18,7 @@
 
             <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
 
-            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
-              >mdi-cog-outline</v-icon
-            >
+            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2">mdi-cog-outline</v-icon>
           </v-app-bar>
         </div>
       </v-row>
@@ -51,9 +49,11 @@
                     <v-card class="chat_notes_card">
                       <v-list ref="chat" id="logs">
                         <template v-for="(message, index) in messages">
-                          <v-subheader v-if="message" :key="index">{{
+                          <v-subheader v-if="message" :key="index">
+                            {{
                             message.sender + ":" + message.message
-                          }}</v-subheader>
+                            }}
+                          </v-subheader>
                         </template>
                       </v-list>
                       <v-container>
@@ -68,12 +68,7 @@
                             ></v-text-field>
                           </v-col>
                           <v-col cols="2">
-                            <v-btn
-                              dark
-                              color="deep-purple accent-3"
-                              @click="submit"
-                              >Enviar</v-btn
-                            >
+                            <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
                           </v-col>
                         </v-row>
                       </v-container>
@@ -89,9 +84,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-image</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-col>
@@ -101,8 +94,7 @@
                                 :key="index"
                                 text
                                 :href="img.url"
-                                >{{ img.title }}</v-btn
-                              >
+                              >{{ img.title }}</v-btn>
                             </v-row>
                           </v-col>
                         </v-row>
@@ -113,9 +105,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-play-box</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -123,8 +113,7 @@
                             :key="index"
                             text
                             :href="video.url"
-                            >{{ video.title }}</v-btn
-                          >
+                          >{{ video.title }}</v-btn>
                         </v-row>
                       </v-col>
                     </v-card>
@@ -133,9 +122,7 @@
                     <v-card>
                       <v-col>
                         <v-row justify="center">
-                          <v-icon color="deep-purple accent-3" class="mb-4"
-                            >mdi-text</v-icon
-                          >
+                          <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
                         </v-row>
                         <v-row justify="center">
                           <v-btn
@@ -143,8 +130,7 @@
                             :key="index"
                             text
                             :href="text.url"
-                            >{{ text.title }}</v-btn
-                          >
+                          >{{ text.title }}</v-btn>
                         </v-row>
                       </v-col>
                     </v-card>
@@ -165,9 +151,7 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-a-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-a-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
@@ -183,9 +167,7 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-b-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-b-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
@@ -204,9 +186,7 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-c-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-c-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
@@ -222,9 +202,7 @@
                           <v-col cols="3">
                             <v-container>
                               <v-row justify="center">
-                                <v-icon color="deep-purple accent-3" large
-                                  >mdi-alpha-d-circle</v-icon
-                                >
+                                <v-icon color="deep-purple accent-3" large>mdi-alpha-d-circle</v-icon>
                               </v-row>
                             </v-container>
                           </v-col>
@@ -253,22 +231,16 @@
               <v-container v-if="!trivia_is_active">
                 <div v-if="!trivia_loading_state">
                   <v-row justify="center">
-                    <v-card
-                      class="trivia-button"
-                      @click="initializeStudentTrivia"
-                    >
+                    <v-card class="trivia-button" @click="initializeStudentTrivia">
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large
-                          >mdi-gamepad-circle-right</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
                       </v-row>
                       <v-row justify="center" class="mt-6">
                         <v-btn
                           outlined
                           color="deep-purple accent-3"
                           @click="initializeStudentTrivia"
-                          >Iniciar Trivia</v-btn
-                        >
+                        >Iniciar Trivia</v-btn>
                       </v-row>
                     </v-card>
                   </v-row>
@@ -281,9 +253,7 @@
                       loading="deep-purple accent-3"
                     >
                       <v-row class="mt-6" justify="center">
-                        <v-icon color="deep-purple accent-3" large
-                          >mdi-gamepad-circle-right</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" large>mdi-gamepad-circle-right</v-icon>
                       </v-row>
                     </v-card>
                   </v-row>
@@ -303,51 +273,24 @@
             </v-row>
             <v-row justify="center">
               <div v-if="svg_level1">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level.svg" height="80" width="80"></v-img>
               </div>
               <div v-if="svg_level2">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level2.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level2.svg" height="80" width="80"></v-img>
               </div>
               <div v-if="svg_level3">
-                <v-img
-                  class="mt-4"
-                  contain
-                  src="../../assets/level3.svg"
-                  height="80"
-                  width="80"
-                ></v-img>
+                <v-img class="mt-4" contain src="../../assets/level3.svg" height="80" width="80"></v-img>
               </div>
             </v-row>
             <v-container>
               <v-row>
                 <v-col justify="right" v-if="svg_level1">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level_xp + " XP" }}
-                  </p>
-                  <v-progress-linear
-                    rounded
-                    height="6"
-                    color="deep-purple accent-3"
-                    v-model="xp"
-                  ></v-progress-linear>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
+                  <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level2">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level2_xp + " XP" }}
-                  </p>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level2_xp + " XP" }}</p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -357,9 +300,7 @@
                 </v-col>
 
                 <v-col justify="right" v-if="svg_level3">
-                  <p class="xpText" justify="right">
-                    {{ xp + "/" + next_level3_xp + " XP" }}
-                  </p>
+                  <p class="xpText" justify="right">{{ xp + "/" + next_level3_xp + " XP" }}</p>
                   <v-progress-linear
                     rounded
                     height="6"
@@ -391,52 +332,35 @@
                 <!-- v-for="(student, i) in top9" :key="i" -->
                 <v-carousel-item v-for="(student, i) in top1_3" :key="i">
                   <v-card color="transparent" height="300">
-                    <v-row  align="center" justify="center">
+                    <v-row align="center" justify="center">
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                     </v-row>
                   </v-card>
                 </v-carousel-item>
                 <v-carousel-item>
-                  <v-card
-                    color="transparent"
-                    height="300"
-                    v-for="(student, i) in top1_3"
-                    :key="i"
-                  >
-                    <v-row  align="center" justify="center">
+                  <v-card color="transparent" height="300" v-for="(student, i) in top1_3" :key="i">
+                    <v-row align="center" justify="center">
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-1-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-2-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                       <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-3-circle</v-icon
-                        >
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
                         {{ student.alias + "/" + student.xp }}
                       </v-list-item>
                     </v-row>
@@ -453,7 +377,7 @@
                   height="100"
                   width="100"
                 ></v-img>
-              </v-row> -->
+              </v-row>-->
               <v-row justify="center" v-if="boost">
                 <v-img
                   @click="activateBoost"
@@ -482,8 +406,7 @@
                     color="deep-purple accent-3"
                     v-model="response_time"
                     absolute
-                    >{{ response_time }}</v-progress-circular
-                  >
+                  >{{ response_time }}</v-progress-circular>
                 </div>
               </v-row>
             </v-container>
@@ -501,25 +424,13 @@
     >
       Open Snackbar
       </v-btn>-->
-      <v-snackbar
-        top
-        color="#1e1d20"
-        :vertical="vertical"
-        v-model="lvl_up_notif1"
-        permanent
-      >
+      <v-snackbar top color="#1e1d20" :vertical="vertical" v-model="lvl_up_notif1" permanent>
         <v-row justify="center">
           <span class="notifText">Subiste de nivel</span>
         </v-row>
         <v-row justify="center">
           <span class="lvl-up-text">+ 30</span>
-          <v-img
-            class="mt-2"
-            contain
-            src="../../assets/cash.svg"
-            height="34"
-            width="34"
-          ></v-img>
+          <v-img class="mt-2" contain src="../../assets/cash.svg" height="34" width="34"></v-img>
         </v-row>
 
         <!-- <v-btn
@@ -531,13 +442,7 @@
         </v-btn>-->
       </v-snackbar>
 
-      <v-snackbar
-        top
-        color="success"
-        :vertical="vertical"
-        v-model="snackbar"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="success" :vertical="vertical" v-model="snackbar" :timeout="timeout">
         <v-row justify="center">
           <span class="notifText">{{ text }}</span>
         </v-row>
@@ -555,13 +460,7 @@
       </v-snackbar>
     </div>
     <div>
-      <v-snackbar
-        top
-        color="red"
-        :vertical="vertical"
-        v-model="errorNotif"
-        :timeout="timeout"
-      >
+      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -581,36 +480,32 @@
         </v-btn>-->
       </v-snackbar>
       <div v-if="onclass">
-      <v-footer absolute color="green accent-4">
-        <v-row justify="spread-around">
-          <v-col cols="4">
-            <!-- <v-chip>{{countdown_timer}}</v-chip> -->
-          </v-col>
-          <v-col cols="4">
-            <!-- // send audio messages for leadership and maagenment ++ -->
-            <!-- // put icon and communicate next lvl make invision or protopie animation -->
-            <!-- nxt lvl buy boost from prof or compañeros parteners students-->
-            <v-row justify="center">
-               <v-icon large color="white">mdi-pencil-circle</v-icon>
-           <v-icon large color="white">mdi-lifebuoy</v-icon>
-           <v-icon large color="white">mdi-account-circle</v-icon>
-            </v-row>
-           
-
-          </v-col>
-          <v-col cols="4" >
-              <v-row class="fill-height" justify="center" align="center" >
-                 
-                  <v-icon large color="yellow">mdi-fire</v-icon>
-                  <!-- <v-icon large color="orange">mdi-fire</v-icon>
-                  <v-icon large color="red">mdi-fire</v-icon> -->
-            <v-progress-linear class="streak-bar" rounded  value="30" color="yellow" ></v-progress-linear>
-          
+        <v-footer absolute color="green accent-4">
+          <v-row justify="spread-around">
+            <v-col cols="4">
+              <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+            </v-col>
+            <v-col cols="4">
+              <!-- // send audio messages for leadership and maagenment ++ -->
+              <!-- // put icon and communicate next lvl make invision or protopie animation -->
+              <!-- nxt lvl buy boost from prof or compañeros parteners students-->
+              <v-row justify="center">
+                <v-icon large color="white">mdi-pencil-circle</v-icon>
+                <v-icon large color="white">mdi-lifebuoy</v-icon>
+                <v-icon large color="white">mdi-account-circle</v-icon>
               </v-row>
-          </v-col>
-        </v-row>
-      </v-footer>
-    </div>
+            </v-col>
+            <v-col cols="4">
+              <v-row class="fill-height" justify="center" align="center">
+                <v-icon large color="yellow">mdi-fire</v-icon>
+                <!-- <v-icon large color="orange">mdi-fire</v-icon>
+                <v-icon large color="red">mdi-fire</v-icon>-->
+                <v-progress-linear class="streak-bar" rounded value="30" color="yellow"></v-progress-linear>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-footer>
+      </div>
     </div>
     <v-dialog v-model="survey_time" max-width="500">
       <v-window v-model="survey">
@@ -623,7 +518,7 @@
             </v-card-title>
             <v-container>
               <v-row>
-                <h1>{{'3500 XP'}}</h1>
+                <h1>{{ total_xp }}</h1>
               </v-row>
             </v-container>
             <v-card-actions>
@@ -639,11 +534,9 @@
               </v-row>
             </v-card-title>
             <v-container>
-              <v-row justify="center">
-                
-              </v-row>
+              <v-row justify="center"></v-row>
             </v-container>
-            <v-img> </v-img>
+            <v-img></v-img>
           </v-card>
         </v-window-item>
         <v-window-item :value="3" width="300">
@@ -658,24 +551,20 @@
                 <v-col cols="6">
                   <v-row justify="center">
                     <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyLike">
-                        mdi-thumb-up-outline
-                      </v-icon>
+                      <v-icon color="white" @click="sendSurveyLike">mdi-thumb-up-outline</v-icon>
                     </v-btn>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row justify="center">
                     <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyUnlike">
-                        mdi-thumb-down-outline
-                      </v-icon>
+                      <v-icon color="white" @click="sendSurveyUnlike">mdi-thumb-down-outline</v-icon>
                     </v-btn>
                   </v-row>
                 </v-col>
               </v-row>
             </v-container>
-            <v-img> </v-img>
+            <v-img></v-img>
           </v-card>
         </v-window-item>
         <v-window-item :value="4" width="300">
@@ -690,24 +579,20 @@
                 <v-col cols="6">
                   <v-row justify="center">
                     <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyLike">
-                        mdi-thumb-up-outline
-                      </v-icon>
+                      <v-icon color="white" @click="sendSurveyLike">mdi-thumb-up-outline</v-icon>
                     </v-btn>
                   </v-row>
                 </v-col>
                 <v-col cols="6">
                   <v-row justify="center">
                     <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyUnlike">
-                        mdi-thumb-down-outline
-                      </v-icon>
+                      <v-icon color="white" @click="sendSurveyUnlike">mdi-thumb-down-outline</v-icon>
                     </v-btn>
                   </v-row>
                 </v-col>
               </v-row>
             </v-container>
-            <v-img> </v-img>
+            <v-img></v-img>
           </v-card>
         </v-window-item>
         <v-window-item :value="5" width="500">
@@ -720,25 +605,14 @@
             <v-container>
               <v-row justify="center">
                 <v-container>
-                  <v-textarea
-                    outlined
-                    color="deep-purple accent-3"
-                    v-model="group_note"
-                  >
-                  </v-textarea>
+                  <v-textarea outlined color="deep-purple accent-3" v-model="group_note"></v-textarea>
                 </v-container>
               </v-row>
               <v-card-actions>
-                <v-btn
-                  text
-                  color="deep-purple accent-3"
-                  @click="sendGroupNotes"
-                >
-                  Enviar
-                </v-btn>
+                <v-btn text color="deep-purple accent-3" @click="sendGroupNotes">Enviar</v-btn>
               </v-card-actions>
             </v-container>
-            <v-img> </v-img>
+            <v-img></v-img>
           </v-card>
         </v-window-item>
       </v-window>
@@ -760,10 +634,11 @@ export default {
 
   data() {
     return {
-      total_xp:0,
-      total_rewards:[],
-      initSound:null,
-      onclass:false,
+      tokens_trivia_reward: 9,
+      total_xp: 0,
+      total_rewards: [],
+      initSound: null,
+      onclass: false,
       triggers: [],
       top1_3: null,
       top3_6: null,
@@ -795,8 +670,8 @@ export default {
       trivia_is_active: false,
       errorNotif: false,
       earned_xp: 30,
-      earned_tokens:3,
-      lvl_up_reward:6,
+      earned_tokens: 3,
+      lvl_up_reward: 30,
       vertical: true,
       snackbar: false,
       text: "Acertaste!",
@@ -925,19 +800,33 @@ export default {
             .doc(this.user)
             .update({
               student_xp_level: this.student_xp_level,
-              lvl_1_rewarded: true,
-              token_balance: 10
+              lvl_1_rewarded: true
             })
             .then(() => {
               this.lvl_up_notif1 = true;
-              //timeout
-              db.collection("usuarios")
-                .doc(this.user)
-                .get()
-                .then(snapshot => {
-                  const document = snapshot.data();
-                  this.token_balance = document.token_balance;
-                });
+              const increment = firebase.firestore.FieldValue.increment(
+                this.tokens_reward
+              );
+              const tokensRef = db
+                .collection(
+                  this.school_name + "-" + this.classroom + "-students"
+                )
+                .doc(this.user);
+              const batch = db.batch();
+              batch.set(
+                tokensRef,
+                { token_balance: increment },
+                { merge: true }
+              );
+              batch.commit().then(() => {
+                db.collection("usuarios")
+                  .doc(this.user)
+                  .get()
+                  .then(snapshot => {
+                    const document = snapshot.data();
+                    this.token_balance = document.token_balance;
+                  });
+              });
             });
         }
         this.svg_level1 = false;
@@ -964,12 +853,7 @@ export default {
         // this.percentageLevel3();
       }
     },
-    boost() {
-      
-  
-      
-     
-    }
+    boost() {}
     // boost(){
     //   if(this.boost = true){
     //     setTimeout(() => {
@@ -1079,7 +963,7 @@ export default {
               .then(snapshot => {
                 const document = snapshot.data();
                 this.prof_email = document.prof_email;
-                this.onclass = document.onclass
+                this.onclass = document.onclass;
                 db.collection(this.prof_email)
                   .doc("?")
                   .get()
@@ -1129,8 +1013,7 @@ export default {
                     change.doc.data().message === "impulso" &&
                     change.doc.data().timestamp >= Date.now() - 3000
                   ) {
-                    this.availableBoost()
-                    
+                    this.availableBoost();
 
                     setTimeout(() => {
                       this.boost = false;
@@ -1142,32 +1025,29 @@ export default {
                       timestamp: moment(doc.data().timestamp).format("LTS")
                     });
                   }
-                   if(
-                change.doc.data().sender === this.prof_email &&
-                change.doc.data().message === "iniciar clase" &&
-                change.doc.data().timestamp >= Date.now() - 3000
-              ){
-                  console.log('funcione a init')
-                this.initializeClass()
-              }
-              else if(
-                change.doc.data().sender === this.prof_email &&
-                change.doc.data().message === 'terminar clase' &&
-                change.doc.data().timestamp >= Date.now() - 3000
-              ){
-                this.onclass = false
-                this.finalizeClass()
-              }
-              else if (
-                change.doc.data().sender === this.prof_email &&
-                change.doc.data().message === this.user &&
-                change.doc.data().timestamp >= Date.now() - 3000
-              ){
-                this.validatePresence()
-              } else {
-                console.log('no es el avatar')
-              
-              }
+                  if (
+                    change.doc.data().sender === this.prof_email &&
+                    change.doc.data().message === "iniciar clase" &&
+                    change.doc.data().timestamp >= Date.now() - 3000
+                  ) {
+                    console.log("funcione a init");
+                    this.initializeClass();
+                  } else if (
+                    change.doc.data().sender === this.prof_email &&
+                    change.doc.data().message === "terminar clase" &&
+                    change.doc.data().timestamp >= Date.now() - 3000
+                  ) {
+                    this.onclass = false;
+                    this.finalizeClass();
+                  } else if (
+                    change.doc.data().sender === this.prof_email &&
+                    change.doc.data().message === this.user &&
+                    change.doc.data().timestamp >= Date.now() - 3000
+                  ) {
+                    this.validatePresence();
+                  } else {
+                    console.log("no es el avatar");
+                  }
                 }
               });
             });
@@ -1200,55 +1080,52 @@ export default {
       });
   },
   methods: {
-    finalizeClass(){
-      db.collection(this.user + '-stats')
+    finalizeClass() {
+      db.collection(this.user + "-stats")
         .orderBy("timestamp")
         .limit(3)
         .get()
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map(doc => {
-            console.log('map,earned xp',doc.data().earned_xp)
-            this.total_rewards.push(doc.data().earned_xp)
-          })
-              this.total_xp = this.total_rewards.reduce((a, b) => a + b ,0 )
-        })
+            console.log("map,earned xp", doc.data().earned_xp);
+            this.total_rewards.push(doc.data().earned_xp);
+          });
+          this.total_xp = this.total_rewards.reduce((a, b) => a + b, 0);
+        });
       // this.survey_time = true
       // this.$router.push('/student-lobby')
     },
-    initializeClass(){
-        const preProfName = this.$route.params.id
-        const newProfName = preProfName.replace('_',' ')
-       db.collection(this.school_name + "-" + this.level + "-professors")
-            .doc(newProfName)
-            .get()
-            .then(snapshot => {
-              const document = snapshot.data();
-              console.log("profDoc", document);
-              if ( document.onclass === true) {
-               
-              
-                this.onclass = true
-                  this.initSound.play()
-                setTimeout(() => {
-                  this.initSound.pause()
-                },3000)
-
-              } else if( document.onclass === false) {
-                this.onclass = false
-              }
-            });
+    initializeClass() {
+      const preProfName = this.$route.params.id;
+      const newProfName = preProfName.replace("_", " ");
+      db.collection(this.school_name + "-" + this.level + "-professors")
+        .doc(newProfName)
+        .get()
+        .then(snapshot => {
+          const document = snapshot.data();
+          console.log("profDoc", document);
+          if (document.onclass === true) {
+            this.onclass = true;
+            this.initSound.play();
+            setTimeout(() => {
+              this.initSound.pause();
+            }, 3000);
+          } else if (document.onclass === false) {
+            this.onclass = false;
+          }
+        });
     },
-   availableBoost(){
-     this.boost = true;
-  //           const audio = new Audio(require("../../assets/boost2.mp3"));
-  //     const boostDisponible = new Audio(
-  //       require("../../assets/impulso-disponible.mp3")
-  //     );
-  //     audio.play();
-  //     setTimeout(() => {
-  //       audio.pause();
-  //       boostDisponible.play();
-  //     }, 2000);
+    availableBoost() {
+      this.boost = true;
+      //           const audio = new Audio(require("../../assets/boost2.mp3"));
+      //     const boostDisponible = new Audio(
+      //       require("../../assets/impulso-disponible.mp3")
+      //     );
+      //     audio.play();
+      //     setTimeout(() => {
+      //       audio.pause();
+      //       boostDisponible.play();
+      //     }, 2000);
     },
     activateBoost() {
       this.boost_activated = true;
@@ -1332,24 +1209,25 @@ export default {
         });
     },
     checkAnswer1() {
-      const winAudio = new Audio(require('../../assets/win.wav'))
-      const loseAudio = new Audio(require('../../assets/lose.mp3'))
+      const winAudio = new Audio(require("../../assets/win.wav"));
+      const loseAudio = new Audio(require("../../assets/lose.mp3"));
       this.trivia_is_active = false;
       if (this.answer1 === this.right_answer && this.boost_activated === true) {
-        winAudio.play()
-        db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.tokens_trivia_reward,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp * 2
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1368,29 +1246,33 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer1 != this.right_answer && this.boost_activated === true) {
+      } else if (
+        this.answer1 != this.right_answer &&
+        this.boost_activated === true
+      ) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
       }
-      if (this.answer1 === this.right_answer ) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+      if (this.answer1 === this.right_answer) {
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1409,9 +1291,9 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer1 != this.right_answer ) {
+      } else if (this.answer1 != this.right_answer) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1419,24 +1301,25 @@ export default {
       }
     },
     checkAnswer2() {
-     const winAudio = new Audio(require('../../assets/win.wav'))
-      const loseAudio = new Audio(require('../../assets/lose.mp3'))
+      const winAudio = new Audio(require("../../assets/win.wav"));
+      const loseAudio = new Audio(require("../../assets/lose.mp3"));
       this.trivia_is_active = false;
       if (this.answer2 === this.right_answer && this.boost_activated === true) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp * 2
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1455,29 +1338,33 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer2 != this.right_answer && this.boost_activated === true) {
+      } else if (
+        this.answer2 != this.right_answer &&
+        this.boost_activated === true
+      ) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
       }
-      if (this.answer2 === this.right_answer ) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+      if (this.answer2 === this.right_answer) {
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1496,9 +1383,9 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer2 != this.right_answer ) {
+      } else if (this.answer2 != this.right_answer) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1506,24 +1393,25 @@ export default {
       }
     },
     checkAnswer3() {
-    const winAudio = new Audio(require('../../assets/win.wav'))
-      const loseAudio = new Audio(require('../../assets/lose.mp3'))
+      const winAudio = new Audio(require("../../assets/win.wav"));
+      const loseAudio = new Audio(require("../../assets/lose.mp3"));
       this.trivia_is_active = false;
       if (this.answer3 === this.right_answer && this.boost_activated === true) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp * 2
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1542,29 +1430,33 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer3 != this.right_answer && this.boost_activated === true) {
+      } else if (
+        this.answer3 != this.right_answer &&
+        this.boost_activated === true
+      ) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
       }
-      if (this.answer3 === this.right_answer ) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+      if (this.answer3 === this.right_answer) {
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1583,9 +1475,9 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer3 != this.right_answer ) {
+      } else if (this.answer3 != this.right_answer) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1594,24 +1486,25 @@ export default {
     },
     checkAnswer4() {
       //mejora el timing en la secuencia
-      const winAudio = new Audio(require('../../assets/win.wav'))
-      const loseAudio = new Audio(require('../../assets/lose.mp3'))
+      const winAudio = new Audio(require("../../assets/win.wav"));
+      const loseAudio = new Audio(require("../../assets/lose.mp3"));
       this.trivia_is_active = false;
       if (this.answer4 === this.right_answer && this.boost_activated === true) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp * 2
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1630,29 +1523,33 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer4 != this.right_answer && this.boost_activated === true) {
+      } else if (
+        this.answer4 != this.right_answer &&
+        this.boost_activated === true
+      ) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
           .then(() => console.log("wrong updated"));
       }
-      if (this.answer4 === this.right_answer ) {
-        winAudio.play()
-         db.collection(this.user + '-stats')
-          .add({
-            earned_xp: this.earned_xp,
-            earned_tokens: this.earned_tokens,
-            lvl_up_reward: this.lvl_up_reward,
-            timestamp: Date.now()
-          })
+      if (this.answer4 === this.right_answer) {
+        winAudio.play();
+        db.collection(this.user + "-stats").add({
+          earned_xp: this.earned_xp,
+          earned_tokens: this.earned_tokens,
+          lvl_up_reward: this.lvl_up_reward,
+          timestamp: Date.now()
+        });
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
+        const increment = firebase.firestore.FieldValue.increment(
+          this.earned_xp
+        );
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1671,9 +1568,9 @@ export default {
 
           console.log("mision xp cumplida");
         });
-      } else if(this.answer4 != this.right_answer ) {
+      } else if (this.answer4 != this.right_answer) {
         this.errorNotif = true;
-        loseAudio.play()
+        loseAudio.play();
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: false, answered: true })
@@ -1681,11 +1578,11 @@ export default {
       }
     },
     submit() {
-       this.initSound = new Audio(require('../../assets/boost2.mp3'))
-       this.initSound.play().then(() => {
-           this.initSound.pause()
-       })
-     
+      this.initSound = new Audio(require("../../assets/boost2.mp3"));
+      this.initSound.play().then(() => {
+        this.initSound.pause();
+      });
+
       db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
@@ -1959,7 +1856,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.streak-bar{
+.streak-bar {
   width: 180px;
 }
 .alias-text {
