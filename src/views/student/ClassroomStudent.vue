@@ -513,16 +513,42 @@
           <v-card>
             <v-card-title>
               <v-row justify="center">
+                <h1>Eres el número 1!</h1>
+     
+              </v-row>
+            </v-card-title>
+            <v-container>
+                       <lottie-animation
+    path="../../assets/trophy.json"
+    :loop="false"
+    :autoPlay="true"
+    :loopDelayMin="2.5"
+    :loopDelayMax="5"
+    :speed="1"
+    :width="256"
+    :height="256"
+    @AnimControl="setAnimController"
+/>
+            </v-container>
+            <v-card-actions>
+              <v-btn @click="survey = 2">siguiente</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-window-item>
+        <v-window-item :value="2" width="300">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
                 <h3>Resultado</h3>
               </v-row>
             </v-card-title>
             <v-container>
-              <v-row>
-                <h1>{{ total_xp }}</h1>
+              <v-row justify="center">
+                <h1>{{ total_xp + 'XP'}}</h1>
               </v-row>
             </v-container>
             <v-card-actions>
-              <v-btn @click="survey = 2">siguiente</v-btn>
+              <v-btn @click="survey = 3">siguiente</v-btn>
             </v-card-actions>
           </v-card>
         </v-window-item>
@@ -534,37 +560,12 @@
               </v-row>
             </v-card-title>
             <v-container>
-              <v-row justify="center"></v-row>
-            </v-container>
-            <v-img></v-img>
-          </v-card>
-        </v-window-item>
-        <v-window-item :value="3" width="300">
-          <v-card>
-            <v-card-title>
               <v-row justify="center">
-                <h3>¿Te gustó la clase</h3>
-              </v-row>
-            </v-card-title>
-            <v-container>
-              <v-row>
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyLike">mdi-thumb-up-outline</v-icon>
-                    </v-btn>
-                  </v-row>
-                </v-col>
-                <v-col cols="6">
-                  <v-row justify="center">
-                    <v-btn color="deep-purple accent-3">
-                      <v-icon color="white" @click="sendSurveyUnlike">mdi-thumb-down-outline</v-icon>
-                    </v-btn>
-                  </v-row>
-                </v-col>
+                <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
+                <h2>{{total_tokens}}</h2>
               </v-row>
             </v-container>
-            <v-img></v-img>
+           
           </v-card>
         </v-window-item>
         <v-window-item :value="4" width="300">
@@ -634,8 +635,11 @@ export default {
 
   data() {
     return {
+      survey:1,
+      total_match_rewards:[],
       tokens_trivia_reward: 9,
       total_xp: 0,
+      total_tokens:0,
       total_rewards: [],
       initSound: null,
       onclass: false,
@@ -671,7 +675,7 @@ export default {
       errorNotif: false,
       earned_xp: 30,
       earned_tokens: 3,
-      lvl_up_reward: 30,
+      // lvl_up_reward: 30,
       vertical: true,
       snackbar: false,
       text: "Acertaste!",
@@ -1080,17 +1084,55 @@ export default {
       });
   },
   methods: {
+    sendGroupNotes() {
+      db.collection(this.prof_email)
+        .add({
+          note: this.group_note
+        })
+        .then(() => {
+          this.survey_time = false;
+          this.$router.push('/student-schedule')
+        });
+    },
+     sendSurveyLike() {
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyLikesRef = db
+        .collection(this.prof_email + "-stats")
+        .doc("likes");
+      const batch = db.batch();
+      batch.set(surveyLikesRef, { like: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        this.survey++;
+      });
+    },
+     sendSurveyUnlike() {
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyUnlikesRef = db
+        .collection(this.prof_email + "-stats")
+        .doc("unlikes");
+      const batch = db.batch();
+      batch.set(surveyUnlikesRef, { unlike: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        this.survey++;
+      });
+    },
     finalizeClass() {
+      // this.loading_results = true
       db.collection(this.user + "-stats")
         .orderBy("timestamp")
         .limit(3)
         .get()
         .then(querySnapshot => {
+          this.survey_time = true
           const documents = querySnapshot.docs.map(doc => {
             console.log("map,earned xp", doc.data().earned_xp);
             this.total_rewards.push(doc.data().earned_xp);
+            this.total_match_rewards.push(doc.data().earned_tokens)
           });
           this.total_xp = this.total_rewards.reduce((a, b) => a + b, 0);
+          this.total_tokens = this.total_match_rewards.reduce((a, b) => a + b, 0);
         });
       // this.survey_time = true
       // this.$router.push('/student-lobby')
@@ -1217,7 +1259,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.tokens_trivia_reward,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1262,7 +1304,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1309,7 +1351,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1354,7 +1396,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1401,7 +1443,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1446,7 +1488,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1494,7 +1536,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")
@@ -1539,7 +1581,7 @@ export default {
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
-          lvl_up_reward: this.lvl_up_reward,
+          // lvl_up_reward: this.lvl_up_reward,
           timestamp: Date.now()
         });
         db.collection(this.school_name + "-" + this.classroom + "-students")

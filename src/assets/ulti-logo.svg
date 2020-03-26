@@ -1,0 +1,27 @@
+<svg width="241" height="240" viewBox="0 0 241 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d)">
+<path d="M235.5 116C235.5 179.231 184.019 230.5 120.5 230.5C56.9812 230.5 5.5 179.231 5.5 116C5.5 52.7695 56.9812 1.5 120.5 1.5C184.019 1.5 235.5 52.7695 235.5 116Z" stroke="white" stroke-width="3"/>
+<path d="M72.5 54L72.5 176" stroke="white" stroke-width="24" stroke-linecap="round"/>
+<path d="M73.3901 42C66.7627 42 61.3901 47.3726 61.3901 54C61.3901 60.6274 66.7627 66 73.3901 66V42ZM165.5 66C172.128 66 177.5 60.6274 177.5 54C177.5 47.3726 172.128 42 165.5 42V66ZM73.3901 66H165.5V42H73.3901V66Z" fill="white"/>
+<path d="M72.5 177H165.5" stroke="white" stroke-width="24" stroke-linecap="round"/>
+<path d="M132.572 127C139.199 127 144.572 121.627 144.572 115C144.572 108.373 139.199 103 132.572 103V127ZM76.5049 127H132.572V103H76.5049V127Z" fill="white"/>
+<circle cx="163.5" cy="54" r="7" fill="#6100FF"/>
+<circle cx="163.5" cy="177" r="7" fill="#6100FF"/>
+<circle cx="130.5" cy="115" r="7" fill="#6100FF"/>
+<path d="M72.4857 51.4C71.0498 51.4079 69.8922 52.5784 69.9 54.0143C69.9079 55.4502 71.0784 56.6079 72.5143 56.6L72.4857 51.4ZM163.486 50.9L72.4857 51.4L72.5143 56.6L163.514 56.1L163.486 50.9Z" fill="#6100FF"/>
+<path d="M75 55C75 53.3431 73.6568 52 72 52C70.3431 52 69 53.3431 69 55L75 55ZM69 176C69 177.657 70.3431 179 72 179C73.6569 179 75 177.657 75 176L69 176ZM69 55L69 176L75 176L75 55L69 55Z" fill="#6100FF"/>
+<path d="M72.5 174C70.8431 174 69.5 175.343 69.5 177C69.5 178.657 70.8431 180 72.5 180V174ZM72.5 180H165.5V174H72.5V180Z" fill="#6100FF"/>
+<line x1="73.5" y1="115" x2="132.5" y2="115" stroke="#6100FF" stroke-width="6"/>
+</g>
+<defs>
+<filter id="filter0_d" x="0" y="0" width="241" height="240" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+</defs>
+</svg>

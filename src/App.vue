@@ -34,9 +34,9 @@
           >
           <v-row justify="center" align="center">
             <v-img
-             src="./assets/EscutekLogo.svg"
-             height="40"
-             width="40"
+             src="./assets/ulti-logo.svg"
+             height="80"
+             width="80"
              contain
              class="mt-6 mb-4 mr-2"
              ></v-img>
