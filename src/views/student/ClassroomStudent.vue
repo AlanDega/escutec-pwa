@@ -391,7 +391,7 @@
                 <!-- v-for="(student, i) in top9" :key="i" -->
                 <v-carousel-item v-for="(student, i) in top1_3" :key="i">
                   <v-card color="transparent" height="300">
-                    <v-row class="fill-height" align="center" justify="center">
+                    <v-row  align="center" justify="center">
                       <v-list-item dark>
                         <v-icon color="deep-purple accent-3" class="mr-2"
                           >mdi-numeric-1-circle</v-icon
@@ -420,7 +420,7 @@
                     v-for="(student, i) in top1_3"
                     :key="i"
                   >
-                    <v-row class="fill-height" align="center" justify="center">
+                    <v-row  align="center" justify="center">
                       <v-list-item dark>
                         <v-icon color="deep-purple accent-3" class="mr-2"
                           >mdi-numeric-1-circle</v-icon
@@ -580,7 +580,169 @@
         Close
         </v-btn>-->
       </v-snackbar>
+      <div v-if="onclass">
+      <v-footer absolute color="green accent-4">
+        <v-row justify="spread-around">
+          <v-col cols="4">
+            <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+          </v-col>
+          <v-col cols="4">
+            <!-- // send audio messages for leadership and maagenment ++ -->
+            <!-- // put icon and communicate next lvl make invision or protopie animation -->
+            <!-- nxt lvl buy boost from prof or compañeros parteners students-->
+            <v-row justify="center">
+               <v-icon large color="white">mdi-pencil-circle</v-icon>
+           <v-icon large color="white">mdi-lifebuoy</v-icon>
+           <v-icon large color="white">mdi-account-circle</v-icon>
+            </v-row>
+           
+
+          </v-col>
+          <v-col cols="4" >
+              <v-row class="fill-height" justify="center" align="center" >
+                 
+                  <v-icon large color="yellow">mdi-fire</v-icon>
+                  <!-- <v-icon large color="orange">mdi-fire</v-icon>
+                  <v-icon large color="red">mdi-fire</v-icon> -->
+            <v-progress-linear class="streak-bar" rounded  value="30" color="yellow" ></v-progress-linear>
+          
+              </v-row>
+          </v-col>
+        </v-row>
+      </v-footer>
     </div>
+    </div>
+    <v-dialog v-model="survey_time" max-width="500">
+      <v-window v-model="survey">
+        <v-window-item :value="1" width="300">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>Resultado</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row>
+                <h1>{{'3500 XP'}}</h1>
+              </v-row>
+            </v-container>
+            <v-card-actions>
+              <v-btn @click="survey = 2">siguiente</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-window-item>
+        <v-window-item :value="2" width="300">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>Tokens</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row justify="center">
+                
+              </v-row>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
+        </v-window-item>
+        <v-window-item :value="3" width="300">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>¿Te gustó la clase</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyLike">
+                        mdi-thumb-up-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyUnlike">
+                        mdi-thumb-down-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
+        </v-window-item>
+        <v-window-item :value="4" width="300">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>¿Te gustó la clase</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyLike">
+                        mdi-thumb-up-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyUnlike">
+                        mdi-thumb-down-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
+        </v-window-item>
+        <v-window-item :value="5" width="500">
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>Notas del grupo</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row justify="center">
+                <v-container>
+                  <v-textarea
+                    outlined
+                    color="deep-purple accent-3"
+                    v-model="group_note"
+                  >
+                  </v-textarea>
+                </v-container>
+              </v-row>
+              <v-card-actions>
+                <v-btn
+                  text
+                  color="deep-purple accent-3"
+                  @click="sendGroupNotes"
+                >
+                  Enviar
+                </v-btn>
+              </v-card-actions>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
+        </v-window-item>
+      </v-window>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -598,8 +760,11 @@ export default {
 
   data() {
     return {
+      total_xp:0,
+      total_rewards:[],
+      initSound:null,
+      onclass:false,
       triggers: [],
-
       top1_3: null,
       top3_6: null,
       top6_9: null,
@@ -629,7 +794,9 @@ export default {
       video_resources: [],
       trivia_is_active: false,
       errorNotif: false,
-      earned_xp: "+ 50xp",
+      earned_xp: 30,
+      earned_tokens:3,
+      lvl_up_reward:6,
       vertical: true,
       snackbar: false,
       text: "Acertaste!",
@@ -912,6 +1079,7 @@ export default {
               .then(snapshot => {
                 const document = snapshot.data();
                 this.prof_email = document.prof_email;
+                this.onclass = document.onclass
                 db.collection(this.prof_email)
                   .doc("?")
                   .get()
@@ -974,6 +1142,32 @@ export default {
                       timestamp: moment(doc.data().timestamp).format("LTS")
                     });
                   }
+                   if(
+                change.doc.data().sender === this.prof_email &&
+                change.doc.data().message === "iniciar clase" &&
+                change.doc.data().timestamp >= Date.now() - 3000
+              ){
+                  console.log('funcione a init')
+                this.initializeClass()
+              }
+              else if(
+                change.doc.data().sender === this.prof_email &&
+                change.doc.data().message === 'terminar clase' &&
+                change.doc.data().timestamp >= Date.now() - 3000
+              ){
+                this.onclass = false
+                this.finalizeClass()
+              }
+              else if (
+                change.doc.data().sender === this.prof_email &&
+                change.doc.data().message === this.user &&
+                change.doc.data().timestamp >= Date.now() - 3000
+              ){
+                this.validatePresence()
+              } else {
+                console.log('no es el avatar')
+              
+              }
                 }
               });
             });
@@ -1006,6 +1200,44 @@ export default {
       });
   },
   methods: {
+    finalizeClass(){
+      db.collection(this.user + '-stats')
+        .orderBy("timestamp")
+        .limit(3)
+        .get()
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map(doc => {
+            console.log('map,earned xp',doc.data().earned_xp)
+            this.total_rewards.push(doc.data().earned_xp)
+          })
+              this.total_xp = this.total_rewards.reduce((a, b) => a + b ,0 )
+        })
+      // this.survey_time = true
+      // this.$router.push('/student-lobby')
+    },
+    initializeClass(){
+        const preProfName = this.$route.params.id
+        const newProfName = preProfName.replace('_',' ')
+       db.collection(this.school_name + "-" + this.level + "-professors")
+            .doc(newProfName)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              console.log("profDoc", document);
+              if ( document.onclass === true) {
+               
+              
+                this.onclass = true
+                  this.initSound.play()
+                setTimeout(() => {
+                  this.initSound.pause()
+                },3000)
+
+              } else if( document.onclass === false) {
+                this.onclass = false
+              }
+            });
+    },
    availableBoost(){
      this.boost = true;
   //           const audio = new Audio(require("../../assets/boost2.mp3"));
@@ -1105,12 +1337,19 @@ export default {
       this.trivia_is_active = false;
       if (this.answer1 === this.right_answer && this.boost_activated === true) {
         winAudio.play()
+        db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(100);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1139,12 +1378,19 @@ export default {
       }
       if (this.answer1 === this.right_answer ) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1178,12 +1424,19 @@ export default {
       this.trivia_is_active = false;
       if (this.answer2 === this.right_answer && this.boost_activated === true) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(100);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1212,12 +1465,19 @@ export default {
       }
       if (this.answer2 === this.right_answer ) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1251,12 +1511,19 @@ export default {
       this.trivia_is_active = false;
       if (this.answer3 === this.right_answer && this.boost_activated === true) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(100);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1285,12 +1552,19 @@ export default {
       }
       if (this.answer3 === this.right_answer ) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1325,12 +1599,19 @@ export default {
       this.trivia_is_active = false;
       if (this.answer4 === this.right_answer && this.boost_activated === true) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(100);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp * 2);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1359,12 +1640,19 @@ export default {
       }
       if (this.answer4 === this.right_answer ) {
         winAudio.play()
+         db.collection(this.user + '-stats')
+          .add({
+            earned_xp: this.earned_xp,
+            earned_tokens: this.earned_tokens,
+            lvl_up_reward: this.lvl_up_reward,
+            timestamp: Date.now()
+          })
         db.collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user)
           .update({ right: true, answered: true })
           .then(() => console.log("right updated"));
         this.snackbar = true;
-        const increment = firebase.firestore.FieldValue.increment(50);
+        const increment = firebase.firestore.FieldValue.increment(this.earned_xp);
         const xpRef = db
           .collection(this.school_name + "-" + this.classroom + "-students")
           .doc(this.user);
@@ -1393,6 +1681,11 @@ export default {
       }
     },
     submit() {
+       this.initSound = new Audio(require('../../assets/boost2.mp3'))
+       this.initSound.play().then(() => {
+           this.initSound.pause()
+       })
+     
       db.collection(this.classroom + "-messages")
         .add({
           sender: this.user,
@@ -1666,6 +1959,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.streak-bar{
+  width: 180px;
+}
 .alias-text {
   color: white;
   margin-top: 10%;

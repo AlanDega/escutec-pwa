@@ -1,26 +1,24 @@
 <template>
   <div>
     <v-row>
-        <div>
-          <v-app-bar dense fixed color="white" flat dark absolute clipped-right>
-            
+      <div>
+        <v-app-bar dense fixed color="white" flat dark absolute clipped-right>
+          <v-spacer></v-spacer>
+          <v-chip class="ma-2" color="black" text-color="white">
+            <v-avatar left>
+              <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
+            </v-avatar>
+            {{ token_balance }}
+          </v-chip>
 
-            <v-spacer></v-spacer>
-            <v-chip class="ma-2" color="black" text-color="white">
-              <v-avatar left>
-                <v-icon color="deep-purple accent-3">mdi-atom-variant</v-icon>
-              </v-avatar>
-              {{ token_balance }}
-            </v-chip>
+          <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
 
-            <v-icon color="deep-purple accent-3">mdi-bell-outline</v-icon>
-
-            <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
-              >mdi-cog-outline</v-icon
-            >
-          </v-app-bar>
-        </div>
-      </v-row>
+          <v-icon color="deep-purple accent-3" @click="logout" class="ml-2"
+            >mdi-cog-outline</v-icon
+          >
+        </v-app-bar>
+      </div>
+    </v-row>
     <v-row class="mt-8">
       <v-col align="center" cols="10">
         <v-container>
@@ -48,13 +46,12 @@
                 <v-col>
                   <v-card>
                     <v-col>
-                      <v-row >
+                      <v-row>
                         <v-list ref="chat" id="logs">
                           <template v-for="(message, index) in messages">
-                            <v-subheader
-                              v-if="message"
-                              :key="index"
-                            >{{ message.sender + ":" + message.message }}</v-subheader>
+                            <v-subheader v-if="message" :key="index">{{
+                              message.sender + ":" + message.message
+                            }}</v-subheader>
                           </template>
                         </v-list>
                       </v-row>
@@ -70,7 +67,12 @@
                           ></v-text-field>
                         </v-col>
                         <v-col cols="2">
-                          <v-btn dark color="deep-purple accent-3" @click="submit">Enviar</v-btn>
+                          <v-btn
+                            dark
+                            color="deep-purple accent-3"
+                            @click="submit"
+                            >Enviar</v-btn
+                          >
                         </v-col>
                       </v-row>
                     </v-col>
@@ -86,7 +88,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-image</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-image</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-col>
@@ -96,7 +100,8 @@
                               :key="index"
                               text
                               :href="img.url"
-                            >{{ img.title }}</v-btn>
+                              >{{ img.title }}</v-btn
+                            >
                           </v-row>
                         </v-col>
                       </v-row>
@@ -107,7 +112,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-play-box</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-play-box</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -115,7 +122,8 @@
                           :key="index"
                           text
                           :href="video.url"
-                        >{{ video.title }}</v-btn>
+                          >{{ video.title }}</v-btn
+                        >
                       </v-row>
                     </v-col>
                   </v-card>
@@ -124,7 +132,9 @@
                   <v-card>
                     <v-col>
                       <v-row justify="center">
-                        <v-icon color="deep-purple accent-3" class="mb-4">mdi-text</v-icon>
+                        <v-icon color="deep-purple accent-3" class="mb-4"
+                          >mdi-text</v-icon
+                        >
                       </v-row>
                       <v-row justify="center">
                         <v-btn
@@ -132,7 +142,8 @@
                           :key="index"
                           text
                           :href="text.url"
-                        >{{ text.title }}</v-btn>
+                          >{{ text.title }}</v-btn
+                        >
                       </v-row>
                     </v-col>
                   </v-card>
@@ -146,44 +157,66 @@
                 <v-row>
                   <v-col v-for="(trivia, i) in trivias" :key="i" cols="4">
                     <v-card
-                      
-                      
                       class="trivia"
                       @click.stop="renderConfirmationDialog(trivia)"
-                    >{{trivia.question}}</v-card>
+                      >{{ trivia.question }}</v-card
+                    >
+                    </v-col>
                     <v-dialog v-model="triviaDialog" width="700">
                       <v-card>
-                        <v-card-title color="black" dark primary-title>{{question}}</v-card-title>
+                        <v-card-title color="black" dark primary-title>{{
+                          question
+                        }}</v-card-title>
 
                         <v-card-text>
                           <v-list-item two-line>
                             <v-list-item-content>
-                              <v-list-item-title>{{ answer1}}</v-list-item-title>
-                              <v-list-item-subtitle>Respuesta 1</v-list-item-subtitle>
+                              <v-list-item-title>{{
+                                answer1
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta 1</v-list-item-subtitle
+                              >
                             </v-list-item-content>
                           </v-list-item>
                           <v-list-item two-line>
                             <v-list-item-content>
-                              <v-list-item-title>{{ answer2 }}</v-list-item-title>
-                              <v-list-item-subtitle>Respuesta 2</v-list-item-subtitle>
+                              <v-list-item-title>{{
+                                answer2
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta 2</v-list-item-subtitle
+                              >
                             </v-list-item-content>
                           </v-list-item>
                           <v-list-item two-line>
                             <v-list-item-content>
-                              <v-list-item-title>{{ answer3 }}</v-list-item-title>
-                              <v-list-item-subtitle>Respuesta 3</v-list-item-subtitle>
+                              <v-list-item-title>{{
+                                answer3
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta 3</v-list-item-subtitle
+                              >
                             </v-list-item-content>
                           </v-list-item>
                           <v-list-item two-line>
                             <v-list-item-content>
-                              <v-list-item-title>{{ answer4 }}</v-list-item-title>
-                              <v-list-item-subtitle>Respuesta 4</v-list-item-subtitle>
+                              <v-list-item-title>{{
+                                answer4
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta 4</v-list-item-subtitle
+                              >
                             </v-list-item-content>
                           </v-list-item>
                           <v-list-item two-line>
                             <v-list-item-content>
-                              <v-list-item-title>{{ right_answer }}</v-list-item-title>
-                              <v-list-item-subtitle>Respuesta Correcta</v-list-item-subtitle>
+                              <v-list-item-title>{{
+                                right_answer
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta Correcta</v-list-item-subtitle
+                              >
                             </v-list-item-content>
                           </v-list-item>
                         </v-card-text>
@@ -196,11 +229,12 @@
                             color="deep-purple accent-3"
                             text
                             @click="initializeTrivia"
-                          >I accept</v-btn>
+                            >I accept</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                  </v-col>
+                  
                 </v-row>
               </v-card>
 
@@ -233,14 +267,17 @@
                   color="deep-purple accent-3"
                   :value="response_time"
                   absolute
-                >{{ response_time }}</v-progress-circular>
+                  >{{ response_time }}</v-progress-circular
+                >
               </v-row>
             </v-container>
 
             <v-snackbar :vertical="vertical" v-model="snackbar" bottom>
               <h2 class="correct">{{ correct_answers }}</h2>
               <h2 class="incorrect">{{ incorrect_answers }}</h2>
-              <v-icon color="deep-purple accent-3" @click="snackbar = false">mdi-close-circle</v-icon>
+              <v-icon color="deep-purple accent-3" @click="snackbar = false"
+                >mdi-close-circle</v-icon
+              >
             </v-snackbar>
           </v-tab-item>
         </v-tabs>
@@ -250,51 +287,44 @@
         <!-- <v-container fluid> -->
         <v-card class="side-bar-right">
           <v-container>
-            <v-row justify="center" class="mt-4 mb-6" >
+            <v-row justify="center" class="mt-4 mb-6">
               <h3 class="classroom-text">{{ this.classroom }}</h3>
             </v-row>
-            
-             <v-carousel
-                cycle
-                height="50%"
-                hide-delimiter-background
-                hide-delimiters
-                show-arrows-on-hover
-              >
-                <!-- v-for="(student, i) in top9" :key="i" -->
-                <v-carousel-item >
-                  <v-card color="transparent" height="600">
-                    <v-row class="fill-height" align="center" justify="center">
-                      <v-list-item dark v-for="(student, i) in top1_9" :key="i">
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-{{i + 1}}-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                    </v-row>
-                  </v-card>
-                </v-carousel-item>
-                <v-carousel-item>
-                  <v-card
-                    color="transparent"
-                    height="600"
-                    
-                  >
-                    <v-row class="fill-height" align="center" justify="center">
-                      <v-list-item 
-                      v-for="(student, i) in top10_18"
-                    :key="i"
-                      dark >
-                        <v-icon color="deep-purple accent-3" class="mr-2"
-                          >mdi-numeric-{{i + 10}}-circle</v-icon
-                        >
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                    </v-row>
-                  </v-card>
-                </v-carousel-item>
-              </v-carousel>
-              <!-- </v-col>
+
+            <v-carousel
+              cycle
+              height="50%"
+              hide-delimiter-background
+              hide-delimiters
+              show-arrows-on-hover
+            >
+              <!-- v-for="(student, i) in top9" :key="i" -->
+              <v-carousel-item>
+                <v-card color="transparent" height="600">
+                  <v-row class="fill-height" align="center" justify="center">
+                    <v-list-item dark v-for="(student, i) in top1_9" :key="i">
+                      <v-icon color="deep-purple accent-3" class="mr-2"
+                        >mdi-numeric-{{ i + 1 }}-circle</v-icon
+                      >
+                      {{ student.alias + "/" + student.xp }}
+                    </v-list-item>
+                  </v-row>
+                </v-card>
+              </v-carousel-item>
+              <v-carousel-item>
+                <v-card color="transparent" height="600">
+                  <v-row class="fill-height" align="center" justify="center">
+                    <v-list-item v-for="(student, i) in top10_18" :key="i" dark>
+                      <v-icon color="deep-purple accent-3" class="mr-2"
+                        >mdi-numeric-{{ i + 10 }}-circle</v-icon
+                      >
+                      {{ student.alias + "/" + student.xp }}
+                    </v-list-item>
+                  </v-row>
+                </v-card>
+              </v-carousel-item>
+            </v-carousel>
+            <!-- </v-col>
             </v-row> -->
           </v-container>
           <v-container>
@@ -316,7 +346,6 @@
                 width="100"
               ></v-img>
             </v-row>
-            
           </v-container>
         </v-card>
         <!-- </v-container> -->
@@ -345,108 +374,144 @@
         </v-row>
       </v-footer>
     </div>-->
-    <div v-if="!onclass">
+    <!-- <div v-if="!onclass">
       <v-footer absolute color="deep-purple accent-3">
         <v-row justify="center">
           <v-btn outlined dark @click="initializeClass">Iniciar clase</v-btn>
         </v-row>
       </v-footer>
-    </div>
-    <div v-if="checking_presence">
-      <v-footer absolute color="light-green accent-4">
-        <!-- <v-card-actions class="justify-space-between"> -->
+    </div> -->
+    <div v-if="onclass && checking_presence">
+      <v-footer absolute color="green accent-4" height="60%">
+        <v-row justify="spread-around">
+          <v-col cols="4">
+            <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+          </v-col>
+          <v-col cols="4">
+            <v-btn outlined color="white">comandos</v-btn>
+          </v-col>
+          <v-col cols="4">
+            <v-avatar color="white">
+              {{ remaining_boosts }}
+            </v-avatar>
+          </v-col>
+        </v-row>
+      </v-footer>
+      <!-- <v-footer absolute color="green accent-4" height="60%">
         <v-row justify="center">
-          <v-btn text @click="next" class="mr-12">
-            <v-icon color="red">mdi-close-circle</v-icon>
-          </v-btn>
-          <v-card flat tile width="200" color="deep-purple accent-3">
+          <v-card flat tile width="200" color="transparent">
             <v-window v-model="onboarding" vertical>
-              <v-window-item v-for="student in students" :key="`card-${student}`">
-                <!-- <v-card flat height="100%" color="deep-purple accent-3"> -->
-                <v-row class="fill-height" align="center" justify="center" tag="v-card-text">
-                  <p style="font-size: 18px;" class="white--text">{{ student.alias }}</p>
+              <v-window-item v-for="(student, i) in students" :key="i">
+                <v-row
+                  class="fill-height"
+                  align="center"
+                  justify="center"
+                  tag="v-card-text"
+                >
+                  <p style="font-size: 18px;" class="white--text ">
+                    {{ selected_student.alias }}
+                  </p>
                 </v-row>
-                <!-- </v-card> -->
               </v-window-item>
             </v-window>
           </v-card>
-          <v-btn text @click="next" class="ml-12">
             <v-icon color="green">mdi-check-circle</v-icon>
-          </v-btn>
+        </v-row>
+      </v-footer> -->
+    </div>
+    <div v-if="!checking_presence && onclass">
+      <v-footer absolute color="green accent-4">
+        <v-row justify="spread-around">
+          <v-col cols="4">
+            <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+          </v-col>
+          <v-col cols="4">
+            <v-btn outlined color="white">comandos</v-btn>
+          </v-col>
+          <v-col cols="4">
+            <v-avatar>
+              {{ remaining_boosts }}
+            </v-avatar>
+          </v-col>
         </v-row>
       </v-footer>
     </div>
-    <v-snackbar v-model="tableNotif" :timeout="timeout">{{ table_notif_text }}</v-snackbar>
-    <v-dialog v-model="survey_time" max-width="500" >
+
+    <v-snackbar v-model="tableNotif" :timeout="timeout">{{
+      table_notif_text
+    }}</v-snackbar>
+    <v-dialog v-model="survey_time" max-width="500">
       <v-window v-model="survey">
         <v-window-item :value="1" width="300">
-           <v-card>
-        <v-card-title>
-          <v-row justify="center">
-            <h3>Califica al grupo</h3>
-          </v-row>        
-        </v-card-title>
-        <v-container>
-          <v-row >
-            <v-col cols="6">
+          <v-card>
+            <v-card-title>
               <v-row justify="center">
-                 <v-btn color="deep-purple accent-3">
-                 <v-icon color="white" @click="sendSurveyLike">
-                mdi-thumb-up-outline
-              </v-icon>
-              </v-btn>
-              </v-row>      
-            </v-col>
-            <v-col cols="6">
-              <v-row justify="center">
-                <v-btn color="deep-purple accent-3">
-                <v-icon color="white" @click="sendSurveyUnlike">
-                mdi-thumb-down-outline
-              </v-icon>
-               </v-btn>
-              </v-row>        
-            </v-col>
-          </v-row>
-        </v-container>
-        <v-img>
-
-        </v-img>
-      </v-card>
+                <h3>Califica al grupo</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyLike">
+                        mdi-thumb-up-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+                <v-col cols="6">
+                  <v-row justify="center">
+                    <v-btn color="deep-purple accent-3">
+                      <v-icon color="white" @click="sendSurveyUnlike">
+                        mdi-thumb-down-outline
+                      </v-icon>
+                    </v-btn>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
         </v-window-item>
         <v-window-item :value="2" width="500">
-           <v-card>
-        <v-card-title>
-          <v-row justify="center">
-            <h3>Notas del grupo</h3>
-          </v-row>        
-        </v-card-title>
-        <v-container>
-                      <v-row justify="center">
-                        <v-container>
-                            <v-textarea outlined color="deep-purple accent-3" v-model="group_note">
-                </v-textarea>
-                        </v-container>
-              
-              </v-row>      
-                <v-card-actions>
-                   <v-btn text color="deep-purple accent-3" @click="sendGroupNotes">
-                     Enviar
-                  </v-btn>
-                </v-card-actions>      
-        </v-container>
-        <v-img>
-
-        </v-img>
-      </v-card>
+          <v-card>
+            <v-card-title>
+              <v-row justify="center">
+                <h3>Notas del grupo</h3>
+              </v-row>
+            </v-card-title>
+            <v-container>
+              <v-row justify="center">
+                <v-container>
+                  <v-textarea
+                    outlined
+                    color="deep-purple accent-3"
+                    v-model="group_note"
+                  >
+                  </v-textarea>
+                </v-container>
+              </v-row>
+              <v-card-actions>
+                <v-btn
+                  text
+                  color="deep-purple accent-3"
+                  @click="sendGroupNotes"
+                >
+                  Enviar
+                </v-btn>
+              </v-card-actions>
+            </v-container>
+            <v-img> </v-img>
+          </v-card>
         </v-window-item>
-        
       </v-window>
-     
     </v-dialog>
   </div>
 </template>
 
 <script>
+import { CometChat } from "@cometchat-pro/chat";
 import firebase from "firebase";
 import { db } from "../../db";
 import LineChart from "../../LineChart";
@@ -459,60 +524,45 @@ export default {
 
   data() {
     return {
-      onclass:null,
-      survey:1,
-      group_note:null,
-      survey_time:false,
-      top1_9:[
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
-        {alias: 'alumno1',
-        xp:150},
+      token_balance: 0,
+      remaining_boosts: 3,
+      // countdown_timer:
+      onclass: null,
+      survey: 1,
+      group_note: null,
+      survey_time: false,
+      top1_9: [
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 },
+        { alias: "alumno1", xp: 150 }
       ],
-      top10_18:[
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
-        {alias: 'alumno2',
-        xp:150},
+      top10_18: [
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 },
+        { alias: "alumno2", xp: 150 }
       ],
-      top19_27:[
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
-        'alumno1/15200xp',
+      top19_27: [
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp",
+        "alumno1/15200xp"
       ],
       triviaDialog: false,
       boost: false,
@@ -526,7 +576,6 @@ export default {
       group_quantity: null,
       onboarding: 0,
       class_is_active: null,
-      presence_checked: null,
       model: [],
       data_loading: true,
       headers: [
@@ -705,17 +754,20 @@ export default {
               "_" +
               this.prof_name +
               "&muted=true";
+              // db.collection(this.school_name + "-" + this.$route.params.id + "-students")
             db.collection(
               this.school_name + "-" + this.$route.params.id + "-students"
             )
-              .orderBy("xp", "desc")
-              .limit(9)
+              // .orderBy("xp", "desc")
+              // .limit(9)
               .get()
               .then(querySnapshot => {
                 const documents = querySnapshot.docs.map(doc => doc.data());
                 console.log("student-docs", documents);
                 this.group_quantity = documents.length;
                 this.students = documents;
+                 this.selected_student = this.students[this.onboarding];
+     
                 db.collection(this.prof_email)
                   .doc("?")
                   .get()
@@ -735,11 +787,14 @@ export default {
                         .then(snapshot => {
                           const document = snapshot.data();
                           console.log("si llego");
-                          if (document.presence_checked === true) {
+                          if (document.onclass === true && document.checking_presence === true) {
                             console.log("si llego");
-                            this.presence_checked = true;
-                          } else {
-                            this.presence_checked = false;
+                            this.onclass = true
+                            this.checking_presence = true
+                          } 
+                          else if(document.onclass === true && document.checking_presence === false) {
+                            this.onclass = true
+                            this.checking_presence = true
                           }
                         });
                     }
@@ -761,13 +816,16 @@ export default {
                 message: doc.data().message,
                 timestamp: moment(doc.data().timestamp).format("LTS")
               });
-              if(
-                change.doc.data().sender === this.user &&
-                change.doc.data().message === 'terminar clase' &&
-                change.doc.data().timestamp >= Date.now() - 3000
-              ){
-                this.activateSurveys()
-              }
+              console.log(
+                "doc-msg",
+                doc.data().message,
+                "doc.time",
+                moment(doc.data().timestamp).format("LTS")
+              );
+              console.log(
+                "time",
+                Date.Now >= moment(Date.now() - 3000).format("LTS")
+              );
             }
           });
         });
@@ -789,14 +847,6 @@ export default {
       }
     });
 
-    db.collection("Ingeniería-stjohns")
-      .doc("preparatoria")
-      .get()
-      .then(snapshot => {
-        const document = snapshot.data();
-        this.checking_presence = document.checking_presence;
-        this.presence_checked = document.presence_checked;
-      });
 
     db.collection("ingeniería-preparatoria-stjohns" + "-img-resources")
       .get()
@@ -821,44 +871,65 @@ export default {
       });
   },
   methods: {
-    activateSurveys(){
-      this.survey_time = true
+    boostSender(){
+      db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: this.msg,
+          timestamp: Date.now()
+        })
+        .catch(err => console.log("error", err))
+        .then(() => {
+          if (this.msg === "impulso") {
+            this.boost = true;
+            setTimeout(() => {
+              this.boost = false;
+            }, 3000);
+          }
+          // este add en inicializar clase
+          // por eso el loading
+
+          this.msg = "";
+        });
     },
-    sendSurveyLike(){
-    
-         const increment = firebase.firestore.FieldValue.increment(1);
-          const surveyLikesRef = db
-            .collection(this.classroom + "-stats")
-            .doc('likes');
-          const batch = db.batch();
-          batch.set(surveyLikesRef, { like: increment }, { merge: true });
-          batch.commit().then(() => {
-            console.log("mision likes cumplida");
-            this.survey ++
-          });
+    activateSurveys() {
+      this.survey_time = true;
     },
-    sendSurveyUnlike(){
-         const increment = firebase.firestore.FieldValue.increment(1);
-          const surveyUnlikesRef = db
-            .collection(this.classroom + "-stats")
-            .doc('unlikes');
-          const batch = db.batch();
-          batch.set(surveyUnlikesRef, { unlike: increment }, { merge: true });
-          batch.commit().then(() => {
-            console.log("mision likes cumplida");
-            this.survey ++
-          });
+    sendSurveyLike() {
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyLikesRef = db
+        .collection(this.classroom + "-stats")
+        .doc("likes");
+      const batch = db.batch();
+      batch.set(surveyLikesRef, { like: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        this.survey++;
+      });
     },
-    sendGroupNotes(){
+    sendSurveyUnlike() {
+      const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyUnlikesRef = db
+        .collection(this.classroom + "-stats")
+        .doc("unlikes");
+      const batch = db.batch();
+      batch.set(surveyUnlikesRef, { unlike: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        this.survey++;
+      });
+    },
+    sendGroupNotes() {
       db.collection(this.classroom)
-        .doc('notes')
+        .doc("notes")
         .set({
           note: this.group_note
-        }).then(() => {
-          this.survey_time = false
         })
+        .then(() => {
+          this.survey_time = false;
+        });
     },
-     logout() {
+    logout() {
       firebase
         .auth()
         .signOut()
@@ -887,28 +958,13 @@ export default {
       //   this.tableNotif = true;
       // }
     },
-    next() {
-      if (this.onboarding === this.students.length - 1) {
-        db.collection(this.school_name + "-" + this.level + "-professors")
-          .doc(this.pre_prof_name)
-          .update({ presence_checked: true, checking_presence: false })
-          // try this with slow connection
-          .then(() => {
-            db.collection(
-              this.school_name + "-" + this.classroom + "-students"
-            );
-
-            this.presence_checked = true;
-            this.checking_presence = false;
-          });
-      }
-      this.selected_student = this.students[this.onboarding];
-      this.onboarding =
-        this.onboarding + 1 === this.group_quantity ? 0 : this.onboarding + 1;
+    validatePresence() {
+        
       db.collection(this.school_name + "-" + this.classroom + "-students")
         .doc(this.selected_student.email)
         .update({ is_present: true })
         .then(() => {
+
           const increment = firebase.firestore.FieldValue.increment(10);
           const xpRef = db
             .collection(this.school_name + "-" + this.classroom + "-students")
@@ -916,40 +972,91 @@ export default {
           const batch = db.batch();
           batch.set(xpRef, { xp: increment }, { merge: true });
           batch.commit().then(() => {
-            console.log("mision cumplida");
+             this.onboarding =
+        this.onboarding + 1 === this.group_quantity ? 0 : this.onboarding + 1;
+            console.log("mision cumplida")
+             if (this.onboarding === this.students.length - 1) {
+        db.collection(this.school_name + "-" + this.level + "-professors")
+          .doc(this.pre_prof_name)
+          .update({ checking_presence: false })
+          // try this with slow connection
+          .then(() => {
+            db.collection(
+              this.school_name + "-" + this.classroom + "-students"
+            );
+                        this.checking_presence = false;
+          });
+      } else {
+        console.log('no es el ultimo')
+      }
           });
         });
+     
+      // esto era next no habia validate 
+   
     },
-    prev() {
-      this.onboarding =
-        this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
-    },
+    // prev() {
+    //   this.onboarding =
+    //     this.onboarding - 1 < 0 ? this.length - 1 : this.onboarding - 1;
+    // },
 
     initializeClass() {
-      db.collection(this.school_name + "-" + this.level + "-professors")
+      db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: this.msg,
+          timestamp: Date.now()
+        })
+        .catch(err => console.log("error", err))
+        .then(() => {
+          if (this.msg === "iniciar clase") {
+db.collection(this.school_name + "-" + this.level + "-professors")
         .doc(this.pre_prof_name)
         .update({
           onclass: true,
           checking_presence: true
         })
         .then(() => {
+         // enviamos y traemos estado de db
           db.collection(this.school_name + "-" + this.level + "-professors")
             .doc(this.pre_prof_name)
             .get()
             .then(snapshot => {
               const document = snapshot.data();
               console.log("profDoc", document);
-              if (document.checking_presence === true) {
+              if (
+                document.checking_presence === true &&
+                document.onclass === true
+              ) {
                 this.checking_presence = true;
-                this.presence_checked = true;
+                this.onclass = true;
+              } else if (
+                document.checking_presence === false &&
+                document.onclass === false
+              ) {
+                this.checking_presence = false;
+                this.onclass = false;
               }
             });
         });
+          }
+          this.msg = "";
+        }); 
     },
     finalizeClass() {
-      db.collection(this.school_name + "-" + this.level + "-professors")
+        db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: this.msg,
+          timestamp: Date.now()
+        })
+        .catch(err => console.log("error", err))
+        .then(() => { 
+          if (this.msg === 'terminar clase') {
+             db.collection(this.school_name + "-" + this.level + "-professors")
         .doc(this.pre_prof_name)
-        .update({ presence_checked: false })
+        // cheking presence ya se finzalizo cyando termino el pas de lista
+        .update({  onclass: false })
         .then(() => {
           db.collection(this.school_name + "-" + this.level + "-professors")
             .doc(this.pre_prof_name)
@@ -957,11 +1064,15 @@ export default {
             .then(snapshot => {
               const document = snapshot.data();
               console.log("profDoc", document);
-              if (document.presence_checked === false) {
-                this.presence_checked = false;
+              if (document.onclass === false) {
+                // aqui checamos el estado en la db y luego lo coordinamos con el front
+                this.onclass = false
+                this.activateSurveys();
               }
             });
         });
+          }      
+        })
     },
     showTrivia(trivia) {
       console.log("trivia", trivia.question);
@@ -991,56 +1102,62 @@ export default {
           db.collection(this.school_name + "-" + this.classroom + "-students")
             .where("right", "==", false)
             .get()
-             .then(querySnapshot => {
+            .then(querySnapshot => {
               const documents = querySnapshot.docs.map(doc => doc.data());
               console.log("incorrectos", documents.length);
               this.incorrect_answers = documents.length;
-          db.collection(this.prof_email)
-            .doc("?")
-            .update({ trivia_is_active: false });
-          const increment = firebase.firestore.FieldValue.increment(this.correct_answers);
-          const statsRef = db
-            .collection("trivia-stats")
-            .doc(this.classroom);
-          const batch = db.batch();
-          batch.set(statsRef, { aciertos: increment }, { merge: true });
-          batch.commit().then(() => { 
-            //  this.pre_prof_name = document.name;
-            // this.prof_name = this.pre_prof_name.replace(" ", "_");
-          //   let replacedAnswers = this.incorrect_answers.replace("-", "")
-          // console.log('replaced',replacedAnswers)
-           
-          const increment2 = firebase.firestore.FieldValue.increment(this.incorrect_answers);
-          const statsRef2 = db
-            .collection("trivia-stats")
-            .doc(this.classroom);
-          const batch2 = db.batch();
-          batch2.set(statsRef2, { fallas: increment2 }, { merge: true });
-          batch2.commit().then(() => {
-            console.log("mision stats cumplida");
-          });
-          });
-            //   this.pre_prof_name = document.name;
-            // this.prof_name = this.pre_prof_name.replace(" ", "_");
-         
-          // this.trivia_is_active = false;
-          db.collection(this.school_name + "-" + this.classroom + "-students")
-            .get()
-            .then(querySnapshot => {
-              const documents = querySnapshot.docs.map(doc => {
-                db.collection(
-                  this.school_name + "-" + this.classroom + "-students"
-                )
-                  .doc(doc.id)
-                  //wrong too
-                  .update({ right: null, answered: true })
-                  .then(() => {});
-              });
-            });
+              db.collection(this.prof_email)
+                .doc("?")
+                .update({ trivia_is_active: false });
+              const increment = firebase.firestore.FieldValue.increment(
+                this.correct_answers
+              );
+              const statsRef = db
+                .collection("trivia-stats")
+                .doc(this.classroom);
+              const batch = db.batch();
+              batch.set(statsRef, { aciertos: increment }, { merge: true });
+              batch.commit().then(() => {
+                //  this.pre_prof_name = document.name;
+                // this.prof_name = this.pre_prof_name.replace(" ", "_");
+                //   let replacedAnswers = this.incorrect_answers.replace("-", "")
+                // console.log('replaced',replacedAnswers)
 
-          // aqui enviar info
+                const increment2 = firebase.firestore.FieldValue.increment(
+                  this.incorrect_answers
+                );
+                const statsRef2 = db
+                  .collection("trivia-stats")
+                  .doc(this.classroom);
+                const batch2 = db.batch();
+                batch2.set(statsRef2, { fallas: increment2 }, { merge: true });
+                batch2.commit().then(() => {
+                  console.log("mision stats cumplida");
+                });
+              });
+              //   this.pre_prof_name = document.name;
+              // this.prof_name = this.pre_prof_name.replace(" ", "_");
+
+              // this.trivia_is_active = false;
+              db.collection(
+                this.school_name + "-" + this.classroom + "-students"
+              )
+                .get()
+                .then(querySnapshot => {
+                  const documents = querySnapshot.docs.map(doc => {
+                    db.collection(
+                      this.school_name + "-" + this.classroom + "-students"
+                    )
+                      .doc(doc.id)
+                      //wrong too
+                      .update({ right: null, answered: true })
+                      .then(() => {});
+                  });
+                });
+
+              // aqui enviar info
+            });
         });
-        })
     },
     // hacer otra coleccion para los resultados?
     initializeTrivia(trivia) {
@@ -1092,19 +1209,19 @@ export default {
         });
       // aqui enviar info
     },
-    validatePresence(student) {
-      this.student_checked = true;
-      console.log("student", student.alias);
-      const increment = firebase.firestore.FieldValue.increment(20);
-      const xpRef = db
-        .collection(this.classroom + "-students")
-        .doc(student.alias);
-      const batch = db.batch();
-      batch.set(xpRef, { xp: increment }, { merge: true });
-      batch.commit().then(() => {
-        console.log("mision cumplida");
-      });
-    },
+    // validatePresence(student) {
+    //   this.student_checked = true;
+    //   console.log("student", student.alias);
+    //   const increment = firebase.firestore.FieldValue.increment(20);
+    //   const xpRef = db
+    //     .collection(this.classroom + "-students")
+    //     .doc(student.alias);
+    //   const batch = db.batch();
+    //   batch.set(xpRef, { xp: increment }, { merge: true });
+    //   batch.commit().then(() => {
+    //     console.log("mision cumplida");
+    //   });
+    // },
     submit() {
       db.collection(this.classroom + "-messages")
         .add({
@@ -1113,15 +1230,21 @@ export default {
           timestamp: Date.now()
         })
         .catch(err => console.log("error", err))
-        .then(() => {
-          if(this.msg === 'impulso') {
-              this.boost = true
-              setTimeout(() => {
-                this.boost = false
-              }, 3000)
-          }
-          this.msg = "";
-        });
+      if (this.msg === "iniciar clase") {
+        console.log('llego antes de init')
+        this.initializeClass();
+      } else if (this.msg === "terminar clase") {
+        this.finalizeClass();
+      } else if (this.msg === "impulso"){
+        this.boostSender()
+      }
+        else if (this.msg === this.selected_student.alias) {
+        this.validatePresence();
+      } else {
+        console.log("no funcionó");
+      }
+
+      
     },
 
     renderImagesType() {
