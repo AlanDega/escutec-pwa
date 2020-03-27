@@ -330,39 +330,39 @@
                 show-arrows-on-hover
               >
                 <!-- v-for="(student, i) in top9" :key="i" -->
-                <v-carousel-item v-for="(student, i) in top1_3" :key="i">
+                <v-carousel-item >
                   <v-card color="transparent" height="300">
                     <v-row align="center" justify="center">
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
+                      <v-list-item dark v-for="(student, i) in top1_3" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 1}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
                       </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
+                     
                     </v-row>
                   </v-card>
                 </v-carousel-item>
                 <v-carousel-item>
-                  <v-card color="transparent" height="300" v-for="(student, i) in top1_3" :key="i">
+                  <v-card color="transparent" height="300" >
                     <v-row align="center" justify="center">
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-1-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
+                      <v-list-item dark v-for="(student, i) in top4_6" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 3}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
                       </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-2-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
+              
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card color="transparent" height="300" >
+                    <v-row align="center" justify="center">
+                      <v-list-item dark v-for="(student, i) in top7_9" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 6}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
                       </v-list-item>
-                      <v-list-item dark>
-                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-3-circle</v-icon>
-                        {{ student.alias + "/" + student.xp }}
-                      </v-list-item>
+                     
                     </v-row>
                   </v-card>
                 </v-carousel-item>
@@ -459,7 +459,7 @@
         </v-btn>-->
       </v-snackbar>
     </div>
-    <div>
+    <!-- <div> -->
       <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
@@ -479,8 +479,68 @@
         Close
         </v-btn>-->
       </v-snackbar>
+      <v-dialog v-model="emotional_survey" width="700">
+        <v-card>
+          <v-card-title >
+            <v-row justify="center" >
+                          <h2 class="text-align">¿Cómo te has sentido?</h2>  
+            </v-row>
+          </v-card-title>
+          <v-container>
+              <v-row justify="center">
+            
+            <v-col cols="2">
+              <v-img @click="sendSadState" contain src="../../assets/triste.jpg" height="80" width="80"></v-img>
+            </v-col>
+            <v-col cols="2">
+              <v-img @click="sendAngryState" contain src="../../assets/enojado.png" height="80" width="80"></v-img>
+            </v-col>
+            <v-col cols="2">
+              <v-img @click="sendBoringState" contain src="../../assets/aburrido.jpg" height="80" width="80"></v-img>
+            </v-col>
+            <v-col cols="2">
+              <v-img @click="sendContentState" contain src="../../assets/contento.png" height="80" width="80"></v-img>
+            </v-col>
+            <v-col cols="2">
+              <v-img @click="sendHappyState" contain src="../../assets/muyfeliz.png" height="80" width="80"></v-img>
+            </v-col>
+          </v-row>
+          </v-container>
+        
+        </v-card>
+      </v-dialog>
+      <div v-if="onclass && onclass_loading">
+        <v-footer absolute color="green accent-4" height="60%">
+          <v-card loading="green accent-1">
+            <v-row justify="spread-around">
+            <v-col cols="4">
+              <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+            </v-col>
+            <v-col cols="4">
+              <!-- // send audio messages for leadership and maagenment ++ -->
+              <!-- // put icon and communicate next lvl make invision or protopie animation -->
+              <!-- nxt lvl buy boost from prof or compañeros parteners students-->
+              <v-row justify="center">
+                <v-icon large color="white">mdi-pencil-circle</v-icon>
+                <v-icon large color="white">mdi-lifebuoy</v-icon>
+                <v-icon large color="white">mdi-account-circle</v-icon>
+
+              </v-row>
+            </v-col>
+            <v-col cols="4">
+              <v-row class="fill-height" justify="center" align="center">
+                <v-icon large color="yellow">mdi-fire</v-icon>
+                <!-- <v-icon large color="orange">mdi-fire</v-icon>
+                <v-icon large color="red">mdi-fire</v-icon>-->
+                <v-progress-linear class="streak-bar" rounded value="30" color="yellow"></v-progress-linear>
+              </v-row>
+            </v-col>
+          </v-row>
+          </v-card>
+          
+        </v-footer>
       <div v-if="onclass">
-        <v-footer absolute color="green accent-4">
+        <v-footer absolute color="green accent-4" height="60%">
           <v-row justify="spread-around">
             <v-col cols="4">
               <!-- <v-chip>{{countdown_timer}}</v-chip> -->
@@ -493,6 +553,7 @@
                 <v-icon large color="white">mdi-pencil-circle</v-icon>
                 <v-icon large color="white">mdi-lifebuoy</v-icon>
                 <v-icon large color="white">mdi-account-circle</v-icon>
+
               </v-row>
             </v-col>
             <v-col cols="4">
@@ -507,9 +568,9 @@
         </v-footer>
       </div>
     </div>
-    <v-dialog v-model="survey_time" max-width="500">
-      <v-window v-model="survey">
-        <v-window-item :value="1" width="300">
+    <v-dialog v-model="survey_time" width="500" >
+      <v-window v-model="survey"  >
+        <v-window-item :value="1" >
           <v-card>
             <v-card-title>
               <v-row justify="center">
@@ -518,20 +579,47 @@
               </v-row>
             </v-card-title>
             <v-container>
-                       <lottie-animation
-    path="../../assets/trophy.json"
-    :loop="false"
-    :autoPlay="true"
-    :loopDelayMin="2.5"
-    :loopDelayMax="5"
-    :speed="1"
-    :width="256"
-    :height="256"
-    @AnimControl="setAnimController"
-/>
+              <v-row justify="center">
+                                <div class="thumbsup-icon">
+    <svg id="stripes" class="stripes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path  d="M4 35h83a4 4 0 0 1 4 4 4 4 0 0 1-4 4H4a4 4 0 0 1-4-4 4 4 0 0 1 4-4zM100 51h83a4 4 0 0 1 4 4 4 4 0 0 1-4 4h-83a4 4 0 0 1-4-4 4 4 0 0 1 4-4zM20 67h131a4 4 0 0 1 4 4 4 4 0 0 1-4 4H20a4 4 0 0 1-4-4 4 4 0 0 1 4-4zM92 91h51a4 4 0 0 1 4 4 4 4 0 0 1-4 4H92a4 4 0 0 1-4-4 4 4 0 0 1 4-4zM92 19h51a4 4 0 0 1 4 4 4 4 0 0 1-4 4H92a4 4 0 0 1-4-4 4 4 0 0 1 4-4z"/>
+    </svg>
+
+    <svg class="stars star1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M68.1 17.4l-4.3-.6-1.9-3.9c-.2-.3-.5-.5-.9-.5s-.7.2-.9.5l-1.9 3.9-4.3.6c-.4.1-.7.3-.8.7-.1.4 0 .8.3 1l3.1 3-.7 4.3c-.1.4.1.8.4 1 .3.2.7.3 1.1.1l3.9-2 3.9 2c.3.2.7.1 1.1-.1s.5-.6.4-1l-.7-4.3 3.1-3c.3-.3.4-.7.3-1-.5-.3-.8-.6-1.2-.7z"/>
+    </svg>
+
+    <svg class="stars star2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M133.1 8.1l-6.6-1-2.9-6c-.3-.5-.8-.8-1.4-.8s-1.1.3-1.4.8l-2.9 6-6.6 1c-.6.1-1.1.5-1.2 1-.2.6 0 1.2.4 1.6l4.8 4.6-1.1 6.6c-.1.6.1 1.1.6 1.5.5.3 1.1.4 1.6.1l5.9-3.1 5.9 3.1c.5.3 1.1.2 1.6-.1s.7-.9.6-1.5l-1.1-6.6 4.8-4.6c.4-.4.6-1 .4-1.6-.4-.5-.8-.9-1.4-1z"/>
+    </svg>
+
+
+    <svg class="stars star3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M92.9 97.7l-4.6-.7-2-4.1c-.2-.3-.6-.5-.9-.5a1 1 0 0 0-.9.5l-2 4.1-4.5.7c-.4.1-.7.3-.8.7-.1.4 0 .8.3 1.1l3.3 3.2-.8 4.5c-.1.4.1.8.4 1s.8.3 1.1.1l4-2.1 4 2.1c.4.2.8.2 1.1-.1.3-.2.5-.6.4-1l-.8-4.5 3.3-3.2c.3-.3.4-.7.3-1.1-.2-.4-.5-.7-.9-.7z"/>
+    </svg>
+
+
+    <svg class="stars star4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M45.8 62l-5.7-.8-2.5-5.1c-.2-.4-.7-.7-1.2-.7s-.9.3-1.2.7l-2.5 5.1-5.6.8c-.5.1-.9.4-1.1.9-.2.5 0 1 .3 1.3l4.1 4-1 5.6c-.1.5.1 1 .5 1.3.4.3.9.3 1.4.1l5.1-2.7 5.1 2.7c.4.2 1 .2 1.4-.1.4-.3.6-.8.5-1.3l-1-5.6 4.1-4c.4-.3.5-.9.3-1.3-.1-.5-.5-.8-1-.9z"/>
+    </svg>
+
+    <svg class="stars star5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M142.9 63.7l-2.8-.4-1.3-2.6c-.1-.2-.3-.3-.6-.3s-.5.1-.6.3l-1.3 2.6-2.8.4c-.2 0-.5.2-.5.4-.1.2 0 .5.2.7l2 2-.5 2.8c0 .2.1.5.3.6.2.1.5.2.7 0l2.5-1.3 2.5 1.3h.7c.2-.1.3-.4.3-.6l-.5-2.8 2-2c.2-.2.2-.4.2-.7 0-.2-.2-.4-.5-.4z"/>
+    </svg>
+
+    <svg class="thumbsup" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 109">
+        <path d="M55 66H33c-4.3 0-8.7-1-12.5-2.9l-7.1-3.5c-.5-.3-.9-.8-.9-1.4v-22c0-.4.1-.7.4-1l15.3-18.4v-12A4.7 4.7 0 0 1 35.3.7c5.4 3.1 5.6 11.1 5.6 16.6v7.9h17.3c4.3 0 7.9 3.5 7.9 7.8v.2L63 58.3a8.1 8.1 0 0 1-8 7.7z"
+            fill="#0095ff" transform="translate(58 19)" />
+        <path d="M14.1 66H1.6C.7 66 0 65.3 0 64.4V29.9c0-.9.7-1.6 1.6-1.6h12.6c.9 0 1.6.7 1.6 1.6v34.6c-.1.8-.8 1.5-1.7 1.5z" fill="#17c"
+            transform="translate(58 19)" />
+    </svg>
+</div>
+       
+              </v-row>
+  
             </v-container>
-            <v-card-actions>
-              <v-btn @click="survey = 2">siguiente</v-btn>
+             <v-card-actions>
+              <v-btn @click="survey = 2" color="deep-purple accent-3" dark>siguiente</v-btn>
             </v-card-actions>
           </v-card>
         </v-window-item>
@@ -548,11 +636,11 @@
               </v-row>
             </v-container>
             <v-card-actions>
-              <v-btn @click="survey = 3">siguiente</v-btn>
+              <v-btn color="deep-purple accent-3" dark @click="survey = 3">siguiente</v-btn>
             </v-card-actions>
           </v-card>
         </v-window-item>
-        <v-window-item :value="2" width="300">
+        <v-window-item :value="3" width="300">
           <v-card>
             <v-card-title>
               <v-row justify="center">
@@ -565,7 +653,9 @@
                 <h2>{{total_tokens}}</h2>
               </v-row>
             </v-container>
-           
+            <v-card-actions>
+              <v-btn color="deep-purple accent-3" dark @click="survey = 4">siguiente</v-btn>
+            </v-card-actions>
           </v-card>
         </v-window-item>
         <v-window-item :value="4" width="300">
@@ -610,7 +700,7 @@
                 </v-container>
               </v-row>
               <v-card-actions>
-                <v-btn text color="deep-purple accent-3" @click="sendGroupNotes">Enviar</v-btn>
+                <v-btn text color="deep-purple accent-3" dark @click="sendGroupNotes">Enviar</v-btn>
               </v-card-actions>
             </v-container>
             <v-img></v-img>
@@ -618,10 +708,16 @@
         </v-window-item>
       </v-window>
     </v-dialog>
+    
   </v-container>
+
 </template>
 
 <script>
+ import Lottie from '../../lottie.vue';
+  import * as animationData from '../../assets/trophy.json';
+ 
+// import LottieAnimation from 'lottie-vuejs' // import lottie-vuejs
 import { CometChat } from "@cometchat-pro/chat";
 import { db } from "../../db";
 import firebase from "firebase";
@@ -630,11 +726,15 @@ import moment from "moment";
 
 export default {
   components: {
-    LineChart
+  'lottie': Lottie
   },
 
   data() {
     return {
+      onclass_loading: false,
+      emotional_survey:false,
+       defaultOptions: {animationData: animationData},
+        animationSpeed: 1,
       survey:1,
       total_match_rewards:[],
       tokens_trivia_reward: 9,
@@ -901,6 +1001,7 @@ export default {
   },
 
   mounted() {
+    
     // borrar en cierta cantidad de tiempo despues de obtener y guardar los resultados generales
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -992,7 +1093,49 @@ export default {
                           doc.data()
                         );
                         console.log("sorted-docs", documents);
-                        this.top1_3 = documents;
+                        // this.top1_3 = documents;
+                        this.top1_3 = [
+                          {
+                            name: 'estudiante1',
+                            xp: this.xp
+                        },
+                          {
+                            name: 'estudiante2',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante3',
+                            xp: 0
+                        },
+                        ]
+                        this.top4_6 = [
+                          {
+                            name: 'estudiante4',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante5',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante6',
+                            xp: 0
+                        },
+                        ]
+                        this.top7_9 = [
+                          {
+                            name: 'estudiante7',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante8',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante9',
+                            xp: 0
+                        },
+                        ]
                         let d = new Date();
                         console.log("hora", d.getHours());
                       });
@@ -1084,6 +1227,161 @@ export default {
       });
   },
   methods: {
+      sendSadState(){
+       const increment = firebase.firestore.FieldValue.increment(10);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+ const increment = firebase.firestore.FieldValue.increment(1);
+      const surveySadRef = db
+        .collection(this.user + "-stats")
+        .doc("emotional-state");
+      const batch = db.batch();
+      batch.set(surveySadRef, { triste: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        //dialog false
+      });
+          console.log("mision emotionalxp cumplida");
+        });
+
+      },
+      sendAngryState(){
+        const increment = firebase.firestore.FieldValue.increment(10);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+ const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyAngryRef = db
+        .collection(this.user + "-stats")
+        .doc("emotional-state");
+      const batch = db.batch();
+      batch.set(surveyAngryRef, { enojado: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        //dialog false
+      });
+          console.log("mision emotionalxp cumplida");
+        });
+
+      },
+      sendBoringState(){
+        const increment = firebase.firestore.FieldValue.increment(10);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+            });
+ const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyBoringRef = db
+        .collection(this.user + "-stats")
+        .doc("emotional-state");
+      const batch = db.batch();
+      batch.set(surveyBoringRef, { aburrido: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        //dialog false
+      });
+          console.log("mision emotionalxp cumplida");
+        });
+
+      },
+      sendContentState(){
+        const increment = firebase.firestore.FieldValue.increment(10);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              
+            });
+ const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyContentRef = db
+        .collection(this.user + "-stats")
+        .doc("emotional-state");
+      const batch = db.batch();
+      batch.set(surveyContentRef, { contento: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        //dialog false
+      });
+          console.log("mision emotionalxp cumplida");
+        });
+
+      },
+      sendHappyState(){
+        const increment = firebase.firestore.FieldValue.increment(10);
+        const xpRef = db
+          .collection(this.school_name + "-" + this.classroom + "-students")
+          .doc(this.user);
+        const batch = db.batch();
+        batch.set(xpRef, { xp: increment }, { merge: true });
+        batch.commit().then(() => {
+          db.collection(this.school_name + "-" + this.classroom + "-students")
+            .doc(this.user)
+            .get()
+            .then(snapshot => {
+              const document = snapshot.data();
+              this.xp = document.xp;
+              // this.percentageLevel2();
+              // this.percentageLevel3();
+            });
+ const increment = firebase.firestore.FieldValue.increment(1);
+      const surveyHappyRef = db
+        .collection(this.user + "-stats")
+        .doc("emotional-state");
+      const batch = db.batch();
+      batch.set(surveyHappyRef, { feliz: increment }, { merge: true });
+      batch.commit().then(() => {
+        console.log("mision likes cumplida");
+        //dialog false
+      });
+          console.log("mision emotionalxp cumplida");
+        });
+
+      },
+     handleAnimation: function (anim) {
+        this.anim = anim;
+      },
     sendGroupNotes() {
       db.collection(this.prof_email)
         .add({
@@ -1148,10 +1446,15 @@ export default {
           console.log("profDoc", document);
           if (document.onclass === true) {
             this.onclass = true;
-            this.initSound.play();
+            this.onclass_loading = true
+                        this.initSound.play();
+
             setTimeout(() => {
+              this.onclass_loading = false
               this.initSound.pause();
-            }, 3000);
+
+            },3000)
+           
           } else if (document.onclass === false) {
             this.onclass = false;
           }
@@ -1170,8 +1473,9 @@ export default {
       //     }, 2000);
     },
     activateBoost() {
+      this.boost = false
       this.boost_activated = true;
-      const audio = new Audio(require("../../assets/boost2.mp3"));
+      const audio = new Audio(require("../../assets/boost1.mp3"));
       audio.play();
       setTimeout(() => {
         this.boost_activated = false;
@@ -1634,6 +1938,7 @@ export default {
         .catch(err => console.log("error", err))
         .then(() => {
           if (this.msg === "presente") {
+            this.emotional_survey = true
             setTimeout(() => {
               db.collection(
                 this.school_name + "-" + this.classroom + "-students"
@@ -1898,6 +2203,153 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.thumbsup-icon {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+.thumbsup-icon svg {
+    position: absolute;
+}
+
+.thumbsup-icon .stripes {
+    fill: #f7f7f7;
+    animation: 1300ms stripes-swing infinite ease-in-out;
+}
+
+.thumbsup-icon .stars {
+    fill: #febb02
+}
+
+.thumbsup-icon .star1 {
+    animation: 1300ms star-fly1 infinite;
+    z-index: 1;
+}
+
+.thumbsup-icon .star2 {
+    animation: 1300ms star-fly2 infinite;
+    z-index: 1;
+}
+
+.thumbsup-icon .star3 {
+    animation: 1300ms star-fly3 infinite;
+    z-index: 1;
+}
+
+.thumbsup-icon .star4 {
+    animation: 1300ms star-fly4 infinite;
+    z-index: 1;
+}
+
+.thumbsup-icon .star5 {
+    animation: 1300ms star-fly5 infinite;
+    z-index: 1;
+}
+
+.thumbsup-icon .thumbsup {
+    animation: 1300ms thumbsup-shake infinite ease-in-out;
+    z-index: 2;
+}
+
+@keyframes star-fly1 {
+    0% {
+        transform: translate(20%, 40%) scale(0.76, 0.76);
+        opacity: 0;
+    }
+    12.8% {
+        opacity: 1;
+    }
+    28.2% {
+        transform: translate(0, 0) scale(1, 1);
+    }
+}
+
+@keyframes star-fly2 {
+    0% {
+        transform: translate(-14%, 40%) scale(0.76, 0.76);
+        opacity: 0;
+    }
+    12.8% {
+        opacity: 1;
+    }
+    28.2% {
+        transform: translate(0, 0) scale(1, 1);
+    }
+}
+
+@keyframes star-fly3 {
+    0% {
+        transform: translate(5%, -35%) scale(0.76, 0.76);
+        opacity: 0;
+    }
+    12.8% {
+        opacity: 1;
+    }
+    28.2% {
+        transform: translate(0, 0) scale(1, 1);
+    }
+}
+
+@keyframes star-fly4 {
+    0% {
+        transform: translate(30%, 0) scale(0.76, 0.76);
+        opacity: 0;
+    }
+    12.8% {
+        opacity: 1;
+    }
+    28.2% {
+        transform: translate(0, 0) scale(1, 1);
+    }
+}
+
+@keyframes star-fly5 {
+    0% {
+        transform: translate(-20%, 0) scale(0.76, 0.76);
+        opacity: 0;
+    }
+    12.8% {
+        opacity: 1;
+    }
+    28.2% {
+        transform: translate(0, 0) scale(1, 1);
+    }
+}
+
+@keyframes thumbsup-shake {
+    0% {
+        transform: rotate(20deg) scale(0.74, 0.74);
+        opacity: 0.1;
+    }
+    7.7% {
+        opacity: 1;
+        transform: rotate(0) scale(1, 1);
+    }
+    15.4% {
+        transform: rotate(-11deg) scale(1.08, 1.08);
+    }
+    28.2% {
+        transform: rotate(0) scale(1, 1);
+    }
+}
+
+@keyframes stripes-swing {
+    20.5% {
+        transform: translate(4%, 0);
+    }
+    38.4% {
+        transform: translate(-2%, 0);
+    }
+    59% {
+        transform: translate(3.7%, 0);
+    }
+    79.5% {
+        transform: translate(0, 0);
+    }
+}
+
+
 .streak-bar {
   width: 180px;
 }

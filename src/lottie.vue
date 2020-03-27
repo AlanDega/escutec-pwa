@@ -1,5 +1,5 @@
 <template>
-    <div :style="style" ref="lavContainer"></div>
+    <div :style="style" ></div>
 </template>
 
 <script>
@@ -28,7 +28,7 @@
           container: this.$refs.lavContainer,
           renderer: 'svg',
           loop: this.options.loop !== false,
-          autoplay: this.options.autoplay !== false,
+          autoplay: false,
           animationData: this.options.animationData,
           rendererSettings: this.options.rendererSettings
         }

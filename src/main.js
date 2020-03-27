@@ -5,9 +5,6 @@ import router from './router'
 import store from './store'
 import { firestorePlugin } from 'vuefire'
 import vuetify from './plugins/vuetify';
-import LottieAnimation from 'lottie-vuejs' // import lottie-vuejs
-
-Vue.use(LottieAnimation); // add lottie-animation to your global scope
 
 // import { CometChat } from '@cometchat-pro/chat'
 

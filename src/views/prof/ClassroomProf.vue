@@ -291,39 +291,51 @@
               <h3 class="classroom-text">{{ this.classroom }}</h3>
             </v-row>
 
-            <v-carousel
-              cycle
-              height="50%"
-              hide-delimiter-background
-              hide-delimiters
-              show-arrows-on-hover
-            >
-              <!-- v-for="(student, i) in top9" :key="i" -->
-              <v-carousel-item>
-                <v-card color="transparent" height="600">
-                  <v-row class="fill-height" align="center" justify="center">
-                    <v-list-item dark v-for="(student, i) in top1_9" :key="i">
-                      <v-icon color="deep-purple accent-3" class="mr-2"
-                        >mdi-numeric-{{ i + 1 }}-circle</v-icon
-                      >
-                      {{ student.alias + "/" + student.xp }}
-                    </v-list-item>
-                  </v-row>
-                </v-card>
-              </v-carousel-item>
-              <v-carousel-item>
-                <v-card color="transparent" height="600">
-                  <v-row class="fill-height" align="center" justify="center">
-                    <v-list-item v-for="(student, i) in top10_18" :key="i" dark>
-                      <v-icon color="deep-purple accent-3" class="mr-2"
-                        >mdi-numeric-{{ i + 10 }}-circle</v-icon
-                      >
-                      {{ student.alias + "/" + student.xp }}
-                    </v-list-item>
-                  </v-row>
-                </v-card>
-              </v-carousel-item>
-            </v-carousel>
+             <v-carousel
+                cycle
+                height="300"
+                hide-delimiter-background
+                hide-delimiters
+                show-arrows-on-hover
+              >
+                <!-- v-for="(student, i) in top9" :key="i" -->
+                <v-carousel-item >
+                  <v-card color="transparent" height="300">
+                    <v-row align="center" justify="center">
+                      <v-list-item dark v-for="(student, i) in top1_3" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 1}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
+                      </v-list-item>
+                     
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card color="transparent" height="300" >
+                    <v-row align="center" justify="center">
+                      <v-list-item dark v-for="(student, i) in top4_6" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 3}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
+                      </v-list-item>
+              
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+                <v-carousel-item>
+                  <v-card color="transparent" height="300" >
+                    <v-row align="center" justify="center">
+                      <v-list-item dark v-for="(student, i) in top7_9" :key="i">
+                        <v-icon color="deep-purple accent-3" class="mr-2">mdi-numeric-{{i + 6}}-circle</v-icon>
+                        <!-- {{ student.alias + "/" + student.xp }} -->
+                        {{student.name + '-' + student.xp}}
+                      </v-list-item>
+                     
+                    </v-row>
+                  </v-card>
+                </v-carousel-item>
+              </v-carousel>
             <!-- </v-col>
             </v-row> -->
           </v-container>
@@ -524,6 +536,48 @@ export default {
 
   data() {
     return {
+      top1_3:[
+                          {
+                            name: 'estudiante1',
+                            xp: this.xp
+                        },
+                          {
+                            name: 'estudiante2',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante3',
+                            xp: 0
+                        },
+                        ],
+                        top4_6 :[
+                          {
+                            name: 'estudiante4',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante5',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante6',
+                            xp: 0
+                        },
+                        ] ,
+                        top7_9 : [
+                          {
+                            name: 'estudiante7',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante8',
+                            xp: 0
+                        },
+                          {
+                            name: 'estudiante9',
+                            xp: 0
+                        },
+                        ],              
       token_balance: 0,
       remaining_boosts: 3,
       // countdown_timer:
