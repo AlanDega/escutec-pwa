@@ -430,14 +430,11 @@
           <span class="notifText">Subiste de nivel</span>
         </v-row>
         <v-row>
-          <v-img src="../../assets/level.svg" transition="fade-transition">
-
-          </v-img>
+          <LvlUpAnimation />
         </v-row>
         <v-row justify="center">
-          
-          <span class="lvl-up-text">+ 30</span>
-          <v-icon height="34" width="34">mdi-atom-variant</v-icon>
+          <h3 class="lvl-up-text">+ 30</h3>
+          <v-icon height="34" width="34" color="deep-purple accent-3">mdi-atom-variant</v-icon>
         </v-row>
 
         <!-- <v-btn
@@ -810,19 +807,17 @@
 </template>
 
 <script>
- import Lottie from '../../lottie.vue';
-  import * as animationData from '../../assets/trophy.json';
  
-// import LottieAnimation from 'lottie-vuejs' // import lottie-vuejs
 import { CometChat } from "@cometchat-pro/chat";
 import { db } from "../../db";
 import firebase from "firebase";
-import LineChart from "../../LineChart";
 import moment from "moment";
+
+import LvlUpAnimation from '../../components/student/LvlUpAnimation'
 
 export default {
   components: {
-  'lottie': Lottie
+    LvlUpAnimation
   },
 
   data() {
@@ -842,8 +837,6 @@ export default {
       note: false,
       onclass_loading: false,
       emotional_survey:false,
-       defaultOptions: {animationData: animationData},
-        animationSpeed: 1,
       survey:1,
       total_match_rewards:[],
       tokens_trivia_reward: 9,
@@ -859,6 +852,7 @@ export default {
       boost: false,
       boost_activated: null,
       token_balance: 0,
+      total_tokens:null,
       lvl_up_notif1: false,
       lvl_1_rewarded: null,
       lvl_2_rewarded: null,
@@ -1524,9 +1518,7 @@ export default {
         });
 
       },
-     handleAnimation: function (anim) {
-        this.anim = anim;
-      },
+    
     sendGroupNotes() {
       db.collection(this.prof_email)
         .add({

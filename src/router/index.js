@@ -20,6 +20,8 @@ import Resources from "../views/prof/Resources.vue";
 import ProfGroups from "../views/prof/ProfGroups.vue";
 import StudentsGroups from "../views/director/StudentsGroups.vue";
 import StudentsGroup from "../views/director/StudentsGroup.vue";
+import Shop from '../views/student/Shop.vue'
+import ShopItem from '../views/student/ShopItem.vue'
 Vue.use(VueRouter);
 
 const routes = [
@@ -42,6 +44,16 @@ const routes = [
     path: "/prof-schedule",
     name: "prof-schedule",
     component: ProfSchedule
+  },
+  {
+    path: "/shop",
+    name: "shop",
+    component: Shop
+  },
+  {
+    path: "/shopitem",
+    name: "shopitem",
+    component: ShopItem
   },
   {
     path: "/prof-groups",

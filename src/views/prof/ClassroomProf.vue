@@ -829,7 +829,8 @@ export default {
       prof_name: null,
       level: null,
       user: null,
-      pre_prof_name: null
+      pre_prof_name: null,
+      lastChar:''
     };
   },
 
@@ -1155,17 +1156,18 @@ export default {
       //   this.tableNotif = true;
       // }
     },
-    validatePresence() {
+    // le teng oque quitar uitilizar la ifn osin el mas 
+    validatePresence(student) {
         
       db.collection(this.school_name + "-" + this.classroom + "-students")
-        .doc(this.selected_student.email)
+        .doc(student)
         .update({ is_present: true })
         .then(() => {
 
           const increment = firebase.firestore.FieldValue.increment(10);
           const xpRef = db
             .collection(this.school_name + "-" + this.classroom + "-students")
-            .doc(this.selected_student.email);
+            .doc(student);
           const batch = db.batch();
           batch.set(xpRef, { xp: increment }, { merge: true });
           batch.commit().then(() => {
@@ -1428,16 +1430,19 @@ db.collection(this.school_name + "-" + this.level + "-professors")
           timestamp: Date.now()
         })
         .catch(err => console.log("error", err))
+        const lastNum = this.msg.length - 1
+        this.lastChar = this.msg[lastNum] 
+        console.log('lastCharMsg',)
       if (this.msg === "iniciar clase") {
         console.log('llego antes de init')
         this.initializeClass();
       } else if (this.msg === "terminar clase") {
         this.finalizeClass();
-      } else if (this.msg === "impulso"){
+      } else if (this.msg === 'impulos'){
         this.boostSender()
       }
-        else if (this.msg === this.selected_student.alias) {
-        this.validatePresence();
+        else if (this.lastChar = '+' ) {
+        this.validatePresence(this.msg);
       } else {
         console.log("no funcionó");
       }
