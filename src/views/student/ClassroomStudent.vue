@@ -283,7 +283,7 @@
               </div>
             </v-row>
             <v-container>
-              <v-row>
+              <v-row class="mb-6">
                 <v-col justify="right" v-if="svg_level1">
                   <p class="xpText" justify="right">{{ xp + "/" + next_level_xp + " XP" }}</p>
                   <v-progress-linear rounded height="6" color="deep-purple accent-3" v-model="xp"></v-progress-linear>
@@ -324,10 +324,11 @@
             <v-container>
               <v-carousel
                 cycle
-                height="300"
+                height="150"
                 hide-delimiter-background
                 hide-delimiters
                 show-arrows-on-hover
+                class="mt-6 mb-6"
               >
                 <!-- v-for="(student, i) in top9" :key="i" -->
                 <v-carousel-item >
@@ -368,8 +369,8 @@
                 </v-carousel-item>
               </v-carousel>
             </v-container>
-            <v-container>
-              <!-- <v-row justify="center" v-if="!boost">
+            <v-container >
+              <v-row justify="center" v-if="!boost" class="mb-4">
                 <v-img
                   class="mb-4"
                   contain
@@ -377,8 +378,8 @@
                   height="100"
                   width="100"
                 ></v-img>
-              </v-row>-->
-              <v-row justify="center" v-if="boost">
+              </v-row>
+              <v-row justify="center" v-if="boost" class="mb-4">
                 <v-img
                   @click="activateBoost"
                   class="mb-4"
@@ -388,7 +389,7 @@
                   width="100"
                 ></v-img>
               </v-row>
-              <v-row justify="center" v-if="boost_activated">
+              <v-row justify="center" v-if="boost_activated" class="mb-4">
                 <v-img
                   class="mb-4"
                   contain
@@ -428,9 +429,15 @@
         <v-row justify="center">
           <span class="notifText">Subiste de nivel</span>
         </v-row>
+        <v-row>
+          <v-img src="../../assets/level.svg" transition="fade-transition">
+
+          </v-img>
+        </v-row>
         <v-row justify="center">
+          
           <span class="lvl-up-text">+ 30</span>
-          <v-img class="mt-2" contain src="../../assets/cash.svg" height="34" width="34"></v-img>
+          <v-icon height="34" width="34">mdi-atom-variant</v-icon>
         </v-row>
 
         <!-- <v-btn
@@ -459,8 +466,7 @@
         </v-btn>-->
       </v-snackbar>
     </div>
-    <!-- <div> -->
-      <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
+       <v-snackbar top color="red" :vertical="vertical" v-model="errorNotif" :timeout="timeout">
         <v-row justify="center">
           <span class="earnedText">Respuesta incorrecta</span>
         </v-row>
@@ -509,65 +515,155 @@
         
         </v-card>
       </v-dialog>
-      <div v-if="onclass && onclass_loading">
-        <v-footer absolute color="green accent-4" height="60%">
-          <v-card loading="green accent-1">
-            <v-row justify="spread-around">
-            <v-col cols="4">
-              <!-- <v-chip>{{countdown_timer}}</v-chip> -->
-            </v-col>
-            <v-col cols="4">
-              <!-- // send audio messages for leadership and maagenment ++ -->
-              <!-- // put icon and communicate next lvl make invision or protopie animation -->
-              <!-- nxt lvl buy boost from prof or compañeros parteners students-->
-              <v-row justify="center">
-                <v-icon large color="white">mdi-pencil-circle</v-icon>
-                <v-icon large color="white">mdi-lifebuoy</v-icon>
-                <v-icon large color="white">mdi-account-circle</v-icon>
-
-              </v-row>
-            </v-col>
-            <v-col cols="4">
-              <v-row class="fill-height" justify="center" align="center">
-                <v-icon large color="yellow">mdi-fire</v-icon>
-                <!-- <v-icon large color="orange">mdi-fire</v-icon>
-                <v-icon large color="red">mdi-fire</v-icon>-->
-                <v-progress-linear class="streak-bar" rounded value="30" color="yellow"></v-progress-linear>
-              </v-row>
-            </v-col>
-          </v-row>
+      <div v-if="onclass_loading">
+        <v-footer  absolute color="#1e1d20" class="footer-loading">
+          <v-card loading="green" height="100%" width="100%" color="#1e1d20">
           </v-card>
-          
         </v-footer>
+        </div>
+   <div v-if="offclass">
+      <v-footer absolute color="#1e1d20" height="60">
+        <v-row justify="spread-around">
+          <v-col cols="4">
+            <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+          </v-col>
+          <v-col cols="4">
+            <v-btn dark @click="initializeClass" color="green accent-4">iniciar clase</v-btn>
+          </v-col>
+          <v-col cols="4">
+          </v-col>
+        </v-row>
+      </v-footer>
+   
+    </div>
       <div v-if="onclass">
-        <v-footer absolute color="green accent-4" height="60%">
-          <v-row justify="spread-around">
-            <v-col cols="4">
-              <!-- <v-chip>{{countdown_timer}}</v-chip> -->
-            </v-col>
-            <v-col cols="4">
+        <v-footer absolute color="green accent-4" height="60" inset padless >
+          <v-row justify="spread-around" align="center" class="inside-bar" >
+              <v-col cols="1">
+
+              </v-col>
+            <v-col cols="8" >
               <!-- // send audio messages for leadership and maagenment ++ -->
               <!-- // put icon and communicate next lvl make invision or protopie animation -->
               <!-- nxt lvl buy boost from prof or compañeros parteners students-->
-              <v-row justify="center">
-                <v-icon large color="white">mdi-pencil-circle</v-icon>
-                <v-icon large color="white">mdi-lifebuoy</v-icon>
-                <v-icon large color="white">mdi-account-circle</v-icon>
+              <v-row justify="center"  class="ml-12">
+                <v-icon @click="note = true" large color="white">mdi-pencil-circle</v-icon>
+                <v-icon @click="clueDialog = true" class="ml-2 mr-2 " large color="white">mdi-lifebuoy</v-icon>
+                <v-icon @click="inbox = true" large color="white">mdi-account-circle</v-icon>
 
               </v-row>
             </v-col>
-            <v-col cols="4">
-              <v-row class="fill-height" justify="center" align="center">
-                <v-icon large color="yellow">mdi-fire</v-icon>
+            <v-col cols="3">
+              <v-row  justify="center" align="center">
+                <v-icon  large color="yellow">mdi-fire</v-icon>
                 <!-- <v-icon large color="orange">mdi-fire</v-icon>
                 <v-icon large color="red">mdi-fire</v-icon>-->
-                <v-progress-linear class="streak-bar" rounded value="30" color="yellow"></v-progress-linear>
+                <v-progress-linear class="streak-bar" rounded v-model="streak" color="yellow"></v-progress-linear>
               </v-row>
             </v-col>
           </v-row>
         </v-footer>
+        <div class="text-center">
+    <v-bottom-sheet v-model="note" persistent inset hide-overlay >
+      <v-sheet class="text-center" height="200px">
+        <v-toolbar color="deep-purple accent-3">
+          <h1 class="notas-text">Notas</h1>
+        </v-toolbar>
+        <v-container>
+          <v-row>
+            <v-col cols="8">
+  <v-textarea v-model="writtenNote" height="100" outlined color="deep-purple accent-3" label="Escribe aquí">
+        </v-textarea>
+            </v-col>
+            <v-col cols="4">
+   <v-btn
+          class="mt-6 mr-4"
+          flat
+          outlined
+          color="success"
+          @click="saveNote"
+        >Guardar</v-btn>
+   <v-btn
+          class="mt-6 ml-4"
+          flat
+          outlined
+          color="red"
+          @click="note = !note"
+        >cancelar</v-btn>
+            </v-col>
+          </v-row>   
+        </v-container>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
+        <div class="text-center">
+    <v-bottom-sheet v-model="inbox"  inset hide-overlay height="340" >
+      <v-sheet class="text-center" height="340px">
+        <v-toolbar color="deep-purple accent-3">
+          <h1 class="notas-text">Inbox</h1>
+        </v-toolbar>
+         <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-card  height="340" flat outlined>
+                      <v-list ref="inb" id="inboxes">
+                        <template v-for="(inbox_message, index) in inbox_messages">
+                          <v-subheader v-if="inbox_message" :key="index">
+                            {{
+                            inbox_message.sender + ":" + inbox_message.message
+                            }}
+                          </v-subheader>
+                        </template>
+                      </v-list>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="10">
+                            <v-text-field
+                              dense
+                              v-model="inbox_msg"
+                              label="Escribe aquí tú mensaje"
+                              outlined
+                              color="deep-purple accent-3"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="2">
+                            <v-btn dark color="deep-purple accent-3" @click="submitInboxMsg">Enviar</v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
+        <div class="text-center">
+    <v-bottom-sheet v-model="clueDialog" inset hide-overlay width="500" >
+      <v-sheet class="text-center" height="200px" >
+        <v-toolbar color="deep-purple accent-3">
+          <h1 class="notas-text">Pista</h1>
+        </v-toolbar>
+        <v-container>
+          <v-row>
+            <v-col cols="8">
+              <h2>{{ clue }}</h2>
+            </v-col>
+            <v-col cols="4">
+            <v-btn
+                    class="mt-6 ml-4"
+                    flat
+                    outlined
+                    color="red"
+                    @click="clueDialog = !clueDialog"
+                  >cancelar</v-btn>
+            </v-col>
+          </v-row>   
+        </v-container>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
       </div>
-    </div>
     <v-dialog v-model="survey_time" width="500" >
       <v-window v-model="survey"  >
         <v-window-item :value="1" >
@@ -731,6 +827,19 @@ export default {
 
   data() {
     return {
+      offclass:null,
+      streak:0,
+      top4_6:[],
+      top7_9:[],
+      group_note:null,
+      survey_time:false,
+      inbox:false,
+      inbox_messages:[],
+      inbox_msg:null,
+      clue:null,
+      clueDialog:false,
+      writtenNote:null,
+      note: false,
       onclass_loading: false,
       emotional_survey:false,
        defaultOptions: {animationData: animationData},
@@ -886,6 +995,11 @@ export default {
     messages() {
       setTimeout(() => {
         this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
+      }, 0);
+    },
+    inbox_messages() {
+      setTimeout(() => {
+        this.$refs.inb.$el.scrollTop = this.$refs.inb.$el.scrollHeight;
       }, 0);
     },
     question() {
@@ -1069,6 +1183,28 @@ export default {
                 const document = snapshot.data();
                 this.prof_email = document.prof_email;
                 this.onclass = document.onclass;
+                if(this.onclass === true){
+                  this.offclass = false 
+                } else {
+                  this.offclass = true
+                }
+                 let ref2 = db
+              .collection(this.prof_email + '-' + this.user + '-chatroom')
+              .orderBy("timestamp");
+            ref2.onSnapshot(snapshot => {
+              snapshot.docChanges().forEach(change => {
+                if ((change.type = "added")) {
+                  console.log("nuevo mensaje", change.doc.data().timestamp);
+                  let doc = change.doc;
+                  this.inbox_messages.push({
+                    id: doc.id,
+                    sender: doc.data().sender,
+                    message: doc.data().message,
+                    timestamp: moment(doc.data().timestamp).format("LTS")
+                  });
+                }
+              });
+            });
                 db.collection(this.prof_email)
                   .doc("?")
                   .get()
@@ -1178,7 +1314,7 @@ export default {
                     change.doc.data().timestamp >= Date.now() - 3000
                   ) {
                     console.log("funcione a init");
-                    this.initializeClass();
+                    // this.initializeClass();
                   } else if (
                     change.doc.data().sender === this.prof_email &&
                     change.doc.data().message === "terminar clase" &&
@@ -1198,6 +1334,7 @@ export default {
                 }
               });
             });
+           
           });
         //forget about classroom because it is the prof, we need group right now,
         // use the creation of director
@@ -1227,6 +1364,14 @@ export default {
       });
   },
   methods: {
+    saveNote(){
+      db.collection(this.user + '-' + this.prof_email + '-notes' )
+        .add({
+          writtenNote: this.writtenNote
+        }).then(() => {
+          this.note = false
+        })
+    },
       sendSadState(){
        const increment = firebase.firestore.FieldValue.increment(10);
         const xpRef = db
@@ -1417,7 +1562,10 @@ export default {
       });
     },
     finalizeClass() {
+      
       // this.loading_results = true
+      this.onclass = false
+      this.offclass = true
       db.collection(this.user + "-stats")
         .orderBy("timestamp")
         .limit(3)
@@ -1436,6 +1584,7 @@ export default {
       // this.$router.push('/student-lobby')
     },
     initializeClass() {
+      const initAudio = new Audio(require('../../assets/boost2.mp3'))
       const preProfName = this.$route.params.id;
       const newProfName = preProfName.replace("_", " ");
       db.collection(this.school_name + "-" + this.level + "-professors")
@@ -1445,14 +1594,15 @@ export default {
           const document = snapshot.data();
           console.log("profDoc", document);
           if (document.onclass === true) {
-            this.onclass = true;
+            this.offclass = false
             this.onclass_loading = true
-                        this.initSound.play();
-
+            initAudio.play()
+            // this.onclass = null
+            // this.initSound.play();
             setTimeout(() => {
+              initAudio.pause()
               this.onclass_loading = false
-              this.initSound.pause();
-
+              this.onclass = true
             },3000)
            
           } else if (document.onclass === false) {
@@ -1528,6 +1678,7 @@ export default {
             this.answer3 = document.answer3;
             this.answer4 = document.answer4;
             this.right_answer = document.right_answer;
+            this.clue = document.clue
             const countdown2 = setInterval(() => {
               if (this.response_time > 0) {
                 const time = this.response_time;
@@ -1559,6 +1710,7 @@ export default {
       const loseAudio = new Audio(require("../../assets/lose.mp3"));
       this.trivia_is_active = false;
       if (this.answer1 === this.right_answer && this.boost_activated === true) {
+        this.streak + 10
         winAudio.play();
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
@@ -1604,6 +1756,7 @@ export default {
           .then(() => console.log("wrong updated"));
       }
       if (this.answer1 === this.right_answer) {
+        this.streak + 10
         winAudio.play();
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
@@ -1652,6 +1805,7 @@ export default {
       this.trivia_is_active = false;
       if (this.answer2 === this.right_answer && this.boost_activated === true) {
         winAudio.play();
+        this.streak + 10
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
@@ -1696,6 +1850,7 @@ export default {
           .then(() => console.log("wrong updated"));
       }
       if (this.answer2 === this.right_answer) {
+        this.streak + 10
         winAudio.play();
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
@@ -1744,6 +1899,7 @@ export default {
       this.trivia_is_active = false;
       if (this.answer3 === this.right_answer && this.boost_activated === true) {
         winAudio.play();
+        this.streak + 10
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
@@ -1788,6 +1944,7 @@ export default {
           .then(() => console.log("wrong updated"));
       }
       if (this.answer3 === this.right_answer) {
+        this.streak + 10
         winAudio.play();
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
@@ -1837,6 +1994,7 @@ export default {
       this.trivia_is_active = false;
       if (this.answer4 === this.right_answer && this.boost_activated === true) {
         winAudio.play();
+        this.streak + 10
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
           earned_tokens: this.earned_tokens,
@@ -1881,6 +2039,7 @@ export default {
           .then(() => console.log("wrong updated"));
       }
       if (this.answer4 === this.right_answer) {
+        this.streak + 10
         winAudio.play();
         db.collection(this.user + "-stats").add({
           earned_xp: this.earned_xp,
@@ -1924,10 +2083,10 @@ export default {
       }
     },
     submit() {
-      this.initSound = new Audio(require("../../assets/boost2.mp3"));
-      this.initSound.play().then(() => {
-        this.initSound.pause();
-      });
+      // this.initSound = new Audio(require("../../assets/boost2.mp3"));
+      // this.initSound.play().then(() => {
+      //   this.initSound.pause();
+      // });
 
       db.collection(this.classroom + "-messages")
         .add({
@@ -1954,13 +2113,18 @@ export default {
                 });
             }, 3000);
           }
-          // db.collection(this.classroom + "-messages")
-          //   .get()
-          //   .then(querySnapshot => {
-          //     const documents = querySnapshot.docs.map(doc => doc.data());
-          //     console.log("message-documents", documents);
-          //     this.messages = documents;
-          //   });
+        });
+    },
+    submitInboxMsg(){
+        db.collection(this.prof_email + '-' + this.user + '-chatroom')
+          .add({
+             sender: this.user,
+            message: this.inbox_msg,
+            timestamp: Date.now()
+          })
+          .catch(err => console.log("error", err))
+        .then(() => {
+          console.log('inbox enviado')
         });
     },
     fillData() {
@@ -2203,6 +2367,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.notas-text {
+  color: white;
+}
+.inside-bar{
+  margin-bottom: 40px;
+}
+.footer-loading {
+  height: 50px;
+  padding: 0;
+}
+.bar-loading {
+  width: 100%;
+  padding: 0;
+  height: 100%;
+  
+}
 .thumbsup-icon {
     position: relative;
     width: 300px;
@@ -2415,6 +2595,10 @@ export default {
   width: 100%;
 }
 #logs {
+  height: 180px;
+  overflow: auto;
+}
+#inboxes {
   height: 180px;
   overflow: auto;
 }

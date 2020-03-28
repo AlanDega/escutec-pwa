@@ -219,6 +219,16 @@
                               >
                             </v-list-item-content>
                           </v-list-item>
+                          <v-list-item two-line>
+                            <v-list-item-content>
+                              <v-list-item-title>{{
+                                clue
+                              }}</v-list-item-title>
+                              <v-list-item-subtitle
+                                >Respuesta Correcta</v-list-item-subtitle
+                              >
+                            </v-list-item-content>
+                          </v-list-item>
                         </v-card-text>
 
                         <v-divider></v-divider>
@@ -394,48 +404,50 @@
       </v-footer>
     </div> -->
     <div v-if="onclass && checking_presence">
-      <v-footer absolute color="green accent-4" height="60%">
+      <v-footer absolute color="#1e1d20" height="60">
         <v-row justify="spread-around">
           <v-col cols="4">
             <!-- <v-chip>{{countdown_timer}}</v-chip> -->
           </v-col>
           <v-col cols="4">
-            <v-btn outlined color="white">comandos</v-btn>
+            <v-btn @click="sendFinalizeMsg" dark color="deep-purple accent-3">terminar clase</v-btn>
           </v-col>
           <v-col cols="4">
-            <v-avatar color="white">
-              {{ remaining_boosts }}
-            </v-avatar>
+          
+            <v-badge
+        :content="inbox_count"
+        :value="inbox_count"
+        color="deep-purple accent-3"
+        overlap
+      >
+          <v-icon color="white" height="40" width="40" @click="inbox = true">
+              mdi-message-outline
+            </v-icon>
+      </v-badge>
           </v-col>
         </v-row>
       </v-footer>
-      <!-- <v-footer absolute color="green accent-4" height="60%">
-        <v-row justify="center">
-          <v-card flat tile width="200" color="transparent">
-            <v-window v-model="onboarding" vertical>
-              <v-window-item v-for="(student, i) in students" :key="i">
-                <v-row
-                  class="fill-height"
-                  align="center"
-                  justify="center"
-                  tag="v-card-text"
-                >
-                  <p style="font-size: 18px;" class="white--text ">
-                    {{ selected_student.alias }}
-                  </p>
-                </v-row>
-              </v-window-item>
-            </v-window>
-          </v-card>
-            <v-icon color="green">mdi-check-circle</v-icon>
-        </v-row>
-      </v-footer> -->
+   
     </div>
-    <div v-if="!checking_presence && onclass">
-      <v-footer absolute color="green accent-4">
+    <div v-if="!onclass">
+      <v-footer absolute color="#1e1d20" height="60">
         <v-row justify="spread-around">
           <v-col cols="4">
             <!-- <v-chip>{{countdown_timer}}</v-chip> -->
+          </v-col>
+          <v-col cols="4">
+            <v-btn dark @click="sendInitiateMsg" color="green accent-4">iniciar clase</v-btn>
+          </v-col>
+          <v-col cols="4">
+          </v-col>
+        </v-row>
+      </v-footer>
+   
+    </div>
+    <!-- <div v-if="!checking_presence && onclass">
+      <v-footer absolute color="green accent-4">
+        <v-row justify="spread-around">
+          <v-col cols="4">
           </v-col>
           <v-col cols="4">
             <v-btn outlined color="white">comandos</v-btn>
@@ -447,7 +459,7 @@
           </v-col>
         </v-row>
       </v-footer>
-    </div>
+    </div> -->
 
     <v-snackbar v-model="tableNotif" :timeout="timeout">{{
       table_notif_text
@@ -519,6 +531,49 @@
         </v-window-item>
       </v-window>
     </v-dialog>
+
+     <div class="text-center">
+    <v-bottom-sheet v-model="inbox"  inset hide-overlay height="340" >
+      <v-sheet class="text-center" height="340px">
+        <v-toolbar color="deep-purple accent-3">
+          <h1 class="notas-text">Inbox</h1>
+        </v-toolbar>
+         <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-card  height="340" flat outlined>
+                      <v-list ref="inb" id="inboxes">
+                        <template v-for="(inbox_message, index) in inbox_messages">
+                          <v-subheader v-if="inbox_message" :key="index">
+                            {{
+                            inbox_message.sender + ":" + inbox_message.message
+                            }}
+                          </v-subheader>
+                        </template>
+                      </v-list>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="10">
+                            <v-text-field
+                              dense
+                              v-model="inbox_msg"
+                              label="Escribe aquí tú mensaje"
+                              outlined
+                              color="deep-purple accent-3"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="2">
+                            <v-btn dark color="deep-purple accent-3" @click="submitInboxMsg">Enviar</v-btn>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+      </v-sheet>
+    </v-bottom-sheet>
+  </div>
   </div>
 </template>
 
@@ -536,6 +591,11 @@ export default {
 
   data() {
     return {
+      inbox_msg:'',
+      inbox:false,
+      inbox_messages:[],
+      inbox_count:0,
+      show:false,
       top1_3:[
                           {
                             name: 'estudiante1',
@@ -706,6 +766,7 @@ export default {
           viernes: "C-2"
         }
       ],
+      clue:null,
       response_time: 100,
       vertical: true,
       img_resources: null,
@@ -773,6 +834,17 @@ export default {
   },
 
   watch: {
+    inbox_messages(){
+      console.log('watch activado')
+     
+         if(this.inbox_messages.length > 0) {
+          console.log('rango')
+                this.inbox_count = 1
+              }
+     
+       
+    },
+   
     logs() {
       setTimeout(() => {
         this.$refs.chat.$el.scrollTop = this.$refs.chat.$el.scrollHeight;
@@ -780,7 +852,7 @@ export default {
     },
     logs2() {
       setTimeout(() => {
-        this.$refs.chat2.$el.scrollTop = this.$refs.chat2.$el.scrollHeight;
+        this.$refs.inb.$el.scrollTop = this.$refs.inb.$el.scrollHeight;
       }, 0);
     }
   },
@@ -883,21 +955,36 @@ export default {
             }
           });
         });
-        // let refTrivia = db.collection(this.prof_email);
-        // // .where()
-        // refTrivia.onSnapshot(snapshot => {
-        //   snapshot.docChanges().forEach(change => {
-        //     console.log("changeType", change);
-        //     if ((change.type = "modified")) {
-        //       let doc = change.doc;
-        //       console.log("changeDoc", doc.data());
-        //       this.trivia_is_active = doc.data().trivia_is_active;
-        //       this.right_answer = doc.data().right_answer;
-        //       this.correct_answers = doc.data().correct_answers;
-        //       this.incorrect_answers = doc.data().incorrect_answers;
-        //     }
-        //   });
-        // });
+        let ref2 = db
+          .collection(this.user + '-estudiante1@gmail.com-chatroom' )
+          .orderBy("timestamp");
+        ref2.onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            if ((change.type = "added")) {
+              let doc = change.doc;
+              this.inbox_messages.push({
+                id: doc.id,
+                sender: doc.data().sender,
+                message: doc.data().message,
+                timestamp: moment(doc.data().timestamp).format("LTS")
+              });
+             
+              console.log(
+                "doc-msg",
+                doc.data().message,
+                "doc.time",
+                moment(doc.data().timestamp).format("LTS")
+              );
+              console.log(
+                "time",
+                Date.Now >= moment(Date.now() - 3000).format("LTS")
+              );
+              
+            }
+          });
+        });
+        
+       
       }
     });
 
@@ -925,6 +1012,61 @@ export default {
       });
   },
   methods: {
+    sendFinalizeMsg(){
+      db.collection(this.school_name + '-' + this.level + '-professors') 
+        .doc(this.pre_prof_name)
+        .update({ onclass: false})
+        .then(() => {
+           db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: 'terminar clase',
+          timestamp: Date.now()
+        })
+        .catch(err => console.log("error", err))
+        .then(() => {
+         console.log('clase terminada')
+         this.onclass = false
+          // este add en inicializar clase
+          // por eso el loading
+        });
+        })
+        
+      
+    },
+    sendInitiateMsg(){
+
+      db.collection(this.school_name + '-' + this.level + '-professors') 
+        .doc(this.pre_prof_name)
+        .update({ onclass: true})
+        .then(() => {
+           db.collection(this.classroom + "-messages")
+        .add({
+          sender: this.user,
+          message: 'iniciar clase',
+          timestamp: Date.now()
+        })
+        .catch(err => console.log("error", err))
+        .then(() => {
+         console.log('clase terminada')
+         this.onclass = true
+          // este add en inicializar clase
+          // por eso el loading
+        });
+        })
+    },
+      submitInboxMsg(){
+        db.collection(this.user + 'estudiante1@gmail.com-chatroom')
+          .add({
+             sender: this.user,
+            message: this.inbox_msg,
+            timestamp: Date.now()
+          })
+          .catch(err => console.log("error", err))
+        .then(() => {
+          console.log('inbox enviado')
+        });
+    },
     boostSender(){
       db.collection(this.classroom + "-messages")
         .add({
@@ -1008,6 +1150,7 @@ export default {
       this.answer3 = trivia.answer3;
       this.answer4 = trivia.answer4;
       this.right_answer = trivia.right_answer;
+      this.clue = trivia.clue
       // } else {
       //   this.tableNotif = true;
       // }
@@ -1241,6 +1384,7 @@ db.collection(this.school_name + "-" + this.level + "-professors")
           answer3: this.answer3,
           answer4: this.answer4,
           right_answer: this.right_answer,
+          clue: this.clue,
           correct_answers: 0,
           incorrect_answers: 0
         });
@@ -1459,6 +1603,9 @@ db.collection(this.school_name + "-" + this.level + "-professors")
 </script>
 
 <style lang="scss" scoped>
+.notas-text{
+  color: white;
+}
 .classroom-text {
   color: white;
 }
@@ -1536,7 +1683,10 @@ db.collection(this.school_name + "-" + this.level + "-professors")
   overflow: auto;
   width: 100%;
 }
-
+#inboxes {
+  height: 180px;
+  overflow: auto;
+}
 .ChatCard {
   height: 20vh;
   width: 100%;

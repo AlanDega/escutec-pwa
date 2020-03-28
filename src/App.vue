@@ -29,8 +29,8 @@
             app
             permanent
             dark
-            fixed
             color="deep-purple accent-3"
+            clipped
           >
           <v-row justify="center" align="center">
             <v-img
@@ -381,6 +381,7 @@ export default {
           icon: "mdi-calendar-check-outline",
           path: "/schedule"
         },
+        { title: "Notas", icon: "mdi-trophy-outline" },
         {
           title: "Tienda",
           icon: "mdi-calendar-check-outline",
