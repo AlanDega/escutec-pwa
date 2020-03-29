@@ -1010,10 +1010,24 @@
   resolved "https://reservoir.haiku.ai:8910/@haiku%2fcore/-/core-4.5.2.tgz#0c054a1cb8bb26ecfebf7f0adafae194093d3c9a"
   integrity sha512-C1dFZcv2lBieVgfXM89D/BrKwBvWieYZzEL7BF3Xn9PDwMty1EjihiyZ2M+bORpSZ2ipcweg0gULb9Fz6UQqbQ==
 
+"@haiku/escu-flip@^0.0.2":
+  version "0.0.2"
+  resolved "https://reservoir.haiku.ai:8910/@haiku%2fescu-flip/-/escu-flip-0.0.2.tgz#42d37883e82c971c98b87db9c92003608c01139c"
+  integrity sha512-rpoEFuMuVFLfCIgg78gs/1wVc+nlfaDqfdobn2zxQp0XzJgM5YJaVMMqCRGpVdVh6Oql+XwsU4+PtDNF+Z1pRQ==
+  dependencies:
+    "@haiku/core" "^4.5.1"
+
 "@haiku/escu-lvl@^0.0.2":
   version "0.0.2"
   resolved "https://reservoir.haiku.ai:8910/@haiku%2fescu-lvl/-/escu-lvl-0.0.2.tgz#c68de94a5382f20be948a43b51a3c480625985a5"
   integrity sha512-uxmWZjlngTwXPo9aGLpVsM/soyQ5HbCIodS/fLqSD/5B26MBxj+TfJkV8A+XYQip24UGsM5topWcuo8s4b6JeQ==
+  dependencies:
+    "@haiku/core" "^4.5.1"
+
+"@haiku/escu-netflixflip@^0.0.1":
+  version "0.0.1"
+  resolved "https://reservoir.haiku.ai:8910/@haiku%2fescu-netflixflip/-/escu-netflixflip-0.0.1.tgz#70c443a8f623a4d92d114cf94f7cb8bbc8349924"
+  integrity sha512-zxecjU9TJkMzaOGQZ5P/ZiqfJ8AseIhLqf2x4dEuloPI7neaVHAYNWtFqEdFK6zS/q9cB9nI0Gks2w7YzdWcHA==
   dependencies:
     "@haiku/core" "^4.5.1"
 

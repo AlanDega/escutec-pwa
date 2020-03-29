@@ -34,7 +34,7 @@
           >
           <v-row justify="center" align="center">
             <v-img
-             src="./assets/ulti-logo.svg"
+             src="./assets/ulit-logo.png"
              height="80"
              width="80"
              contain
@@ -372,18 +372,16 @@ export default {
         //   title: "Horario",
         //   icon: "mdi-calendar-range",
         //   path: "/student-schedule"
-        // },
-        { title: "Clasificación", icon: "mdi-trophy-outline" },
-        { title: "Retos", icon: "mdi-trophy-outline" },
+        // }, {
+          {title: "Tienda",
+          icon: "mdi-cart-outline",
+          path: "/shop"
+        },
+        { title: "Clasificación", icon: "mdi-trophy-outline", path:'/leaderboard' },
+        { title: "Retos", icon: "mdi-flag-checkered", path:'/challenges' },
 
         {
           title: "Tareas",
-          icon: "mdi-calendar-check-outline",
-          path: "/schedule"
-        },
-        { title: "Notas", icon: "mdi-trophy-outline" },
-        {
-          title: "Tienda",
           icon: "mdi-calendar-check-outline",
           path: "/schedule"
         },
@@ -392,6 +390,9 @@ export default {
           icon: "mdi-gamepad-square-outline",
           path: "/schedule"
         },
+        { title: "Notas", icon: "mdi-note-multiple-outline" },
+       
+        
         // {
         //   title: "Grabaciones",
         //   icon: "mdi-video-outline",

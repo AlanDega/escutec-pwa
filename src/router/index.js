@@ -22,6 +22,11 @@ import StudentsGroups from "../views/director/StudentsGroups.vue";
 import StudentsGroup from "../views/director/StudentsGroup.vue";
 import Shop from '../views/student/Shop.vue'
 import ShopItem from '../views/student/ShopItem.vue'
+import ShopItemSpotify from '../views/student/ShopItemSpotify.vue'
+import ShopItemApple from '../views/student/ShopItemApple.vue'
+import Leaderboard from '../views/student/Leaderboard.vue'
+import Challenges from '../views/student/Challenges.vue'
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -46,6 +51,16 @@ const routes = [
     component: ProfSchedule
   },
   {
+    path: "/leaderboard",
+    name: "leaderboard",  
+    component: Leaderboard
+  },
+  {
+    path: "/challenges",
+    name: "challenges",  
+    component: Challenges
+  },
+  {
     path: "/shop",
     name: "shop",
     component: Shop
@@ -54,6 +69,16 @@ const routes = [
     path: "/shopitem",
     name: "shopitem",
     component: ShopItem
+  },
+  {
+    path: "/shopitem/spotify",
+    name: "shopitem-spotify",
+    component: ShopItemSpotify
+  },
+  {
+    path: "/shopitem-apple",
+    name: "shopitem-apple",
+    component: ShopItemApple
   },
   {
     path: "/prof-groups",
