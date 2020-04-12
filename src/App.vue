@@ -20,82 +20,84 @@
           >mdi-cog-outline</v-icon
         >
       </v-app-bar>
-    </div> -->
+    </div>-->
     <div>
       <div v-if="this.$route.name != 'sign-up'">
         <div v-if="this.$route.name != 'login'">
-          <v-navigation-drawer
-          width="220"
-            app
-            permanent
-            dark
-            color="deep-purple accent-3"
-            clipped
-          >
-          <v-row justify="center" align="center">
-            <v-img
-             src="./assets/ulit-logo.png"
-             height="80"
-             width="80"
-             contain
-             class="mt-6 mb-4 mr-2"
-             ></v-img>
-          </v-row>
-            <div v-if="prof">
-              <v-list nav>
-                <v-list-item
-                  v-for="item in items"
-                  :key="item.title"
-                  link
-                  @click="goToComponent(item)"
-                >
-                  <v-list-item-icon>
-                    <v-icon color>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
+          <div v-if="this.$route.name != 'home'">
+            <v-navigation-drawer
+              width="220"
+              app
+              permanent
+              dark
+              color="deep-purple accent-3"
+              clipped
+            >
+              <v-row justify="center" align="center">
+                <v-img
+                  src="./assets/ulit-logo.png"
+                  height="80"
+                  width="80"
+                  contain
+                  class="mt-6 mb-4 mr-2"
+                ></v-img>
+              </v-row>
+              <div v-if="prof">
+                <v-list nav>
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.title"
+                    link
+                    @click="goToComponent(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon color>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
-            <div v-if="student">
-              <v-list nav>
-                <v-list-item
-                  v-for="item in items2"
-                  :key="item.title"
-                  link
-                  @click="goToComponent(item)"
-                >
-                  <v-list-item-icon>
-                    <v-icon color>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+              <div v-if="student">
+                <v-list nav>
+                  <v-list-item
+                    v-for="item in items2"
+                    :key="item.title"
+                    link
+                    @click="goToComponent(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon color>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
-            <div v-if="director">
-              <v-list nav>
-                <v-list-item
-                  v-for="item in director_items"
-                  :key="item.title"
-                  link
-                  @click="goToComponent(item)"
-                >
-                  <v-list-item-icon>
-                    <v-icon color>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+              <div v-if="director">
+                <v-list nav>
+                  <v-list-item
+                    v-for="item in director_items"
+                    :key="item.title"
+                    link
+                    @click="goToComponent(item)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon color>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
-          </v-navigation-drawer>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </div>
+            </v-navigation-drawer>
+          </div>
         </div>
       </div>
     </div>
@@ -247,7 +249,7 @@
 
         </v-row>
           
-      </v-navigation-drawer>-->
+    </v-navigation-drawer>-->
     <!-- <div v-if="director">
       <v-navigation-drawer>
       <Layout />
@@ -373,12 +375,13 @@ export default {
         //   icon: "mdi-calendar-range",
         //   path: "/student-schedule"
         // }, {
-          {title: "Tienda",
-          icon: "mdi-cart-outline",
-          path: "/shop"
+        { title: "Tienda", icon: "mdi-cart-outline", path: "/shop" },
+        {
+          title: "Clasificación",
+          icon: "mdi-trophy-outline",
+          path: "/leaderboard"
         },
-        { title: "Clasificación", icon: "mdi-trophy-outline", path:'/leaderboard' },
-        { title: "Retos", icon: "mdi-flag-checkered", path:'/challenges' },
+        { title: "Retos", icon: "mdi-flag-checkered", path: "/challenges" },
 
         {
           title: "Tareas",
@@ -391,8 +394,7 @@ export default {
           path: "/schedule"
         },
         { title: "Notas", icon: "mdi-note-multiple-outline" },
-       
-        
+
         // {
         //   title: "Grabaciones",
         //   icon: "mdi-video-outline",
